@@ -36,7 +36,7 @@
 		executionList = [[NSMutableArray alloc] init];
 		default_selected_variables = [[NSArray alloc] init];
 		collectingEvents = NO;
-		savedCodec = new Data();
+		savedCodec = new Datum();
 	}
 	return self;
 }
@@ -205,7 +205,7 @@
 	[matlabLock lock];
 	if(running == NSOnState) {
 		if([event code] == [[delegate codeForTag:sync_event_name] intValue]) {
-			Data *syncData = [event data];
+			Datum *syncData = [event data];
 			if(syncData->getInteger() > 0 && !collectingEvents) {
 				collectingEvents = YES;
 				[eventList removeAllObjects];
@@ -241,8 +241,8 @@
 	
 	// need to force it by capturing the pointer so it makes it a dictionary
 	delete savedCodec;
-	Data *new_codec = [event data];
-	savedCodec = new Data(*new_codec);
+	Datum *new_codec = [event data];
+	savedCodec = new Datum(*new_codec);
 	
 	NSArray *current_selected_variables = [NSArray array];
 	
@@ -262,7 +262,7 @@
 		
 		
 		for(int i=0;i<=max_key;++i) {
-			Data codec_entry(new_codec->getElement(Data(M_INTEGER, i)));
+			Datum codec_entry(new_codec->getElement(Datum(M_INTEGER, i)));
 			
 			if(!codec_entry.isUndefined()) {
 				NSString *variableName = [NSString stringWithCString:codec_entry.getElement("tagname").getString() 
@@ -305,7 +305,7 @@
 
 
 - (void)updateClientCallbacks:(NSArray *)codes_to_register {
-	[delegate unregisterCallbacksWithKey:MATLAB_WINDOW_CALLBACK_KEY];
+	[delegate unregisterCallbacksWithKey:[MATLAB_WINDOW_CALLBACK_KEY UTF8String]];
 	
 	// register for codecs
 	[delegate registerEventCallbackWithReceiver:self 
@@ -337,7 +337,7 @@
 		if(processing == NSOnState) {
 			NSArray *eventsToExecute = nil;
 			[matlabLock lock];
-			Data codec(*savedCodec);
+			Datum codec(*savedCodec);
 			if([executionList count] > 0 && codec.isDictionary()) {
 				eventsToExecute = [[executionList objectAtIndex:0] retain];
 				[executionList removeObjectAtIndex:0];
@@ -372,7 +372,7 @@
 	
 	while(var_name = [var_name_enumerator nextObject]) {
 		if([var_name isEqualToString:self.syncEventName]) {
-			Data data(0L);
+			Datum data(0L);
 			[delegate updateVariableWithTag:self.syncEventName 
 								   withData:&data];			
 		}

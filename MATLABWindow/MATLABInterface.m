@@ -27,7 +27,7 @@
 - (Engine *)getMATLABEngine;
 - (mxArray *)createTopLevelDataStructure:(NSString *)name;
 - (mxArray *)createTopLevelEventStructure:(long)nevents;
-- (mxArray *)createCodec:(Data *)payload;
+- (mxArray *)createCodec:(Datum *)payload;
 @end
 
 @implementation MATLABInterface
@@ -83,7 +83,7 @@
 }
 
 - (mxArray *)createDataStruct:(NSArray *)dataEventList
-					withCodec:(Data *)codec {
+					withCodec:(Datum *)codec {
 	
 	[interfaceLock lock];
 	mxArray *codecStruct = [self createCodec:codec];
@@ -113,7 +113,7 @@
 	NSEnumerator *enumerator = [dataEventList objectEnumerator]; 
 	MWCocoaEvent *event;
 	while( (event = [enumerator nextObject]) ) { 
-		Data data(*[event data]);
+		Datum data(*[event data]);
 		
 		Event de([event code], 
 				  [event time], 
@@ -255,7 +255,7 @@
 	return events;
 }
 
-- (mxArray *)createCodec:(Data *)codec {
+- (mxArray *)createCodec:(Datum *)codec {
 	ScarabDatum *payload = codec->getScarabDatum();
 	
 	int n_codec_entries = scarab_dict_number_of_elements(payload);

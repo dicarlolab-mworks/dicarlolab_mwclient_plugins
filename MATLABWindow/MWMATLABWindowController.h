@@ -26,7 +26,7 @@
 	
 	NSLock *matlabLock;
 	IBOutlet MWVariableList *vl;
-	Data *savedCodec;
+	Datum *savedCodec;
 }
 
 @property (readwrite, assign) id delegate;

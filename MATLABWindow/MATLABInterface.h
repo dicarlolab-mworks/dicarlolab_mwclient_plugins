@@ -20,12 +20,12 @@
 
 - (id)delegate;
 - (void)setDelegate:(id)newDelegate;
-- (void)setMatlabPath:(NSString *)path;
+- (void)setMatlabFile:(NSString *)file;
 - (NSString *)matlabFile;
 - (void)runMatlabFile:(mxArray *)event_struct;
 - (void)resetRetval;
 - (mxArray *)createDataStruct:(NSArray *)dataEventList
-					  withCodec:(Data *)codec;
+					  withCodec:(Datum *)codec;
 - (void)startMATLABEngine;
 
 @end
