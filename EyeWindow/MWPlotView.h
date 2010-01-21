@@ -45,11 +45,11 @@ Copy right 2006 MIT. All rights reserved.
 - (void)addEyeHEvent:(MWCocoaEvent *)event;
 - (void)addEyeVEvent:(MWCocoaEvent *)event;
 - (void)addEyeStateEvent:(MWCocoaEvent *)event;
-- (void)acceptStmAnnounce:(mw::Data *)stm_announce 
+- (void)acceptStmAnnounce:(mw::Datum *)stm_announce 
 					 Time:(mw::MonkeyWorksTime)event_time;
 - (void)setTimeOfTail:(NSTimeInterval)_newTimeOfTail;
 - (void)setUpdateRate:(float)updates_per_second;
-- (void)acceptCalAnnounce:(mw::Data *)cal_announce;
+- (void)acceptCalAnnounce:(mw::Datum *)cal_announce;
 - (void)clear;
 
 @end

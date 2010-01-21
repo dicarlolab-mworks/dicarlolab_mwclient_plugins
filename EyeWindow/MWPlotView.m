@@ -215,7 +215,7 @@
 
 
 //==================== stimulus announce is handled here ===============================
-- (void)acceptStmAnnounce:(mw::Data *)stm_announce Time:(mw::MonkeyWorksTime)event_time
+- (void)acceptStmAnnounce:(mw::Datum *)stm_announce Time:(mw::MonkeyWorksTime)event_time
 {
 	@synchronized(self) {
 #define MAX_STIM_DRAW_LAG   1000
@@ -249,17 +249,17 @@
 		
 		
 		//check for stimulus type
-		mw::Data type_data = stm_announce->getElement(STIM_TYPE);
+		mw::Datum type_data = stm_announce->getElement(STIM_TYPE);
 		NSString* stm_type = [NSString stringWithCString:type_data.getString() encoding:NSASCIIStringEncoding];	
 		
 		//only update eye window when encounting images and fixation stimulus 
 		if (type_data == STIM_TYPE_IMAGE) {
 			
-			mw::Data name_data = stm_announce->getElement(STIM_NAME);
-			mw::Data pos_x_data = stm_announce->getElement(STIM_POSX);
-			mw::Data pos_y_data = stm_announce->getElement(STIM_POSY);
-			mw::Data width_x_data = stm_announce->getElement(STIM_SIZEX);
-			mw::Data width_y_data = stm_announce->getElement(STIM_SIZEY);
+			mw::Datum name_data = stm_announce->getElement(STIM_NAME);
+			mw::Datum pos_x_data = stm_announce->getElement(STIM_POSX);
+			mw::Datum pos_y_data = stm_announce->getElement(STIM_POSY);
+			mw::Datum width_x_data = stm_announce->getElement(STIM_SIZEX);
+			mw::Datum width_y_data = stm_announce->getElement(STIM_SIZEY);
 			
 			stm_name = [NSString stringWithCString:name_data.getString() encoding:NSASCIIStringEncoding];
 			stm_pos_x = pos_x_data.getFloat();
@@ -300,11 +300,11 @@
 			
 		} else if (type_data == STIM_TYPE_POINT) {
 			
-			mw::Data name_data = stm_announce->getElement(STIM_NAME);
-			mw::Data pos_x_data = stm_announce->getElement(STIM_POSX);
-			mw::Data pos_y_data = stm_announce->getElement(STIM_POSY);
-			mw::Data width_x_data = stm_announce->getElement(TRIGGER_WIDTH);
-			mw::Data width_y_data = stm_announce->getElement(TRIGGER_WIDTH);
+			mw::Datum name_data = stm_announce->getElement(STIM_NAME);
+			mw::Datum pos_x_data = stm_announce->getElement(STIM_POSX);
+			mw::Datum pos_y_data = stm_announce->getElement(STIM_POSY);
+			mw::Datum width_x_data = stm_announce->getElement(TRIGGER_WIDTH);
+			mw::Datum width_y_data = stm_announce->getElement(TRIGGER_WIDTH);
 			
 			stm_name = [NSString stringWithCString:name_data.getString() encoding:NSASCIIStringEncoding];
 			stm_pos_x = pos_x_data.getFloat();
@@ -344,11 +344,11 @@
 			}
 		} else if (type_data == STIM_TYPE_POINT) {
 			
-			mw::Data name_data = stm_announce->getElement(STIM_NAME);
-			mw::Data pos_x_data = stm_announce->getElement(STIM_POSX);
-			mw::Data pos_y_data = stm_announce->getElement(STIM_POSY);
-			mw::Data width_x_data = stm_announce->getElement(STIM_SIZEX);
-			mw::Data width_y_data = stm_announce->getElement(STIM_SIZEY);
+			mw::Datum name_data = stm_announce->getElement(STIM_NAME);
+			mw::Datum pos_x_data = stm_announce->getElement(STIM_POSX);
+			mw::Datum pos_y_data = stm_announce->getElement(STIM_POSY);
+			mw::Datum width_x_data = stm_announce->getElement(STIM_SIZEX);
+			mw::Datum width_y_data = stm_announce->getElement(STIM_SIZEY);
 			
 			stm_name = [NSString stringWithCString:name_data.getString() encoding:NSASCIIStringEncoding];
 			stm_pos_x = pos_x_data.getFloat();
@@ -397,15 +397,15 @@
 
 
 //==================== calibrator announce is handled here ===============================
-- (void)acceptCalAnnounce:(mw::Data *)cal_announce
+- (void)acceptCalAnnounce:(mw::Datum *)cal_announce
 {
 	@synchronized(self) {
 		NSString* stm_name = @"calibrator";
 		NSString *stm_type = @"calibratorSample";
 		
 		//Check calibrator action first
-		mw::Data actionData = cal_announce->getElement(CALIBRATOR_ACTION);
-		mw::Data cal_sample_HV = cal_announce->getElement(CALIBRATOR_SAMPLE_SAMPLED_HV);
+		mw::Datum actionData = cal_announce->getElement(CALIBRATOR_ACTION);
+		mw::Datum cal_sample_HV = cal_announce->getElement(CALIBRATOR_SAMPLE_SAMPLED_HV);
 		
 		if(actionData.isString() && cal_sample_HV.isList()) {
 			if (actionData == CALIBRATOR_ACTION_SAMPLE && cal_sample_HV.getNElements() == 2) {

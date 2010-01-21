@@ -129,7 +129,7 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 }
 
 - (void)serviceStmEvent:(MWCocoaEvent *)event {
-	mw::Data *stm_announce = [event data];
+	mw::Datum *stm_announce = [event data];
 	
 	if (stm_announce->isUndefined()) {					//stimulus announce should NEVER be NULL
 		mwarning(M_NETWORK_MESSAGE_DOMAIN, "Received NULL for stimulus announce event.");
@@ -141,7 +141,7 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 }
 
 - (void)serviceCalEvent:(MWCocoaEvent *)event {
-	mw::Data *cal_announce = [event data];
+	mw::Datum *cal_announce = [event data];
 	
 	if (cal_announce->isUndefined()) {					//calibrator announce should NEVER be NULL
 		mwarning(M_NETWORK_MESSAGE_DOMAIN, "Received NULL for calibrator announce event.");
@@ -175,7 +175,7 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 																		encoding:NSASCIIStringEncoding]] intValue];
 		eyeStateCodecCode = [[delegate codeForTag:EYE_STATE] intValue];
 		
-		[delegate unregisterCallbacksWithKey:EYE_WINDOW_CALLBACK_KEY];
+		[delegate unregisterCallbacksWithKey:[EYE_WINDOW_CALLBACK_KEY UTF8String]];
 		[delegate registerEventCallbackWithReceiver:self 
 										andSelector:@selector(codecReceived:)
 											 andKey:EYE_WINDOW_CALLBACK_KEY
