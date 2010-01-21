@@ -79,7 +79,7 @@
 	if(code == [calibratorAnnounceCode intValue]){
 		if([calibratorAnnounceCode intValue] != -1) {		
 			
-			Data cal_announce(*[event data]);
+			Datum cal_announce(*[event data]);
 			
 			if(cal_announce.isDictionary()) {
 				if(cal_announce.hasKey(CALIBRATOR_NAME) &&
@@ -88,13 +88,13 @@
 				   cal_announce.hasKey(CALIBRATOR_PARAMS_V) ) {
 					// get the name of the calibrator that is being passed in the event
 					if(cal_announce.getElement(CALIBRATOR_ACTION) == CALIBRATOR_ACTION_UPDATE_PARAMS) {
-						Data calibratorNameElement(cal_announce.getElement(CALIBRATOR_NAME));
+						Datum calibratorNameElement(cal_announce.getElement(CALIBRATOR_NAME));
 						
 						NSString *calibratorName = [NSString stringWithCString:calibratorNameElement.getString()
 																	  encoding:NSASCIIStringEncoding];
 						
-						Data hParams(cal_announce.getElement(CALIBRATOR_PARAMS_H));
-						Data vParams(cal_announce.getElement(CALIBRATOR_PARAMS_V));
+						Datum hParams(cal_announce.getElement(CALIBRATOR_PARAMS_H));
+						Datum vParams(cal_announce.getElement(CALIBRATOR_PARAMS_V));
 						
 						if(hParams.getNElements() >= MIN_NUM_CALIBRATION_PARAMS &&
 						   vParams.getNElements() >= MIN_NUM_CALIBRATION_PARAMS) {
@@ -107,13 +107,13 @@
 							MWCalibratorRecord *cr = [calibratorRecords objectAtIndex:calibratorIndex];
 							
 							for(int i=0; i<hParams.getNElements(); ++i) {
-								Data hParam(hParams[i]);
+								Datum hParam(hParams[i]);
 								if(hParam.isFloat())	
 									[cr setHParameter:i :hParam.getFloat()];
 							}
 							
 							for(int i=0; i<vParams.getNElements(); ++i) {
-								Data vParam(vParams[i]);
+								Datum vParam(vParams[i]);
 								if(vParam.isFloat())	
 									[cr setVParameter:i :vParam.getFloat()];
 							}
@@ -184,12 +184,12 @@
 			int calibratorIndex = [self getCalibratorIndexByName:self.selectedCalibratorName];
 			
 			if(calibratorIndex > -1 && [calibratorRequestCode intValue] != -1) {
-				Data calibratorResetRequest(M_DICTIONARY, 2);
+				Datum calibratorResetRequest(M_DICTIONARY, 2);
 				
-				Data name([self.selectedCalibratorName cStringUsingEncoding:NSASCIIStringEncoding]);
+				Datum name([self.selectedCalibratorName cStringUsingEncoding:NSASCIIStringEncoding]);
 				calibratorResetRequest.addElement(R_CALIBRATOR_NAME,name);
 				
-				Data action(R_CALIBRATOR_ACTION_SET_PARAMETERS_TO_DEFAULTS);
+				Datum action(R_CALIBRATOR_ACTION_SET_PARAMETERS_TO_DEFAULTS);
 				calibratorResetRequest.addElement(R_CALIBRATOR_ACTION,action);
 				
 				[delegate updateVariableWithCode:[calibratorRequestCode intValue] withData:&calibratorResetRequest];
@@ -272,26 +272,26 @@
 		// Create the dictionary object to use
 		
 		if([calibratorRequestCode intValue] != -1) {
-			Data calibratorRequest(M_DICTIONARY, 4);
-			Data name([[cr getCalibratorName] cStringUsingEncoding:NSASCIIStringEncoding]);
+			Datum calibratorRequest(M_DICTIONARY, 4);
+			Datum name([[cr getCalibratorName] cStringUsingEncoding:NSASCIIStringEncoding]);
 			calibratorRequest.addElement(R_CALIBRATOR_NAME,name);
 			
-			Data action(R_CALIBRATOR_ACTION_SET_PARAMETERS);
+			Datum action(R_CALIBRATOR_ACTION_SET_PARAMETERS);
 			calibratorRequest.addElement(R_CALIBRATOR_ACTION,action);
 			
-			Data hParams(M_LIST, [cr getNHParameters]);
+			Datum hParams(M_LIST, [cr getNHParameters]);
 			
 			for(int i=0; i<hParams.getMaxElements(); ++i) {
-				Data param(M_FLOAT, [cr getHParameter:i]);
+				Datum param(M_FLOAT, [cr getHParameter:i]);
 				hParams.setElement(i,param);
 			}
 			
 			calibratorRequest.addElement(R_CALIBRATOR_PARAMS_H,hParams);
 			
-			Data vParams(M_LIST, [cr getNVParameters]);
+			Datum vParams(M_LIST, [cr getNVParameters]);
 			
 			for(int i=0; i<vParams.getMaxElements(); ++i) {
-				Data param(M_FLOAT, [cr getVParameter:i]);
+				Datum param(M_FLOAT, [cr getVParameter:i]);
 				vParams.setElement(i,param);
 			}
 			
@@ -333,7 +333,7 @@
 		calibratorAnnounceCode = [delegate codeForTag:[NSString stringWithCString:ANNOUNCE_CALIBRATOR_TAGNAME
 																		 encoding:NSASCIIStringEncoding]];
 		
-		[delegate unregisterCallbacksWithKey:CALIBRATOR_WINDOW_CALLBACK_KEY];
+		[delegate unregisterCallbacksWithKey:[CALIBRATOR_WINDOW_CALLBACK_KEY UTF8String]];
 		[delegate registerEventCallbackWithReceiver:self 
 										andSelector:@selector(serviceEvent:)
 											 andKey:CALIBRATOR_WINDOW_CALLBACK_KEY
