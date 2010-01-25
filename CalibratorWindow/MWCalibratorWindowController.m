@@ -49,12 +49,15 @@
 
 - (void)setDelegate:(id)new_delegate {
 	if(![new_delegate respondsToSelector:@selector(registerEventCallbackWithReceiver:
-												   andSelector:
-												   andKey:)] ||
+												   selector:
+												   callbackKey:
+                                                   onMainThread:
+                                                   )] ||
 	   ![new_delegate respondsToSelector:@selector(registerEventCallbackWithReceiver:
-												   andSelector:
-												   andKey:
-												   forVariableCode:)] ||
+												   selector:
+												   callbackKey:
+												   forVariableCode:
+                                                   onMainThread:)] ||
 	   ![new_delegate respondsToSelector:@selector(codeForTag:)] ||
 	   ![new_delegate respondsToSelector:@selector(unregisterCallbacksWithKey:)] ||
 	   ![new_delegate respondsToSelector:@selector(setValue: forKey:)]) {
@@ -64,8 +67,9 @@
 	
 	delegate = new_delegate;
 	[delegate registerEventCallbackWithReceiver:self 
-									andSelector:@selector(serviceEvent:)
-										 andKey:CALIBRATOR_WINDOW_CALLBACK_KEY];
+                                       selector:@selector(serviceEvent:)
+                                    callbackKey:CALIBRATOR_WINDOW_CALLBACK_KEY
+                                   onMainThread:YES];
 
 }
 
@@ -335,14 +339,16 @@
 		
 		[delegate unregisterCallbacksWithKey:[CALIBRATOR_WINDOW_CALLBACK_KEY UTF8String]];
 		[delegate registerEventCallbackWithReceiver:self 
-										andSelector:@selector(serviceEvent:)
-											 andKey:CALIBRATOR_WINDOW_CALLBACK_KEY
-									forVariableCode:[NSNumber numberWithInt:RESERVED_CODEC_CODE]];
+                                           selector:@selector(serviceEvent:)
+                                        callbackKey:CALIBRATOR_WINDOW_CALLBACK_KEY
+									forVariableCode:[NSNumber numberWithInt:RESERVED_CODEC_CODE]
+                                       onMainThread:YES];
 		
 		[delegate registerEventCallbackWithReceiver:self 
-										andSelector:@selector(serviceEvent:)
-											 andKey:CALIBRATOR_WINDOW_CALLBACK_KEY
-									forVariableCode:calibratorAnnounceCode];
+                                           selector:@selector(serviceEvent:)
+                                        callbackKey:CALIBRATOR_WINDOW_CALLBACK_KEY
+                                    forVariableCode:calibratorAnnounceCode
+                                       onMainThread:YES];
 	}
 }
 
