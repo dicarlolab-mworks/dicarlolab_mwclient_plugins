@@ -13,7 +13,7 @@
 
 #define STREAM @"MonkeyWorks Stream"
 
-#define ml_ADD_MATLAB_PATH @"addpath('/Applications')"
+#define ml_ADD_MATLAB_PATH @"addpath('/Library/Application Support/MonkeyWorks/Scripting/Matlab')"
 
 #define ml_FILENAME "filename"
 #define ml_EVENT_CODEC "event_codec"
