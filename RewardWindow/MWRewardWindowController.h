@@ -1,10 +1,13 @@
 /* MWRewardWindowController */
 
+#import "MonkeyWorksCocoa/MWClientProtocol.h"
+
+
 @interface MWRewardWindowController : NSWindowController {
 
 	NSString *reward_var_name;
 	float duration_ms;
-	IBOutlet id delegate;
+	IBOutlet id<MWClientProtocol> delegate;
 }
 
 @property (readwrite, assign) id delegate;
