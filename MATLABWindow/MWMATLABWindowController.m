@@ -68,12 +68,14 @@
 	if(![new_delegate respondsToSelector:@selector(unregisterCallbacksWithKey:)] ||
 	   ![new_delegate respondsToSelector:@selector(variableNames)] ||
 	   ![new_delegate respondsToSelector:@selector(registerEventCallbackWithReceiver:
-												   andSelector:
-												   andKey:)] ||
+												   selector:
+												   callbackKey:
+                                                   onMainThread:)] ||
 	   ![new_delegate respondsToSelector:@selector(registerEventCallbackWithReceiver:
-												   andSelector:
-												   andKey:
-												   forVariableCode:)] ||
+												   selector:
+												   callbackKey:
+												   forVariableCode:
+                                                   onMainThread:)] ||
 	   ![new_delegate respondsToSelector:@selector(codeForTag:)] ||
 	   ![new_delegate respondsToSelector:@selector(updateVariableWithTag:
 												   withData:)]) {
