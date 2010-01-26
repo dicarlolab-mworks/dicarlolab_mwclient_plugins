@@ -68,7 +68,7 @@
 	delegate = new_delegate;
 	[delegate registerEventCallbackWithReceiver:self 
                                        selector:@selector(serviceEvent:)
-                                    callbackKey:CALIBRATOR_WINDOW_CALLBACK_KEY
+                                    callbackKey:[CALIBRATOR_WINDOW_CALLBACK_KEY UTF8String]
                                    onMainThread:YES];
 
 }
@@ -340,14 +340,14 @@
 		[delegate unregisterCallbacksWithKey:[CALIBRATOR_WINDOW_CALLBACK_KEY UTF8String]];
 		[delegate registerEventCallbackWithReceiver:self 
                                            selector:@selector(serviceEvent:)
-                                        callbackKey:CALIBRATOR_WINDOW_CALLBACK_KEY
-									forVariableCode:[NSNumber numberWithInt:RESERVED_CODEC_CODE]
+                                        callbackKey:[CALIBRATOR_WINDOW_CALLBACK_KEY UTF8String]
+									forVariableCode:RESERVED_CODEC_CODE
                                        onMainThread:YES];
 		
 		[delegate registerEventCallbackWithReceiver:self 
                                            selector:@selector(serviceEvent:)
-                                        callbackKey:CALIBRATOR_WINDOW_CALLBACK_KEY
-                                    forVariableCode:calibratorAnnounceCode
+                                        callbackKey:[CALIBRATOR_WINDOW_CALLBACK_KEY UTF8String]
+                                    forVariableCode:[calibratorAnnounceCode intValue]
                                        onMainThread:YES];
 	}
 }

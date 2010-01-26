@@ -1,6 +1,7 @@
 /* MWCalibratorWindowController */
 // COMMENTS!!!!!
 
+#import "MonkeyWorksCocoa/MWClientProtocol.h"
 #import "MWCalibratorRecord.h"
 
 enum hIndicies{H_OFFSET_INDEX=0, H_GAIN_INDEX=1};
@@ -14,7 +15,7 @@ const int MIN_NUM_CALIBRATION_PARAMS = 3;
 #define DEFAULT_V_GAIN 1.0
 
 @interface MWCalibratorWindowController : NSWindowController {			
-	IBOutlet id delegate;
+	IBOutlet id<MWClientProtocol> delegate;
 	
 	NSString *selected_calibrator_name;
 	float v_offset;
