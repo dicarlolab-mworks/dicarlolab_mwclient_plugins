@@ -300,7 +300,7 @@
 					"$(MW_LIB_DIR)",
 				);
 				MACH_O_TYPE = mh_bundle;
-				MATLAB_DIR = "\"$(APP_SUPPORT_DIR)/Scripting/Matlab/MATLAB\"";
+				MATLAB_DIR = /Applications/MATLAB;
 				MW_INCLUDE_DIR = "\"$(APP_SUPPORT_DIR)/Developer/gcc40/include\"";
 				MW_LIB_DIR = "\"$(APP_SUPPORT_DIR)/Developer/gcc40/lib\"";
 				OTHER_LDFLAGS = (
