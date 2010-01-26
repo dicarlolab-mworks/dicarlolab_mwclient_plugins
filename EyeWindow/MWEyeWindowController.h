@@ -17,6 +17,7 @@ Copy right 2006 MIT. All rights reserved.
 #import "MonkeyWorksCocoa/MWWindowController.h"
 #import "MonkeyWorksCore/GenericData.h"
 #import "MWEyeWindowOptionController.h"
+#import "MonkeyWorksCocoa/MWClientProtocol.h"
 
 extern NSString  * MWEyeWindowVariableUpdateNotification;
 
@@ -27,7 +28,7 @@ extern NSString  * MWEyeWindowVariableUpdateNotification;
     IBOutlet NSScrollView *scrollView;
 	IBOutlet NSSlider *scaleSlider;
     IBOutlet NSTextField *scaleTextField;
-	IBOutlet id delegate;
+	IBOutlet id<MWClientProtocol> delegate;
 
 	MWEyeWindowOptionController * OptionWindow;
 	

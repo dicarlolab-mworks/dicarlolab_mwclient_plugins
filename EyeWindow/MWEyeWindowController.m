@@ -70,8 +70,8 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 	delegate = new_delegate;
 	[delegate registerEventCallbackWithReceiver:self 
                                        selector:@selector(codecReceived:)
-                                    callbackKey:EYE_WINDOW_CALLBACK_KEY
-								forVariableCode:[NSNumber numberWithInt:RESERVED_CODEC_CODE]
+                                    callbackKey:[EYE_WINDOW_CALLBACK_KEY UTF8String]
+								forVariableCode:RESERVED_CODEC_CODE
                                    onMainThread:YES];
 }
 
@@ -181,38 +181,38 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 		[delegate unregisterCallbacksWithKey:[EYE_WINDOW_CALLBACK_KEY UTF8String]];
 		[delegate registerEventCallbackWithReceiver:self 
                                            selector:@selector(codecReceived:)
-                                        callbackKey:EYE_WINDOW_CALLBACK_KEY
-									forVariableCode:[NSNumber numberWithInt:RESERVED_CODEC_CODE]
+                                        callbackKey:[EYE_WINDOW_CALLBACK_KEY UTF8String]
+									forVariableCode:RESERVED_CODEC_CODE
                                        onMainThread:YES];
 		
 		[delegate registerEventCallbackWithReceiver:self 
                                            selector:@selector(serviceHEvent:)
-                                        callbackKey:EYE_WINDOW_CALLBACK_KEY
-									forVariableCode:[NSNumber numberWithInt:hCodecCode]
+                                        callbackKey:[EYE_WINDOW_CALLBACK_KEY UTF8String]
+									forVariableCode:hCodecCode
                                        onMainThread:YES];
 		
 		[delegate registerEventCallbackWithReceiver:self 
                                            selector:@selector(serviceVEvent:)
-                                        callbackKey:EYE_WINDOW_CALLBACK_KEY
-									forVariableCode:[NSNumber numberWithInt:vCodecCode]
+                                        callbackKey:[EYE_WINDOW_CALLBACK_KEY UTF8String]
+									forVariableCode:vCodecCode
                                        onMainThread:YES];
 		
 		[delegate registerEventCallbackWithReceiver:self 
                                            selector:@selector(serviceStmEvent:)
-                                        callbackKey:EYE_WINDOW_CALLBACK_KEY
-									forVariableCode:[NSNumber numberWithInt:stmAnnounceCodecCode]
+                                        callbackKey:[EYE_WINDOW_CALLBACK_KEY UTF8String]
+									forVariableCode:stmAnnounceCodecCode
                                        onMainThread:YES];
 		
 		[delegate registerEventCallbackWithReceiver:self 
                                            selector:@selector(serviceCalEvent:)
-                                        callbackKey:EYE_WINDOW_CALLBACK_KEY
-									forVariableCode:[NSNumber numberWithInt:calAnnounceCodecCode]
+                                        callbackKey:[EYE_WINDOW_CALLBACK_KEY UTF8String]
+									forVariableCode:calAnnounceCodecCode
                                        onMainThread:YES];
 		
 		[delegate registerEventCallbackWithReceiver:self 
                                            selector:@selector(serviceStateEvent:)
-                                        callbackKey:EYE_WINDOW_CALLBACK_KEY
-									forVariableCode:[NSNumber numberWithInt:eyeStateCodecCode]
+                                        callbackKey:[EYE_WINDOW_CALLBACK_KEY UTF8String]
+									forVariableCode:eyeStateCodecCode
                                        onMainThread:YES];
 	}
 	if(hCodecCode == -1 || 
