@@ -1,6 +1,7 @@
 /* MWMATLABWindowController */
 // COMMENTS!!!!!
 
+#import "MonkeyWorksCocoa/MWClientProtocol.h"
 #import "MATLABInterface.h"
 #import "MWVariableList.h"
 
@@ -10,7 +11,7 @@
 
 	IBOutlet NSTextField *syncEventField;
 	IBOutlet MATLABInterface *mi;
-	IBOutlet id delegate;
+	IBOutlet id<MWClientProtocol> delegate;
 	
 	NSMutableArray *eventList;
 	NSMutableArray *executionList;

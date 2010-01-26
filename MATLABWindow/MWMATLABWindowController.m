@@ -83,9 +83,10 @@
 	
 	delegate = new_delegate;
 	[delegate registerEventCallbackWithReceiver:self 
-									andSelector:@selector(codecArrived:)
-										 andKey:MATLAB_WINDOW_CALLBACK_KEY
-								forVariableCode:[NSNumber numberWithInt:RESERVED_CODEC_CODE]];	
+                                       selector:@selector(codecArrived:)
+                                    callbackKey:[MATLAB_WINDOW_CALLBACK_KEY UTF8String]
+								forVariableCode:RESERVED_CODEC_CODE
+                                   onMainThread:YES];	
 }
 
 - (void)awakeFromNib {
@@ -309,9 +310,10 @@
 	
 	// register for codecs
 	[delegate registerEventCallbackWithReceiver:self 
-									andSelector:@selector(codecArrived:)
-										 andKey:MATLAB_WINDOW_CALLBACK_KEY
-								forVariableCode:[NSNumber numberWithInt:RESERVED_CODEC_CODE]];		
+                                       selector:@selector(codecArrived:)
+                                    callbackKey:[MATLAB_WINDOW_CALLBACK_KEY UTF8String]
+								forVariableCode:RESERVED_CODEC_CODE
+                                   onMainThread:YES];		
 	
 	NSString *name;	
 	NSEnumerator *enumerator = [codes_to_register objectEnumerator];
@@ -319,9 +321,10 @@
 	while(name = [enumerator nextObject]) {
 		NSNumber *event_code = [delegate codeForTag:name];
 		[delegate registerEventCallbackWithReceiver:self 
-										andSelector:@selector(serviceEvent:)
-											 andKey:MATLAB_WINDOW_CALLBACK_KEY
-									forVariableCode:event_code];	
+                                           selector:@selector(serviceEvent:)
+                                        callbackKey:[MATLAB_WINDOW_CALLBACK_KEY UTF8String]
+									forVariableCode:[event_code intValue]
+                                       onMainThread:YES];	
 	}
 }
 
@@ -366,7 +369,9 @@
 	//	[delegate setValue:[NSNumber numberWithInt:0] forKey:[@"variables." stringByAppendingString:self.syncEventName]];
 	
 	
-	NSArray *variable_names = [delegate variableNames];
+    // CJS: I have no idea why the variable was set this way, but I think the replacement code
+    // below should be sufficient.
+	/*NSArray *variable_names = [delegate variableNames];
 	NSEnumerator *var_name_enumerator = [variable_names objectEnumerator];
 	NSString *var_name = nil;
 	
@@ -376,7 +381,13 @@
 			[delegate updateVariableWithTag:self.syncEventName 
 								   withData:&data];			
 		}
-	}
+	}*/
+    
+    if ([self.syncEventName length] > 0) {
+        Datum data(0L);
+        [delegate updateVariableWithTag:self.syncEventName 
+                               withData:&data];			
+    }
 	
 	[mi resetRetval];
 	[executionList removeAllObjects];	
