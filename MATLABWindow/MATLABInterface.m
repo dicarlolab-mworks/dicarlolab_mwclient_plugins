@@ -19,7 +19,11 @@
 #define ml_EVENT_CODEC "event_codec"
 #define ml_EVENTS "events"
 
-#define MATLAB_APP_PATH "/Applications/MATLAB/bin/matlab -maci"
+#ifdef __x86_64__
+#  define MATLAB_APP_PATH "/Applications/MATLAB/bin/matlab -maci64"
+#else
+#  define MATLAB_APP_PATH "/Applications/MATLAB/bin/matlab -maci"
+#endif
 
 #define ml_RETVAL @"retval"
 

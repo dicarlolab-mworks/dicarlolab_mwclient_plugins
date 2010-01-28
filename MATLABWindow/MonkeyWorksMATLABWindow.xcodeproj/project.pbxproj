@@ -232,7 +232,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "# Replace @loader_path with the full path to the MATLAB libs\n\nexport FULL_NAME=${PRODUCT_NAME}.${WRAPPER_EXTENSION}\nMATLAB_DIR=`echo ${MATLAB_DIR} | tr -d '\"'`\n\nfor libname in mat eng mx; do\n  install_name_tool -change \\\n    \"@loader_path/lib${libname}.dylib\" \\\n    \"${MATLAB_DIR}/bin/maci/lib${libname}.dylib\" \\\n    \"${BUILT_PRODUCTS_DIR}/${FULL_NAME}/Contents/MacOS/${PRODUCT_NAME}\"\ndone";
+			shellScript = "# Replace @loader_path with the full path to the MATLAB libs\n\nexport FULL_NAME=${PRODUCT_NAME}.${WRAPPER_EXTENSION}\nMATLAB_DIR=`echo ${MATLAB_DIR} | tr -d '\"'`\n\nfor libname in mat eng mx; do\n  install_name_tool -change \\\n    \"@loader_path/lib${libname}.dylib\" \\\n    \"@rpath/lib${libname}.dylib\" \\\n    \"${BUILT_PRODUCTS_DIR}/${FULL_NAME}/Contents/MacOS/${PRODUCT_NAME}\"\ndone";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -279,7 +279,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APP_SUPPORT_DIR = "/Library/Application Support/MonkeyWorks";
-				ARCHS = i386;
+				ARCHS = (
+					x86_64,
+					i386,
+				);
 				FINAL_INSTALL_DIR = "$(APP_SUPPORT_DIR)/Plugins/Client Plugins";
 				GCC_DEBUGGING_SYMBOLS = full;
 				GCC_ENABLE_OBJC_GC = supported;
@@ -295,11 +298,14 @@
 					"$(MW_INCLUDE_DIR)",
 				);
 				INFOPLIST_FILE = Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(MATLAB_DIR)/bin/$(MATLAB_ARCH_$(CURRENT_ARCH))";
 				LIBRARY_SEARCH_PATHS = (
-					"$(MATLAB_DIR)/bin/maci",
+					"$(MATLAB_DIR)/bin/$(MATLAB_ARCH_$(CURRENT_ARCH))",
 					"$(MW_LIB_DIR)",
 				);
 				MACH_O_TYPE = mh_bundle;
+				MATLAB_ARCH_i386 = maci;
+				MATLAB_ARCH_x86_64 = maci64;
 				MATLAB_DIR = /Applications/MATLAB;
 				MW_INCLUDE_DIR = "\"$(APP_SUPPORT_DIR)/Developer/gcc40/include\"";
 				MW_LIB_DIR = "\"$(APP_SUPPORT_DIR)/Developer/gcc40/lib\"";
