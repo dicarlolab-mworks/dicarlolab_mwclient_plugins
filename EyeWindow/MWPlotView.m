@@ -56,12 +56,15 @@
 	if (!fmt)
 		NSLog(@"No OpenGL pixel format");
 	
-	if ((self = [super initWithFrame:frameRect pixelFormat: [fmt autorelease]]) != nil) {
+	if ((self = [super initWithFrame:frameRect pixelFormat:fmt]) != nil) {
 		
 		[self setBounds:NSMakeRect(-90,-90,180,180)];
 		//[self setFrameSize:NSMakeSize(180,180)];
 		//[self setFrameSize:NSMakeSize(PLOT_VIEW_FULL_SIZE,PLOT_VIEW_FULL_SIZE)];
 	}
+    
+    [fmt release];
+    
 	return self;
 }
 
@@ -289,13 +292,14 @@
 			
 			//If the item's not in the list, add it to the existing list
 			if (Item_exist == NO) {
-				MWStimulusPlotElement *new_stm = [[[MWStimulusPlotElement alloc] initStimElement:stm_type 
-																							Name:stm_name
-																							 AtX:stm_pos_x 
-																							 AtY:stm_pos_y 
-																						  WidthX:stm_width_x 
-																						  WidthY:stm_width_y] autorelease];
+				MWStimulusPlotElement *new_stm = [[MWStimulusPlotElement alloc] initStimElement:stm_type 
+                                                                                           Name:stm_name
+                                                                                            AtX:stm_pos_x 
+                                                                                            AtY:stm_pos_y 
+                                                                                         WidthX:stm_width_x 
+                                                                                         WidthY:stm_width_y];
 				[stm_samples addObject:new_stm];
+                [new_stm release];
 			}
 			
 		} else if (type_data == STIM_TYPE_POINT) {
@@ -334,13 +338,14 @@
 			
 			//If the item's not in the list, add it to the existing list
 			if (Item_exist == NO) {
-				MWStimulusPlotElement *new_stm = [[[MWStimulusPlotElement alloc] initStimElement:stm_type
-																							Name:stm_name
-																							 AtX:stm_pos_x
-																							 AtY:stm_pos_y 
-																						  WidthX:stm_width_x 
-																						  WidthY:stm_width_y] autorelease];
+				MWStimulusPlotElement *new_stm = [[MWStimulusPlotElement alloc] initStimElement:stm_type
+                                                                                           Name:stm_name
+                                                                                            AtX:stm_pos_x
+                                                                                            AtY:stm_pos_y 
+                                                                                         WidthX:stm_width_x 
+                                                                                         WidthY:stm_width_y];
 				[stm_samples addObject:new_stm];
+                [new_stm release];
 			}
 		} else if (type_data == STIM_TYPE_POINT) {
 			
@@ -378,13 +383,14 @@
 			
 			//If the item's not in the list, add it to the existing list
 			if (Item_exist == NO) {
-				MWStimulusPlotElement *new_stm = [[[MWStimulusPlotElement alloc] initStimElement:stm_type
-																							Name:stm_name
-																							 AtX:stm_pos_x
-																							 AtY:stm_pos_y 
-																						  WidthX:stm_width_x 
-																						  WidthY:stm_width_y] autorelease];
+				MWStimulusPlotElement *new_stm = [[MWStimulusPlotElement alloc] initStimElement:stm_type
+                                                                                           Name:stm_name
+                                                                                            AtX:stm_pos_x
+                                                                                            AtY:stm_pos_y 
+                                                                                         WidthX:stm_width_x 
+                                                                                         WidthY:stm_width_y];
 				[stm_samples addObject:new_stm];
+                [new_stm release];
 			}
 		}
 	}
@@ -434,13 +440,14 @@
 				
 				//If the item's not in the list, add it to the existing list
 				if (Item_exist == NO) {
-					MWStimulusPlotElement *new_stm = [[[MWStimulusPlotElement alloc] initStimElement:stm_type 
-																								Name:stm_name
-																								 AtX:cal_sample_H 
-																								 AtY:cal_sample_V
-																							  WidthX:0 
-																							  WidthY:0] autorelease];
+					MWStimulusPlotElement *new_stm = [[MWStimulusPlotElement alloc] initStimElement:stm_type 
+                                                                                               Name:stm_name
+                                                                                                AtX:cal_sample_H 
+                                                                                                AtY:cal_sample_V
+                                                                                             WidthX:0 
+                                                                                             WidthY:0];
 					[stm_samples addObject:new_stm];
+                    [new_stm release];
 				}
 			}
 		}
@@ -545,10 +552,9 @@
 				
 				
 				// now all events roughly equal in time			
-				sample = [[[MWEyeSamplePlotElement alloc] 
-						   initWithTime:currentEventTime
-						   position:NSMakePoint(currentEyeH, currentEyeV) 
-						   isSaccading:eye_state] autorelease];
+				sample = [[MWEyeSamplePlotElement alloc] initWithTime:currentEventTime
+                                                             position:NSMakePoint(currentEyeH, currentEyeV) 
+                                                          isSaccading:eye_state];
 				
 				if([eyeHEvents count] > 0) {
 					[eyeHEvents removeObjectAtIndex:0];
@@ -563,6 +569,7 @@
 		if(sample != nil) {
 			@synchronized(self) {
 				[eye_samples addObject:sample];
+                [sample release];
 				
 				while(currentEventTime - timeOfTail > [[eye_samples objectAtIndex:0] time]) {
 					[eye_samples removeObjectAtIndex:0];
