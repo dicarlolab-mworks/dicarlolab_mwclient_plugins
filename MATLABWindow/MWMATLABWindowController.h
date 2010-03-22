@@ -9,7 +9,6 @@
 
 @interface MWMATLABWindowController : NSWindowController {
 
-	IBOutlet NSTextField *syncEventField;
 	IBOutlet MATLABInterface *mi;
 	IBOutlet id<MWClientProtocol> delegate;
 	
