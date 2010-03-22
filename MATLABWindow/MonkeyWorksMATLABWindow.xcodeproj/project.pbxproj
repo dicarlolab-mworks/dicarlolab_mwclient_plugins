@@ -11,13 +11,13 @@
 		0E01072F0CA5DA2000A28CAC /* MWVarEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E01072E0CA5DA2000A28CAC /* MWVarEntry.m */; };
 		0E5505000AADB7FE00987B47 /* MonkeyWorksMATLABWindow.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0E5504FF0AADB7FE00987B47 /* MonkeyWorksMATLABWindow.xml */; };
 		0E5505030AADB81800987B47 /* MWMATLABWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5505020AADB81800987B47 /* MWMATLABWindowController.m */; };
-		0EABD5AA0AADC5EF00DF111C /* Main.nib in Resources */ = {isa = PBXBuildFile; fileRef = 0EABD5A90AADC5EF00DF111C /* Main.nib */; };
 		0EB67A120AAE11E00034D377 /* MonkeyWorksCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CF2875F099412A7000C55A3 /* MonkeyWorksCore.framework */; };
 		0ECE67F10BDD1DCA00E16CCF /* MATLABInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E60D49D0BDD0CDD00B5386E /* MATLABInterface.m */; };
 		0ECE67F70BDD1DFC00E16CCF /* monkeyWorksStreamUtilities.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E60D49F0BDD0CEF00B5386E /* monkeyWorksStreamUtilities.c */; };
 		5CF287520994124E000C55A3 /* MonkeyWorksCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CF287500994124E000C55A3 /* MonkeyWorksCocoa.framework */; };
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
+		E16D96141157E06B00B28A8F /* Main.xib in Resources */ = {isa = PBXBuildFile; fileRef = E16D96131157E06B00B28A8F /* Main.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,7 +36,6 @@
 		0E60D49D0BDD0CDD00B5386E /* MATLABInterface.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = MATLABInterface.m; sourceTree = "<group>"; };
 		0E60D49F0BDD0CEF00B5386E /* monkeyWorksStreamUtilities.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = monkeyWorksStreamUtilities.c; sourceTree = "<group>"; };
 		0E60D4A00BDD0CEF00B5386E /* monkeyWorksStreamUtilities.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = monkeyWorksStreamUtilities.h; sourceTree = "<group>"; };
-		0EABD5A90AADC5EF00DF111C /* Main.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = Main.nib; sourceTree = "<group>"; };
 		0EFA42810DC16AE700F557A6 /* hist_example.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = hist_example.m; sourceTree = "<group>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		5CF287500994124E000C55A3 /* MonkeyWorksCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MonkeyWorksCocoa.framework; path = /Library/Frameworks/MonkeyWorksCocoa.framework; sourceTree = "<absolute>"; };
@@ -44,6 +43,7 @@
 		686092F80AC8950400978FC3 /* MonkeyWorksMATLABWindow.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MonkeyWorksMATLABWindow.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		E16D96131157E06B00B28A8F /* Main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Main.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,7 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				0EFA42800DC16AE700F557A6 /* MATLAB_test_files */,
-				0EABD5A90AADC5EF00DF111C /* Main.nib */,
+				E16D96131157E06B00B28A8F /* Main.xib */,
 				8D5B49B7048680CD000E48DA /* Info.plist */,
 				089C167DFE841241C02AAC07 /* InfoPlist.strings */,
 			);
@@ -201,7 +201,7 @@
 			files = (
 				8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */,
 				0E5505000AADB7FE00987B47 /* MonkeyWorksMATLABWindow.xml in Resources */,
-				0EABD5AA0AADC5EF00DF111C /* Main.nib in Resources */,
+				E16D96141157E06B00B28A8F /* Main.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
