@@ -608,14 +608,6 @@
 					<int key="connectionID">242</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">variables</string>
-						<reference key="source" ref="978311299"/>
-						<reference key="destination" ref="938817089"/>
-					</object>
-					<int key="connectionID">243</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">chooseMATLABFile:</string>
 						<reference key="source" ref="978311299"/>
