@@ -11,6 +11,8 @@
 #import "MWMATLABWindowController.h"
 
 
+#define OUTPUT_BUFFER_SIZE 32768
+
 #define STREAM @"MonkeyWorks Stream"
 
 #define ml_ADD_MATLAB_PATH @"addpath('/Library/Application Support/MonkeyWorks/Scripting/Matlab')"
@@ -39,7 +41,8 @@
 - (id) init {
 	self = [super init];
 	if (self != nil) {
-		retval = 0;
+		retval = NULL;
+        outputBuffer = [[NSMutableData alloc] initWithLength:OUTPUT_BUFFER_SIZE];
 		eventStructsQueue = [[NSMutableArray alloc] init];
 		interfaceLock = [[NSLock alloc] init];
 	}
@@ -47,6 +50,10 @@
 }
 
 - (void) dealloc {
+    [interfaceLock release];
+    [eventStructsQueue release];
+    [outputBuffer release];
+
 	if(retval) {
 		mxDestroyArray(retval);
 	}
@@ -85,6 +92,12 @@
 	}
 	[interfaceLock unlock];
 }
+
+- (void)logMATLABOutput {
+	NSString * tStr = [NSString stringWithCString:(char *)[outputBuffer mutableBytes]];
+    [delegate appendLogText:tStr];
+    [outputBuffer resetBytesInRange:NSMakeRange(0, OUTPUT_BUFFER_SIZE)];
+}	
 
 - (mxArray *)createDataStruct:(NSArray *)dataEventList
 					withCodec:(Datum *)codec {
@@ -155,20 +168,27 @@
 	
 	NSString *addpath_command = [NSString stringWithFormat:@"addpath('%@')", [matlabFile stringByDeletingLastPathComponent]];
 	engEvalString(e, [addpath_command cStringUsingEncoding:NSASCIIStringEncoding]);	
+	[self logMATLABOutput];
 	
 	NSString *cmd;	
 	if(retval) {
 		engPutVariable(e, 
 					   [ml_RETVAL cStringUsingEncoding:NSASCIIStringEncoding], 
 					   retval);
-		cmd = [ml_RETVAL stringByAppendingString:[@"=" stringByAppendingString:[matlabFunction stringByAppendingString:@"(events, retval);"]]];
+		cmd = [NSString stringWithFormat:@"%@=%@(events,retval); ", ml_RETVAL, matlabFunction];
 		mxDestroyArray(retval);
 	} else {
-		cmd = [ml_RETVAL stringByAppendingString:[@"=" stringByAppendingString:[matlabFunction stringByAppendingString:@"(events);"]]];
+		cmd = [NSString stringWithFormat:@"%@=%@(events); ", ml_RETVAL, matlabFunction];
 	}
 	engPutVariable(e, ml_EVENTS, data_struct);
-		
-	engEvalString(e, [cmd cStringUsingEncoding:NSASCIIStringEncoding]);
+
+	// make cmd return error output by wrapping in try; catch
+	engEvalString(e, "if ~exist('printErrorStack'), disp('printErrorStack.m not found, cannot display error output');end");
+	[self logMATLABOutput];
+	
+	NSString *catchCmd = [NSString stringWithFormat:@"try, %@, catch ex, printErrorStack(ex); end", cmd]; 
+	engEvalString(e, [catchCmd cStringUsingEncoding:NSASCIIStringEncoding]);
+	[self logMATLABOutput];
 	
 	retval = engGetVariable(e, 
 							[ml_RETVAL cStringUsingEncoding:NSASCIIStringEncoding]);
@@ -185,35 +205,36 @@
 // private methods
 ////////////////////////////////////////////////////////////////////////////////
 - (Engine *)getMATLABEngine {
-	if ( [delegate respondsToSelector:@selector(startX11)] ) {
-		[delegate startX11];
-	}
 	
 	if(!matlabEngine) {
 		matlabEngine = engOpen(MATLAB_APP_PATH);
-		engSetVisible(matlabEngine, 0);
-		
-		// for debugging
-		//char *x = calloc(32768, sizeof(char));
-		//engOutputBuffer(matlabEngine, x, 32768);
-		engOutputBuffer(matlabEngine, NULL, 0);
-		engEvalString(matlabEngine, 
-					  [ml_ADD_MATLAB_PATH cStringUsingEncoding:NSASCIIStringEncoding]);
-	} 
+		if (!matlabEngine) {
+			[delegate appendLogText:@"** engOpen failed in starting Matlab\n"];
+			[delegate appendLogText:[NSString stringWithFormat:@"** command used was %s\n", MATLAB_APP_PATH]];			
+		} else {
+				
+			engSetVisible(matlabEngine, 1);
+			engOutputBuffer(matlabEngine, (char *)[outputBuffer mutableBytes], OUTPUT_BUFFER_SIZE);
 
-	
+			engEvalString(matlabEngine, 
+						  [ml_ADD_MATLAB_PATH cStringUsingEncoding:NSASCIIStringEncoding]);
+		}
+
+	}	
+
 	// check to see if engine is still running
 	mxArray *dummyArray = mxCreateScalarDouble(0);
 	if(engPutVariable(matlabEngine, "MW_DUMMY_VAR", dummyArray)) {
-		
+		[delegate appendLogText:@"** MATLAB engine found dead"];
 		// if it's not, start it up again
 		mxDestroyArray(dummyArray);
 		engClose(matlabEngine);
 		matlabEngine = 0;
 		return [self getMATLABEngine];
 	}
-
 	mxDestroyArray(dummyArray);
+	
+	
 	return matlabEngine;
 }
 

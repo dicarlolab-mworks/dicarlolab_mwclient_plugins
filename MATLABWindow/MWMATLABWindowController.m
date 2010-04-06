@@ -17,16 +17,16 @@
 
 #define MATLAB_WINDOW_CALLBACK_KEY @"MonkeyWorksMATLABWindow callback key"
 
-#define MW_PATH @"/Library/MonkeyWorks/Matlab/"
-
 #define MATLAB_EXECUTABLE_PATH @"MATLAB client window - MATLAB executable path"
 #define MATLAB_M_FILE @"MATLAB client window - MATLAB .m file"
 #define SYNC_EVENT_NAME @"MATLAB client window - sync event name"
 #define SELECTED_VAR_NAMES @"MATLAB client window - selected variables"
 #define COLLECTING_DATA @"MATLAB client window - running"
 #define PROCESSING_DATA @"MATLAB client window - processing"
+#define MW_SCROLL_TO_BOTTOM @"MATLAB client window - scroll to bottom on output"
 
 @implementation MWMATLABWindowController
+
 
 -  (id) init {
 	self = [super init];
@@ -61,6 +61,25 @@
 	
 	[super dealloc];
 }
+
+- (NSString *)matlabFileName {return [matlab_file_name lastPathComponent]; }
+- (void)setMatlabFileName:(NSString *)new_matlab_file {
+	[matlab_file_name release];
+	matlab_file_name = [new_matlab_file copy];	
+	[mi setMatlabFile:matlab_file_name];
+	
+}
+
+- (void) setLogTextContent:(NSString *)new_content {
+	[logTextContent autorelease];
+	logTextContent = [new_content copy];
+	
+	// set it in the UI
+	[[[logTextView textStorage] mutableString] setString:logTextContent];
+	
+};	
+@synthesize logTextContent;
+
 
 @synthesize delegate;
 
@@ -112,6 +131,19 @@
 	[NSThread detachNewThreadSelector:@selector(MATLABExecutionLoop:) 
 							 toTarget:self
 						   withObject:nil];
+
+	[self setLogTextContent:@"Matlab output:\n"];	
+	if ([defaults boolForKey:MW_SCROLL_TO_BOTTOM]) {
+		scrollToBottom = [defaults boolForKey:MW_SCROLL_TO_BOTTOM];
+	} else {
+		scrollToBottom = TRUE;
+	}
+	if (scrollToBottom == TRUE) {
+		[scrollToBottomButton setState:NSOnState];
+	} else {		
+		[scrollToBottomButton setState:NSOffState];
+	}
+		
 }
 
 // *******************************************************************
@@ -192,12 +224,6 @@
 
 @synthesize numberToProcessString = number_to_process_string;
 
-- (NSString *)matlabFileName {return [matlab_file_name lastPathComponent]; }
-- (void)setMatlabFileName:(NSString *)new_matlab_file {
-	[matlab_file_name release];
-	matlab_file_name = [new_matlab_file copy];	
-	[mi setMatlabFile:matlab_file_name];
-}
 
 
 
@@ -236,9 +262,57 @@
     return @"MonkeyWorksMATLABWindow";
 }
 
+#define MATLAB_DEBUG_OUTPUT_MAX_LENGTH 10000
+
+- (IBAction)changeScrollToBottom:(id)sender {
+	if ([sender state] == NSOnState) {
+		[self doScrollToBottom];
+		scrollToBottom = TRUE; 
+	} else {
+		scrollToBottom = FALSE;
+	}
+	[[NSUserDefaults standardUserDefaults] setBool:scrollToBottom forKey:MW_SCROLL_TO_BOTTOM];
+	
+	//if ([sender state] == NSOffState) {
+	// do nothing
+}
+
+
 // *******************************************************************
 // *                           Private Methods
 // *******************************************************************
+
+
+
+- (void) doScrollToBottomMain { 
+	
+	[logTextView scrollRangeToVisible:NSMakeRange([[logTextView textStorage] length], 0) ];
+	
+}
+
+
+- (void) appendLogTextMain:(NSString *)logText {
+	//NSString *log = [logTextContent copy];
+	NSMutableString* tStr = [[self->logTextView textStorage] mutableString];
+	[tStr appendString:logText];
+	if ([tStr characterAtIndex:[tStr length]-1] != '\n') {
+		// append newline
+		[tStr appendString:@"\n"];
+	}
+			  
+			  
+	// Trim the beginning of the string if it is too long
+	if ([tStr length] > MATLAB_DEBUG_OUTPUT_MAX_LENGTH) {
+		NSRange deleteRange = NSMakeRange(0, ([tStr length] - MATLAB_DEBUG_OUTPUT_MAX_LENGTH));
+			[tStr deleteCharactersInRange:deleteRange];
+		}
+			  
+		[self->logTextView display];
+		if (self->scrollToBottom) {
+			[self doScrollToBottom];
+		}
+}			  
+	
 - (void)codecArrived:(MWCocoaEvent *)event {
 	[matlabLock lock];
 	
@@ -400,9 +474,6 @@
 ///////////////////////////////////////////////////////////////////////
 // Delegate functions
 ///////////////////////////////////////////////////////////////////////
-- (void)startX11 {
-	system("open -a /Applications/Utilities/X11.app");
-}
 
 
 // this only gets called from the main thread
@@ -430,6 +501,20 @@
 	
 	[matlabLock unlock];
 	[self updateClientCallbacks:selected_variables];	
+}
+
+- (void) appendLogText:(NSString *)logText {
+	
+	[self performSelectorOnMainThread: @selector(appendLogTextMain:)
+						   withObject: logText
+						waitUntilDone: YES];	
+}
+
+-(void) doScrollToBottom {
+	
+	[self performSelectorOnMainThread:@selector(doScrollToBottomMain)
+						   withObject:nil 
+						waitUntilDone:YES];
 }
 
 @end
