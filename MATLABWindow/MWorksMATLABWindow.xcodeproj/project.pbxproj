@@ -369,7 +369,7 @@
 				GCC_OBJC_CALL_CXX_CDTORS = YES;
 				GCC_UNROLL_LOOPS = YES;
 				INFOPLIST_FILE = Info.plist;
-				PRODUCT_NAME = MonkeyWorksMATLABWindow;
+				PRODUCT_NAME = MWorksMATLABWindow;
 			};
 			name = Development;
 		};
