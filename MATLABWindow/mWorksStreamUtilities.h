@@ -1,6 +1,6 @@
 /*
- *  monkeyWorksStreamUtilities.h
- *  MonkeyWorksMatlab
+ *  mWorksStreamUtilities.h
+ *  MWorksMatlab
  *
  *  Created by David Cox on 12/20/06.
  *  Copyright 2006 __MyCompanyName__. All rights reserved.
@@ -10,7 +10,7 @@
 #include <string>
 #include <mex.h>
 #include "Scarab/scarab.h"
-#include "MonkeyWorksCore/Event.h"
+#include "MWorksCore/Event.h"
 
 #define VERBOSE 0
 

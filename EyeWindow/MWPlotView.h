@@ -18,8 +18,8 @@ Copy right 2006 MIT. All rights reserved.
 
 #import <Cocoa/Cocoa.h>
 #import "MWEyeSamplePlotElement.h"
-#import "MonkeyWorksCocoa/MWCocoaEvent.h"
-#import "MonkeyWorksCore/GenericData.h"
+#import "MWorksCocoa/MWCocoaEvent.h"
+#import "MWorksCore/GenericData.h"
 
 @interface MWPlotView : NSOpenGLView
 {
@@ -34,11 +34,11 @@ Copy right 2006 MIT. All rights reserved.
 	NSMutableArray *eyeHEvents;
 	NSMutableArray *eyeVEvents;
 
-	mw::MonkeyWorksTime last_state_change_time;
+	mw::MWorksTime last_state_change_time;
 	int current_state;
 	
-	mw::MonkeyWorksTime timeOfTail;	
-	mw::MonkeyWorksTime time_between_updates;
+	mw::MWorksTime timeOfTail;	
+	mw::MWorksTime time_between_updates;
 }
 
 - (void)setWidth:(int)width;
@@ -46,7 +46,7 @@ Copy right 2006 MIT. All rights reserved.
 - (void)addEyeVEvent:(MWCocoaEvent *)event;
 - (void)addEyeStateEvent:(MWCocoaEvent *)event;
 - (void)acceptStmAnnounce:(mw::Datum *)stm_announce 
-					 Time:(mw::MonkeyWorksTime)event_time;
+					 Time:(mw::MWorksTime)event_time;
 - (void)setTimeOfTail:(NSTimeInterval)_newTimeOfTail;
 - (void)setUpdateRate:(float)updates_per_second;
 - (void)acceptCalAnnounce:(mw::Datum *)cal_announce;

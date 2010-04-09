@@ -1,6 +1,6 @@
 //
 //  MWVariableList.h
-//  MonkeyWorksMATLABWindow
+//  MWorksMATLABWindow
 //
 //  Created by Ben Kennedy on 9/22/07.
 //  Copyright 2007 MIT. All rights reserved.

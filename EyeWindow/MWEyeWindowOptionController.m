@@ -1,6 +1,6 @@
 //
 //  MWEyeWindowOptionController.m
-//  MonkeyWorksEyeWindow
+//  MWorksEyeWindow
 //
 //  Created by labuser on 11/1/06.
 //  Copyright 2006 __MyCompanyName__. All rights reserved.
@@ -9,11 +9,11 @@
 #import "MWEyeWindowOptionController.h"
 #import "MWEyeWindowController.h"
 
-#define MW_EYE_WINDOW_UPDATE_RATE @"MonkeyWorksClient - Eye Window - update_rate"
-#define MW_EYE_WINDOW_TIME_OF_TAIL @"MonkeyWorksClient - Eye Window - time_of_tail"
-#define MW_EYE_WINDOW_H_NAME @"MonkeyWorksClient - Eye Window - h"
-#define MW_EYE_WINDOW_V_NAME @"MonkeyWorksClient - Eye Window - v"
-#define MW_EYE_WINDOW_EYE_STATE_NAME @"MonkeyWorksClient - Eye Window - eye_state"
+#define MW_EYE_WINDOW_UPDATE_RATE @"MWorksClient - Eye Window - update_rate"
+#define MW_EYE_WINDOW_TIME_OF_TAIL @"MWorksClient - Eye Window - time_of_tail"
+#define MW_EYE_WINDOW_H_NAME @"MWorksClient - Eye Window - h"
+#define MW_EYE_WINDOW_V_NAME @"MWorksClient - Eye Window - v"
+#define MW_EYE_WINDOW_EYE_STATE_NAME @"MWorksClient - Eye Window - eye_state"
 
 @implementation MWEyeWindowOptionController
 

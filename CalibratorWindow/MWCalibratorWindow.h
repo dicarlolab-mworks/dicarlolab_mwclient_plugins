@@ -1,6 +1,6 @@
 //
 //  MWCalibratorWindow.h
-//  MonkeyWorksCalibratorWindow
+//  MWorksCalibratorWindow
 //
 //  Created by Ben Kennedy on 5/3/08.
 //  Copyright 2008 MIT. All rights reserved.

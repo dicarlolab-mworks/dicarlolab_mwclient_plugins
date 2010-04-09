@@ -1,6 +1,6 @@
 /* MWRewardWindowController */
 
-#import "MonkeyWorksCocoa/MWClientProtocol.h"
+#import "MWorksCocoa/MWClientProtocol.h"
 
 
 @interface MWRewardWindowController : NSWindowController {

@@ -1,6 +1,6 @@
 //
 //  MWEyeSamplePlotElement.m
-//  MonkeyWorksEyeWindow
+//  MWorksEyeWindow
 //
 //  Created by David Cox on 2/3/06.
 //  Copyright 2006 __MyCompanyName__. All rights reserved.
@@ -10,7 +10,7 @@
 
 
 @implementation MWEyeSamplePlotElement
-- (id)initWithTime:(mw::MonkeyWorksTime)_time 
+- (id)initWithTime:(mw::MWorksTime)_time 
 		  position:(NSPoint)_position 
 	   isSaccading:(int)_is_saccading {
 	

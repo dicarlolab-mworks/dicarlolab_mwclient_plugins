@@ -1,13 +1,13 @@
 //
 //  MWEyeWindowOptionController.h
-//  MonkeyWorksEyeWindow
+//  MWorksEyeWindow
 //
 //  Created by labuser on 11/1/06.
 //  Copyright 2006 __MyCompanyName__. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
-#import "MonkeyWorksCore/GenericData.h"
+#import "MWorksCore/GenericData.h"
 
 
 @interface MWEyeWindowOptionController : NSWindowController {

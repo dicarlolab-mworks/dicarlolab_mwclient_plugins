@@ -1,7 +1,7 @@
-#import "MonkeyWorksCore/StandardVariables.h"
-#import "MonkeyWorksCocoa/MWCocoaEvent.h"
-#import "MonkeyWorksCocoa/MWClientServerBase.h"
-#import "MonkeyWorksCore/GenericData.h"
+#import "MWorksCore/StandardVariables.h"
+#import "MWorksCocoa/MWCocoaEvent.h"
+#import "MWorksCocoa/MWClientServerBase.h"
+#import "MWorksCore/GenericData.h"
 #import "MWCalibratorWindowController.h"
 #import "MWCalibratorRecord.h"
 

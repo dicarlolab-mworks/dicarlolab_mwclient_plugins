@@ -1,7 +1,7 @@
 /* MWMATLABWindowController */
 // COMMENTS!!!!!
 
-#import "MonkeyWorksCocoa/MWClientProtocol.h"
+#import "MWorksCocoa/MWClientProtocol.h"
 #import "MATLABInterface.h"
 #import "MWVariableList.h"
 

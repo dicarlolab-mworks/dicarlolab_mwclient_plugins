@@ -1,7 +1,7 @@
 /* MATLABInterface */
 
 #import <Cocoa/Cocoa.h>
-#import "MonkeyWorksCocoa/MWCocoaEvent.h"
+#import "MWorksCocoa/MWCocoaEvent.h"
 #import "engine.h"
 #import "matrix.h"
 

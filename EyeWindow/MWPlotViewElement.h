@@ -1,6 +1,6 @@
 //
 //  MWPlotViewElement.h
-//  MonkeyWorksEyeWindow
+//  MWorksEyeWindow
 //
 //	A Generic drawable object, meant to be inherited.
 //

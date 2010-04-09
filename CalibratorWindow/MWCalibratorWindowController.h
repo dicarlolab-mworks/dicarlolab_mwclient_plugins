@@ -1,7 +1,7 @@
 /* MWCalibratorWindowController */
 // COMMENTS!!!!!
 
-#import "MonkeyWorksCocoa/MWClientProtocol.h"
+#import "MWorksCocoa/MWClientProtocol.h"
 #import "MWCalibratorRecord.h"
 
 enum hIndicies{H_OFFSET_INDEX=0, H_GAIN_INDEX=1};

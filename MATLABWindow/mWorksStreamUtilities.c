@@ -1,13 +1,13 @@
 /*
- *  monkeyWorksStreamUtilities.c
- *  MonkeyWorksMatlab
+ *  mWorksStreamUtilities.c
+ *  MWorksMatlab
  *
  *  Created by David Cox on 12/20/06.
  *  Copyright 2006 __MyCompanyName__. All rights reserved.
  *
  */
 
-#include "monkeyWorksStreamUtilities.h"
+#include "mWorksStreamUtilities.h"
 
 
 double scarab_extract_float(ScarabDatum *datum){

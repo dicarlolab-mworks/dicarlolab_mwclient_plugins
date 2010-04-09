@@ -1,6 +1,6 @@
 //
 //  MWStimulusPlotElement.h
-//  MonkeyWorksEyeWindow
+//  MWorksEyeWindow
 //
 //	This object is an extension of MWPlotViewElement. Basically, MWStimulusPlotElement 
 //  is an object that contains all the essential information about a stimulus for 

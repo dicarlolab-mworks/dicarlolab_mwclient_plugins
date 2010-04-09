@@ -1,21 +1,21 @@
 #import "MATLABInterface.h"
 #import "Scarab/scarab.h"
-#import "MonkeyWorksCocoa/MWCocoaEvent.h"
-#import "MonkeyWorksCore/GenericData.h"
-#import "MonkeyWorksCore/Event.h"
-#import "MonkeyWorksCore/Utilities.h"
+#import "MWorksCocoa/MWCocoaEvent.h"
+#import "MWorksCore/GenericData.h"
+#import "MWorksCore/Event.h"
+#import "MWorksCore/Utilities.h"
 #import "engine.h"
 #import "matrix.h"
 #import "mat.h"
-#import "monkeyWorksStreamUtilities.h"
+#import "mWorksStreamUtilities.h"
 #import "MWMATLABWindowController.h"
 
 
 #define OUTPUT_BUFFER_SIZE 32768
 
-#define STREAM @"MonkeyWorks Stream"
+#define STREAM @"MWorks Stream"
 
-#define ml_ADD_MATLAB_PATH @"addpath('/Library/Application Support/MonkeyWorks/Scripting/Matlab')"
+#define ml_ADD_MATLAB_PATH @"addpath('/Library/Application Support/MWorks/Scripting/Matlab')"
 
 #define ml_FILENAME "filename"
 #define ml_EVENT_CODEC "event_codec"

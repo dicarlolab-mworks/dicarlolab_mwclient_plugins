@@ -1,8 +1,8 @@
-//#import "MonkeyWorksCore/InterfaceSetting.h"
+//#import "MWorksCore/InterfaceSetting.h"
 #include <OpenGL/gl.h>
 #import "MWPlotView.h"
 #import "MWStimulusPlotElement.h"
-#import "MonkeyWorksCore/StandardVariables.h"
+#import "MWorksCore/StandardVariables.h"
 
 #define PLOT_VIEW_FULL_SIZE	800
 #define MAX_ANGLE	180
@@ -207,7 +207,7 @@
 - (void)addEyeStateEvent:(MWCocoaEvent *)event {
 	@synchronized(self) {
 		if([event data]->getInteger() != current_state) {
-			mw::MonkeyWorksTime time_of_state_change = [event time];
+			mw::MWorksTime time_of_state_change = [event time];
 			if(time_of_state_change > last_state_change_time) {
 				last_state_change_time = time_of_state_change;
 				current_state = !current_state;
@@ -218,12 +218,12 @@
 
 
 //==================== stimulus announce is handled here ===============================
-- (void)acceptStmAnnounce:(mw::Datum *)stm_announce Time:(mw::MonkeyWorksTime)event_time
+- (void)acceptStmAnnounce:(mw::Datum *)stm_announce Time:(mw::MWorksTime)event_time
 {
 	@synchronized(self) {
 #define MAX_STIM_DRAW_LAG   1000
 		
-		static mw::MonkeyWorksTime last_event_time = 0LL;
+		static mw::MWorksTime last_event_time = 0LL;
 		
 		
 		//First check for refresh
@@ -491,8 +491,8 @@
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	float currentEyeH = 0;
 	float currentEyeV = 0;
-	mw::MonkeyWorksTime currentEventTime = 0;
-	mw::MonkeyWorksTime previous_event_time = 0;
+	mw::MWorksTime currentEventTime = 0;
+	mw::MWorksTime previous_event_time = 0;
 	
 	
 	
@@ -507,8 +507,8 @@
 				MWCocoaEvent *headEyeH = [eyeHEvents objectAtIndex:0];
 				MWCocoaEvent *headEyeV = [eyeVEvents objectAtIndex:0];
 				
-				mw::MonkeyWorksTime eyeHTime = [headEyeH time];
-				mw::MonkeyWorksTime eyeVTime = [headEyeV time];
+				mw::MWorksTime eyeHTime = [headEyeH time];
+				mw::MWorksTime eyeVTime = [headEyeV time];
 				
 				currentEyeH = [headEyeH data]->getFloat();
 				currentEyeV = [headEyeV data]->getFloat();

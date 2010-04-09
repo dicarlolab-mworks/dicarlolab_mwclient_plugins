@@ -1,7 +1,7 @@
-#import "MonkeyWorksCocoa/MWCocoaEvent.h"
-#import "MonkeyWorksCocoa/MWClientServerBase.h"
-#import "MonkeyWorksCore/GenericData.h"
-#import "MonkeyWorksCore/VariableProperties.h"
+#import "MWorksCocoa/MWCocoaEvent.h"
+#import "MWorksCocoa/MWClientServerBase.h"
+#import "MWorksCore/GenericData.h"
+#import "MWorksCore/VariableProperties.h"
 #import "MWMATLABWindowController.h"
 #import "MWVarEntry.h"
 
@@ -15,7 +15,7 @@
 - (void)updateCurrentSelectedVariables:(id)arg;
 @end
 
-#define MATLAB_WINDOW_CALLBACK_KEY @"MonkeyWorksMATLABWindow callback key"
+#define MATLAB_WINDOW_CALLBACK_KEY @"MWorksMATLABWindow callback key"
 
 #define MATLAB_EXECUTABLE_PATH @"MATLAB client window - MATLAB executable path"
 #define MATLAB_M_FILE @"MATLAB client window - MATLAB .m file"
@@ -258,8 +258,8 @@
 // *******************************************************************
 // *                MWWindowController Methods
 // *******************************************************************
-- (NSString *)monkeyWorksFrameAutosaveName {
-    return @"MonkeyWorksMATLABWindow";
+- (NSString *)mWorksFrameAutosaveName {
+    return @"MWorksMATLABWindow";
 }
 
 #define MATLAB_DEBUG_OUTPUT_MAX_LENGTH 10000

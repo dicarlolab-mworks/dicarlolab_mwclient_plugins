@@ -1,13 +1,13 @@
 //
 //  MWStimulusPlotElement.m
-//  MonkeyWorksEyeWindow
+//  MWorksEyeWindow
 //
 //  Created by Nuo Li on 8/9/06.
 //  Copyright 2006 __MyCompanyName__. All rights reserved.
 //
 
 #import "MWStimulusPlotElement.h"
-#import "MonkeyWorksCore/StandardVariables.h"
+#import "MWorksCore/StandardVariables.h"
 
 @interface MWStimulusPlotElement(PrivateMethods)
 - (void)openGLCommandsToDrawBoxInFrame:(NSRect)visible;

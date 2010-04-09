@@ -1,6 +1,6 @@
 //
 //  CalibratorRecord.h
-//  MonkeyWorksCalibratorWindow
+//  MWorksCalibratorWindow
 //
 //  Created by bkennedy on 9/12/06.
 //  Copyright 2006 __MyCompanyName__. All rights reserved.

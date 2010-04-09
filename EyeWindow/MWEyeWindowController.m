@@ -1,11 +1,11 @@
 #import "MWEyeWindowController.h"
 #import "MWPlotView.h"
 
-#import "MonkeyWorksCocoa/MWClientServerBase.h"
-#import "MonkeyWorksCocoa/MWCocoaEvent.h"
-#import "MonkeyWorksCore/GenericData.h"
-#import "MonkeyWorksCore/VariableProperties.h"
-#import "MonkeyWorksCore/StandardVariables.h"
+#import "MWorksCocoa/MWClientServerBase.h"
+#import "MWorksCocoa/MWCocoaEvent.h"
+#import "MWorksCore/GenericData.h"
+#import "MWorksCore/VariableProperties.h"
+#import "MWorksCore/StandardVariables.h"
 
 
 #define	EYE_WINDOW_CALLBACK_KEY @"MWEyeWindowController callback key"

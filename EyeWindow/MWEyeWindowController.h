@@ -14,10 +14,10 @@ Copy right 2006 MIT. All rights reserved.
 
 */
 
-#import "MonkeyWorksCocoa/MWWindowController.h"
-#import "MonkeyWorksCore/GenericData.h"
+#import "MWorksCocoa/MWWindowController.h"
+#import "MWorksCore/GenericData.h"
 #import "MWEyeWindowOptionController.h"
-#import "MonkeyWorksCocoa/MWClientProtocol.h"
+#import "MWorksCocoa/MWClientProtocol.h"
 
 extern NSString  * MWEyeWindowVariableUpdateNotification;
 
