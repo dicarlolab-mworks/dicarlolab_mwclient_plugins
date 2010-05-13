@@ -6,6 +6,20 @@
 	objectVersion = 44;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		E17B9ED0119CA80500EEBF5D /* Everything */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = E17B9ED6119CA80E00EEBF5D /* Build configuration list for PBXAggregateTarget "Everything" */;
+			buildPhases = (
+			);
+			dependencies = (
+				E17B9ED3119CA80A00EEBF5D /* PBXTargetDependency */,
+			);
+			name = Everything;
+			productName = Everything;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		0E655F860C7CCDC200B15F67 /* MWorksCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CF2875F099412A7000C55A3 /* MWorksCore.framework */; };
 		5C8E4A69098FA2A600EB44CA /* Main.nib in Resources */ = {isa = PBXBuildFile; fileRef = 5C8E4A68098FA2A600EB44CA /* Main.nib */; };
@@ -15,6 +29,16 @@
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		DA1E8F1C099C393000CDAD82 /* MWorksRewardWindow.xml in Resources */ = {isa = PBXBuildFile; fileRef = DA1E8F1B099C393000CDAD82 /* MWorksRewardWindow.xml */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E17B9ED2119CA80A00EEBF5D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D5B49AC048680CD000E48DA /* MWorksRewardWindow */;
+			remoteInfo = MWorksRewardWindow;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -31,7 +55,6 @@
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		DA1E8F1B099C393000CDAD82 /* MWorksRewardWindow.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = MWorksRewardWindow.xml; sourceTree = "<group>"; };
-		E1895B46116FD7A500D8CBE0 /* Development_10.5_compatible.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Development_10.5_compatible.xcconfig; path = "/Library/Application Support/MWorks/Developer/Xcode/Development_10.5_compatible.xcconfig"; sourceTree = "<absolute>"; };
 		E1895B47116FD7A500D8CBE0 /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Development.xcconfig; path = "/Library/Application Support/MWorks/Developer/Xcode/Development.xcconfig"; sourceTree = "<absolute>"; };
 		E1895B48116FD7A500D8CBE0 /* WARNING.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = WARNING.txt; path = "/Library/Application Support/MWorks/Developer/Xcode/WARNING.txt"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
@@ -131,7 +154,6 @@
 		E1895B45116FD7A500D8CBE0 /* External Configs */ = {
 			isa = PBXGroup;
 			children = (
-				E1895B46116FD7A500D8CBE0 /* Development_10.5_compatible.xcconfig */,
 				E1895B47116FD7A500D8CBE0 /* Development.xcconfig */,
 				E1895B48116FD7A500D8CBE0 /* WARNING.txt */,
 			);
@@ -173,6 +195,7 @@
 			projectRoot = "";
 			targets = (
 				8D5B49AC048680CD000E48DA /* MWorksRewardWindow */,
+				E17B9ED0119CA80500EEBF5D /* Everything */,
 			);
 		};
 /* End PBXProject section */
@@ -217,6 +240,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		E17B9ED3119CA80A00EEBF5D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8D5B49AC048680CD000E48DA /* MWorksRewardWindow */;
+			targetProxy = E17B9ED2119CA80A00EEBF5D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		089C167DFE841241C02AAC07 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
@@ -229,28 +260,15 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		1DEB913B08733D840010E9CD /* Development (10.5 Compatible) */ = {
+		E17B9ED1119CA80500EEBF5D /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
-				GCC_PREFIX_HEADER = MWorksRewardWindow_Prefix.pch;
-				INFOPLIST_FILE = Info.plist;
-				PRODUCT_NAME = MWorksRewardWindow;
-				WRAPPER_EXTENSION = bundle;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = Everything;
 			};
-			name = "Development (10.5 Compatible)";
-		};
-		1DEB913F08733D840010E9CD /* Development (10.5 Compatible) */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E1895B46116FD7A500D8CBE0 /* Development_10.5_compatible.xcconfig */;
-			buildSettings = {
-				FINAL_INSTALL_DIR = "$(CLIENT_PLUGINS_DIR)";
-				HEADER_SEARCH_PATHS = "$(MW_INCLUDE_DIR)";
-				LIBRARY_SEARCH_PATHS = "$(MW_LIB_DIR)";
-				MACH_O_TYPE = mh_bundle;
-				PREBINDING = NO;
-			};
-			name = "Development (10.5 Compatible)";
+			name = Development;
 		};
 		E1895B52116FD7FB00D8CBE0 /* Development */ = {
 			isa = XCBuildConfiguration;
@@ -270,7 +288,7 @@
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				GCC_PREFIX_HEADER = MWorksRewardWindow_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
-				PRODUCT_NAME = MonkeyWorksRewardWindow;
+				PRODUCT_NAME = MWorksRewardWindow;
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Development;
@@ -282,19 +300,25 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E1895B53116FD7FB00D8CBE0 /* Development */,
-				1DEB913B08733D840010E9CD /* Development (10.5 Compatible) */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Development (10.5 Compatible)";
+			defaultConfigurationName = Development;
 		};
 		1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "MWorksRewardWindow" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E1895B52116FD7FB00D8CBE0 /* Development */,
-				1DEB913F08733D840010E9CD /* Development (10.5 Compatible) */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Development (10.5 Compatible)";
+			defaultConfigurationName = Development;
+		};
+		E17B9ED6119CA80E00EEBF5D /* Build configuration list for PBXAggregateTarget "Everything" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E17B9ED1119CA80500EEBF5D /* Development */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
 		};
 /* End XCConfigurationList section */
 	};

@@ -6,6 +6,20 @@
 	objectVersion = 45;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		E17B9E91119CA62000EEBF5D /* Everything */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = E17B9E9A119CA62700EEBF5D /* Build configuration list for PBXAggregateTarget "Everything" */;
+			buildPhases = (
+			);
+			dependencies = (
+				E17B9E94119CA62300EEBF5D /* PBXTargetDependency */,
+			);
+			name = Everything;
+			productName = Everything;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		0E9862DC0F167B330060B97D /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E9862DB0F167B330060B97D /* OpenGL.framework */; };
 		5C8E4A69098FA2A600EB44CA /* Main.nib in Resources */ = {isa = PBXBuildFile; fileRef = 5C8E4A68098FA2A600EB44CA /* Main.nib */; };
@@ -20,6 +34,16 @@
 		B283771B0A8A951400358169 /* MWStimulusPlotElement.m in Sources */ = {isa = PBXBuildFile; fileRef = B283771A0A8A951400358169 /* MWStimulusPlotElement.m */; };
 		B2F32F320A9BA48700D8EE53 /* MWorksCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CF2875F099412A7000C55A3 /* MWorksCore.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E17B9E93119CA62300EEBF5D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D5B49AC048680CD000E48DA /* MWorksEyeWindow */;
+			remoteInfo = MWorksEyeWindow;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -46,7 +70,6 @@
 		B28377190A8A951400358169 /* MWStimulusPlotElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWStimulusPlotElement.h; sourceTree = "<group>"; };
 		B283771A0A8A951400358169 /* MWStimulusPlotElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWStimulusPlotElement.m; sourceTree = "<group>"; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
-		E1895AC6116FD27F00D8CBE0 /* Development_10.5_compatible.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Development_10.5_compatible.xcconfig; path = "/Library/Application Support/MWorks/Developer/Xcode/Development_10.5_compatible.xcconfig"; sourceTree = "<absolute>"; };
 		E1895AC7116FD27F00D8CBE0 /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Development.xcconfig; path = "/Library/Application Support/MWorks/Developer/Xcode/Development.xcconfig"; sourceTree = "<absolute>"; };
 		E1895AC8116FD27F00D8CBE0 /* WARNING.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = WARNING.txt; path = "/Library/Application Support/MWorks/Developer/Xcode/WARNING.txt"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
@@ -157,7 +180,6 @@
 		E1895AC5116FD27F00D8CBE0 /* External Configs */ = {
 			isa = PBXGroup;
 			children = (
-				E1895AC6116FD27F00D8CBE0 /* Development_10.5_compatible.xcconfig */,
 				E1895AC7116FD27F00D8CBE0 /* Development.xcconfig */,
 				E1895AC8116FD27F00D8CBE0 /* WARNING.txt */,
 			);
@@ -199,6 +221,7 @@
 			projectRoot = "";
 			targets = (
 				8D5B49AC048680CD000E48DA /* MWorksEyeWindow */,
+				E17B9E91119CA62000EEBF5D /* Everything */,
 			);
 		};
 /* End PBXProject section */
@@ -247,6 +270,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		E17B9E94119CA62300EEBF5D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8D5B49AC048680CD000E48DA /* MWorksEyeWindow */;
+			targetProxy = E17B9E93119CA62300EEBF5D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		089C167DFE841241C02AAC07 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
@@ -259,35 +290,15 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		1DEB913B08733D840010E9CD /* Development (10.5 Compatible) */ = {
+		E17B9E92119CA62000EEBF5D /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_DEBUGGING_SYMBOLS = full;
-				GCC_ENABLE_OBJC_GC = supported;
-				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
-				GCC_OBJC_CALL_CXX_CDTORS = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = MWorksEyeWindow_Prefix.pch;
-				INFOPLIST_FILE = Info.plist;
-				PRODUCT_NAME = MWorksEyeWindow;
-				WRAPPER_EXTENSION = bundle;
+				PRODUCT_NAME = Everything;
 			};
-			name = "Development (10.5 Compatible)";
-		};
-		1DEB913F08733D840010E9CD /* Development (10.5 Compatible) */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E1895AC6116FD27F00D8CBE0 /* Development_10.5_compatible.xcconfig */;
-			buildSettings = {
-				FINAL_INSTALL_DIR = "$(CLIENT_PLUGINS_DIR)";
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(MW_INCLUDE_DIR)";
-				LIBRARY_SEARCH_PATHS = "$(MW_LIB_DIR)";
-				PREBINDING = NO;
-			};
-			name = "Development (10.5 Compatible)";
+			name = Development;
 		};
 		E1895AD2116FD2C700D8CBE0 /* Development */ = {
 			isa = XCBuildConfiguration;
@@ -326,19 +337,25 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E1895AD3116FD2C700D8CBE0 /* Development */,
-				1DEB913B08733D840010E9CD /* Development (10.5 Compatible) */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Development (10.5 Compatible)";
+			defaultConfigurationName = Development;
 		};
 		1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "MWorksEyeWindow" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E1895AD2116FD2C700D8CBE0 /* Development */,
-				1DEB913F08733D840010E9CD /* Development (10.5 Compatible) */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Development (10.5 Compatible)";
+			defaultConfigurationName = Development;
+		};
+		E17B9E9A119CA62700EEBF5D /* Build configuration list for PBXAggregateTarget "Everything" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E17B9E92119CA62000EEBF5D /* Development */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
 		};
 /* End XCConfigurationList section */
 	};
