@@ -147,7 +147,7 @@
 		}
 		
 		// Convert and add to event list
-		scarabEventToDataStruct(data_struct, nread, datum);
+		insertDatumIntoEventList(data_struct, nread, datum);
 		
 		
 		nread++;

@@ -27,7 +27,6 @@
 		0E5505030AADB81800987B47 /* MWMATLABWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5505020AADB81800987B47 /* MWMATLABWindowController.m */; };
 		0EB67A120AAE11E00034D377 /* MWorksCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CF2875F099412A7000C55A3 /* MWorksCore.framework */; };
 		0ECE67F10BDD1DCA00E16CCF /* MATLABInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E60D49D0BDD0CDD00B5386E /* MATLABInterface.m */; };
-		0ECE67F70BDD1DFC00E16CCF /* mWorksStreamUtilities.c in Sources */ = {isa = PBXBuildFile; fileRef = 0E60D49F0BDD0CEF00B5386E /* mWorksStreamUtilities.c */; };
 		5CF287520994124E000C55A3 /* MWorksCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CF287500994124E000C55A3 /* MWorksCocoa.framework */; };
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
@@ -39,7 +38,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 8D5B49AC048680CD000E48DA /* MWorksMATLABWindow */;
+			remoteGlobalIDString = 8D5B49AC048680CD000E48DA;
 			remoteInfo = MWorksMATLABWindow;
 		};
 /* End PBXContainerItemProxy section */
@@ -58,8 +57,6 @@
 		0E5505020AADB81800987B47 /* MWMATLABWindowController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = MWMATLABWindowController.m; sourceTree = "<group>"; };
 		0E60D49C0BDD0CDD00B5386E /* MATLABInterface.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MATLABInterface.h; sourceTree = "<group>"; };
 		0E60D49D0BDD0CDD00B5386E /* MATLABInterface.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = MATLABInterface.m; sourceTree = "<group>"; };
-		0E60D49F0BDD0CEF00B5386E /* mWorksStreamUtilities.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = mWorksStreamUtilities.c; sourceTree = "<group>"; };
-		0E60D4A00BDD0CEF00B5386E /* mWorksStreamUtilities.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = mWorksStreamUtilities.h; sourceTree = "<group>"; };
 		0EFA42810DC16AE700F557A6 /* hist_example.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = hist_example.m; sourceTree = "<group>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		5CF287500994124E000C55A3 /* MWorksCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MWorksCocoa.framework; path = /Library/Frameworks/MWorksCocoa.framework; sourceTree = "<absolute>"; };
@@ -174,8 +171,6 @@
 		32C88E010371C26100C91783 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				0E60D49F0BDD0CEF00B5386E /* mWorksStreamUtilities.c */,
-				0E60D4A00BDD0CEF00B5386E /* mWorksStreamUtilities.h */,
 				0E5504FC0AADB7EC00987B47 /* MWorksMATLABWindow_Prefix.pch */,
 			);
 			name = "Other Sources";
@@ -280,7 +275,6 @@
 			files = (
 				0E5505030AADB81800987B47 /* MWMATLABWindowController.m in Sources */,
 				0ECE67F10BDD1DCA00E16CCF /* MATLABInterface.m in Sources */,
-				0ECE67F70BDD1DFC00E16CCF /* mWorksStreamUtilities.c in Sources */,
 				0E01072A0CA5D9EC00A28CAC /* MWVariableList.m in Sources */,
 				0E01072F0CA5DA2000A28CAC /* MWVarEntry.m in Sources */,
 			);
@@ -349,6 +343,7 @@
 					"-leng",
 					"-lmx",
 					"-lscarab",
+					"-lMWorksStreamUtilities",
 				);
 				PREBINDING = NO;
 			};
