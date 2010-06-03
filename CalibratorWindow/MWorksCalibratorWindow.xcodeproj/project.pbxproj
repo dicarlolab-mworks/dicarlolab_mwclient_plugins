@@ -36,7 +36,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 8D5B49AC048680CD000E48DA /* CalibratorWindow */;
+			remoteGlobalIDString = 8D5B49AC048680CD000E48DA;
 			remoteInfo = CalibratorWindow;
 		};
 /* End PBXContainerItemProxy section */
