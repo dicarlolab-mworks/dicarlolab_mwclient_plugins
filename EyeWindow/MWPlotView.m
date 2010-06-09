@@ -11,12 +11,20 @@
 #define SACCADING 1
 
 
-@interface MWPlotView(PrivateMethods)
-- (void)aggregateEvents:(id)object;
+@interface MWPlotView ()
+
+@property(nonatomic, retain) MWCocoaEvent *currentEyeH;
+@property(nonatomic, retain) MWCocoaEvent *currentEyeV;
+
+- (void)syncHEvent:(MWCocoaEvent *)eyeH withVEvent:(MWCocoaEvent *)eyeV;
+- (void)checkForUpdates:(id)object;
 - (void)setNeedsDisplayOnMainThread:(id)arg;
+
 @end
 
 @implementation MWPlotView
+
+@synthesize currentEyeH, currentEyeV;
 
 - (id)initWithFrame:(NSRect)frameRect {
 	width = 180;
@@ -26,16 +34,13 @@
 	
 	eye_samples = [[NSMutableArray alloc] init];
 	stm_samples = [[NSMutableArray alloc] init];
-	
-	eyeVEvents = [[NSMutableArray alloc] init];
-	eyeHEvents = [[NSMutableArray alloc] init];
 
 	last_state_change_time = 0;
 	current_state = FIXATION;
 	
 	// these correspond to the defaults in the options window.
-	timeOfTail = 1000000; // 1s
-	time_between_updates = 100000; // 100ms
+	timeOfTail = 1.0; // 1s
+	time_between_updates = 0.1; // 100ms
 	
 	GLuint attribs[] = 
 	{
@@ -71,8 +76,8 @@
 - (void)dealloc {
 	[eye_samples release];	
 	[stm_samples release];
-	[eyeVEvents release];
-	[eyeHEvents release];
+    [currentEyeH release];
+    [currentEyeV release];
 	[super dealloc];
 }
 
@@ -194,20 +199,70 @@
 
 - (void)addEyeHEvent:(MWCocoaEvent *)event {
 	@synchronized(self) {
-		[eyeHEvents addObject:event];
+        if (!self.currentEyeH || ([event time] > [self.currentEyeH time])) {
+            [self syncHEvent:event withVEvent:self.currentEyeV];
+        }
 	}
 }
 
 - (void)addEyeVEvent:(MWCocoaEvent *)event {
 	@synchronized(self) {
-		[eyeVEvents addObject:event];
+        if (!self.currentEyeV || ([event time] > [self.currentEyeV time])) {
+            [self syncHEvent:self.currentEyeH withVEvent:event];
+        }
 	}	
+}
+
+#define EVENT_SYNC_TIME_US 250
+
+- (void)syncHEvent:(MWCocoaEvent *)eyeH withVEvent:(MWCocoaEvent *)eyeV {
+    MWorksTime eyeHTime;
+    MWorksTime eyeVTime;
+    BOOL synced = NO;
+
+    if (eyeH && eyeV) {
+        eyeHTime = [eyeH time];
+        eyeVTime = [eyeV time];
+        MWorksTime t_diff = eyeHTime - eyeVTime;
+        if (abs(t_diff) <= EVENT_SYNC_TIME_US) {
+            synced = YES;
+        } else {
+            if (t_diff > 0) {
+                eyeV = nil;
+            } else {
+                eyeH = nil;
+            }
+        }
+    }
+    
+    self.currentEyeH = eyeH;
+    self.currentEyeV = eyeV;
+    
+    if (synced) {
+        //
+        // We have a synced eyeH/eyeV pair, so add a plot element for it
+        //
+        
+        int eye_state = (max(eyeHTime, eyeVTime) >= last_state_change_time) ? current_state : !current_state;
+        
+        MWEyeSamplePlotElement *sample = nil;
+        sample = [[MWEyeSamplePlotElement alloc] initWithTime:[NSDate timeIntervalSinceReferenceDate]
+                                                     position:NSMakePoint([self.currentEyeH data]->getFloat(),
+                                                                          [self.currentEyeV data]->getFloat()) 
+                                                  isSaccading:eye_state];
+        [eye_samples addObject:sample];
+        [sample release];
+        
+        self.currentEyeH = nil;
+        self.currentEyeV = nil;
+        needUpdate = YES;
+    }
 }
 
 - (void)addEyeStateEvent:(MWCocoaEvent *)event {
 	@synchronized(self) {
 		if([event data]->getInteger() != current_state) {
-			mw::MWorksTime time_of_state_change = [event time];
+			MWorksTime time_of_state_change = [event time];
 			if(time_of_state_change > last_state_change_time) {
 				last_state_change_time = time_of_state_change;
 				current_state = !current_state;
@@ -218,12 +273,12 @@
 
 
 //==================== stimulus announce is handled here ===============================
-- (void)acceptStmAnnounce:(mw::Datum *)stm_announce Time:(mw::MWorksTime)event_time
+- (void)acceptStmAnnounce:(mw::Datum *)stm_announce Time:(MWorksTime)event_time
 {
 	@synchronized(self) {
 #define MAX_STIM_DRAW_LAG   1000
 		
-		static mw::MWorksTime last_event_time = 0LL;
+		static MWorksTime last_event_time = 0LL;
 		
 		
 		//First check for refresh
@@ -465,19 +520,20 @@
 	@synchronized(self) {
 		[eye_samples removeAllObjects];
 		[stm_samples removeAllObjects];
+        needUpdate = YES;
 	}
 }
 
 
 - (void)setTimeOfTail:(NSTimeInterval)_newTimeOfTail {
 	@synchronized(self)	{
-		timeOfTail = _newTimeOfTail*1000000;
+		timeOfTail = _newTimeOfTail;
 	}
 }
 
 - (void)setUpdateRate:(float)updates_per_second {
 	@synchronized(self)	{
-		time_between_updates = 1000000/updates_per_second;
+		time_between_updates = 1.0/updates_per_second;
 	}
 }
 
@@ -485,108 +541,36 @@
 // Private methods
 /////////////////////////////////////////////////////////////////////////
 
-#define EVENT_SYNC_TIME_US 250
+#define MAX_SLEEP_INTERVAL 1.0  // 1 second
 
-- (void)aggregateEvents:(id)object {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	float currentEyeH = 0;
-	float currentEyeV = 0;
-	mw::MWorksTime currentEventTime = 0;
-	mw::MWorksTime previous_event_time = 0;
-	
-	
-	
+- (void)checkForUpdates:(id)object {
 	while(1) {
 		NSAutoreleasePool *loop_pool = [[NSAutoreleasePool alloc] init];
-		MWEyeSamplePlotElement *sample = nil;
-		[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.000005]];
+
+        NSTimeInterval sleepInterval;
+        @synchronized(self) {
+            sleepInterval = min(time_between_updates, MAX_SLEEP_INTERVAL);
+        }
+
+		[NSThread sleepForTimeInterval:sleepInterval];
 		
 		@synchronized(self) {
-			if([eyeHEvents count] > 0 &&
-			   [eyeVEvents count] > 0) {
-				MWCocoaEvent *headEyeH = [eyeHEvents objectAtIndex:0];
-				MWCocoaEvent *headEyeV = [eyeVEvents objectAtIndex:0];
-				
-				mw::MWorksTime eyeHTime = [headEyeH time];
-				mw::MWorksTime eyeVTime = [headEyeV time];
-				
-				currentEyeH = [headEyeH data]->getFloat();
-				currentEyeV = [headEyeV data]->getFloat();
-				
-				if(eyeHTime >= eyeVTime) {
-					// eyeH is the newest on the head
-					
-					// advance eyeV
-					while(eyeHTime - eyeVTime > EVENT_SYNC_TIME_US && 
-						  [eyeVEvents count] > 0) {
-						[eyeVEvents removeObjectAtIndex:0];
-						if([eyeVEvents count] > 0) {
-							headEyeV = [eyeVEvents objectAtIndex:0];						
-							currentEyeV = [headEyeV data]->getFloat();
-							eyeVTime = [headEyeV time];							
-						}
-					}
-					
-					currentEventTime = eyeHTime;
-					
-				} else {
-					// eyeV is the newest on the head
-					
-					// advance eyeH
-					while(eyeVTime - eyeHTime > EVENT_SYNC_TIME_US && 
-						  [eyeHEvents count] > 0) {
-						[eyeHEvents removeObjectAtIndex:0];
-						if([eyeHEvents count] > 0) {
-							headEyeH = [eyeHEvents objectAtIndex:0];						
-							currentEyeH = [headEyeH data]->getFloat();
-							eyeHTime = [headEyeH time];							
-						}
-					}
-					
-					currentEventTime = eyeVTime;
-				}
-				
-				// currenly, it can only be 1 or 0
-				int eye_state = currentEventTime >= last_state_change_time ? current_state : !current_state;
-				
-				
-				
-				// now all events roughly equal in time			
-				sample = [[MWEyeSamplePlotElement alloc] initWithTime:currentEventTime
-                                                             position:NSMakePoint(currentEyeH, currentEyeV) 
-                                                          isSaccading:eye_state];
-				
-				if([eyeHEvents count] > 0) {
-					[eyeHEvents removeObjectAtIndex:0];
-				}
-				
-				if([eyeVEvents count] > 0) {
-					[eyeVEvents removeObjectAtIndex:0];
-				}
-			}
+            NSTimeInterval cutoffTime = [NSDate timeIntervalSinceReferenceDate] - timeOfTail;
+            while(([eye_samples count] > 0) && ([[eye_samples objectAtIndex:0] time] < cutoffTime)) {
+                [eye_samples removeObjectAtIndex:0];
+                needUpdate = YES;
+            }
+
+            if (needUpdate) {
+                [self performSelectorOnMainThread:@selector(setNeedsDisplayOnMainThread:) 
+                                       withObject:nil 
+                                    waitUntilDone:NO];
+                needUpdate = NO;
+            }
 		}
 		
-		if(sample != nil) {
-			@synchronized(self) {
-				[eye_samples addObject:sample];
-                [sample release];
-				
-				while(currentEventTime - timeOfTail > [[eye_samples objectAtIndex:0] time]) {
-					[eye_samples removeObjectAtIndex:0];
-				}
-			}
-		}
-		
-		if(currentEventTime - previous_event_time > time_between_updates) {
-			[self performSelectorOnMainThread:@selector(setNeedsDisplayOnMainThread:) 
-								   withObject:nil 
-								waitUntilDone:NO];
-			previous_event_time = currentEventTime;
-		}		
-		
-		[loop_pool release];
+		[loop_pool drain];
 	}
-	[pool release];
 }
 
 - (void)setNeedsDisplayOnMainThread:(id)arg {

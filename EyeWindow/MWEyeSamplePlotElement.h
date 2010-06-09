@@ -14,16 +14,16 @@
 	
 	NSPoint position;	
 	int is_saccading;	// during a saccade or not?
-	mw::MWorksTime	time;
+	NSTimeInterval time;
 	
 }
 
-- (id)initWithTime:(mw::MWorksTime)_time 
+- (id)initWithTime:(NSTimeInterval)_time 
 		  position:(NSPoint)position 
 	   isSaccading:(int)_is_saccading;
 
 @property(readonly) NSPoint position;
-@property(readonly) mw::MWorksTime time;
+@property(readonly) NSTimeInterval time;
 @property(readonly) int saccading;
 
 @end

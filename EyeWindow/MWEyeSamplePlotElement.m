@@ -10,7 +10,7 @@
 
 
 @implementation MWEyeSamplePlotElement
-- (id)initWithTime:(mw::MWorksTime)_time 
+- (id)initWithTime:(NSTimeInterval)_time 
 		  position:(NSPoint)_position 
 	   isSaccading:(int)_is_saccading {
 	

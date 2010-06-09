@@ -115,7 +115,7 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
  *******************************************************************/
 - (void)codecReceived:(MWCocoaEvent *)event {
 	if(!eyeWindowStarted) {
-		[NSThread detachNewThreadSelector:@selector(aggregateEvents:)
+		[NSThread detachNewThreadSelector:@selector(checkForUpdates:)
 								 toTarget:plotView
 							   withObject:nil];			
 		eyeWindowStarted = YES;

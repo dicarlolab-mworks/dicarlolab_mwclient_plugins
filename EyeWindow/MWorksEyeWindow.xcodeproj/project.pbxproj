@@ -128,15 +128,15 @@
 			children = (
 				68D2929F0AF8E8AE00E9A885 /* MWEyeWindowOptionController.h */,
 				68D292A00AF8E8AE00E9A885 /* MWEyeWindowOptionController.m */,
+				5C10618C09904FE9007A63F8 /* MWPlotViewElement.h */,
 				B28377190A8A951400358169 /* MWStimulusPlotElement.h */,
 				B283771A0A8A951400358169 /* MWStimulusPlotElement.m */,
 				5C8E4A6B098FA6FF00EB44CA /* MWPlotView.h */,
 				5C8E4A6C098FA6FF00EB44CA /* MWPlotView.m */,
 				5C8E4A79098FB02400EB44CA /* MWEyeWindowController.h */,
 				5C8E4A7A098FB02400EB44CA /* MWEyeWindowController.m */,
-				5CF28589099402F4000C55A3 /* MWEyeSamplePlotElement.m */,
-				5C10618C09904FE9007A63F8 /* MWPlotViewElement.h */,
 				5CF28588099402F4000C55A3 /* MWEyeSamplePlotElement.h */,
+				5CF28589099402F4000C55A3 /* MWEyeSamplePlotElement.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";

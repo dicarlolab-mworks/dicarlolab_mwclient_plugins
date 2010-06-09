@@ -31,14 +31,15 @@ Copy right 2006 MIT. All rights reserved.
 	NSMutableArray *eye_samples;
 	NSMutableArray *stm_samples;
 	
-	NSMutableArray *eyeHEvents;
-	NSMutableArray *eyeVEvents;
+    MWCocoaEvent *currentEyeH;
+    MWCocoaEvent *currentEyeV;
 
-	mw::MWorksTime last_state_change_time;
+	MWorksTime last_state_change_time;
 	int current_state;
 	
-	mw::MWorksTime timeOfTail;	
-	mw::MWorksTime time_between_updates;
+	NSTimeInterval timeOfTail;	
+	NSTimeInterval time_between_updates;
+    BOOL needUpdate;
 }
 
 - (void)setWidth:(int)width;
@@ -46,7 +47,7 @@ Copy right 2006 MIT. All rights reserved.
 - (void)addEyeVEvent:(MWCocoaEvent *)event;
 - (void)addEyeStateEvent:(MWCocoaEvent *)event;
 - (void)acceptStmAnnounce:(mw::Datum *)stm_announce 
-					 Time:(mw::MWorksTime)event_time;
+					 Time:(MWorksTime)event_time;
 - (void)setTimeOfTail:(NSTimeInterval)_newTimeOfTail;
 - (void)setUpdateRate:(float)updates_per_second;
 - (void)acceptCalAnnounce:(mw::Datum *)cal_announce;
