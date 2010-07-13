@@ -32,8 +32,6 @@
 @interface MATLABInterface (PrivateMethods)
 - (Engine *)getMATLABEngine;
 - (mxArray *)createTopLevelDataStructure:(NSString *)name;
-- (mxArray *)createTopLevelEventStructure:(long)nevents;
-- (mxArray *)createCodec:(Datum *)payload;
 @end
 
 @implementation MATLABInterface
@@ -94,7 +92,7 @@
 }
 
 - (void)logMATLABOutput {
-	NSString * tStr = [NSString stringWithCString:(char *)[outputBuffer mutableBytes]];
+	NSString * tStr = [NSString stringWithUTF8String:(char *)[outputBuffer mutableBytes]];
     [delegate appendLogText:tStr];
     [outputBuffer resetBytesInRange:NSMakeRange(0, OUTPUT_BUFFER_SIZE)];
 }	
@@ -103,7 +101,7 @@
 					withCodec:(Datum *)codec {
 	
 	[interfaceLock lock];
-	mxArray *codecStruct = [self createCodec:codec];
+	mxArray *codecStruct = getCodec(codec->getScarabDatum());
 	int nevents = [dataEventList count];
 	
 	mxArray *data_struct = [self createTopLevelDataStructure:STREAM];
@@ -118,7 +116,7 @@
 		return 0;
 	}
 	
-	mxArray *events = [self createTopLevelEventStructure:nevents];
+	mxArray *events = createTopLevelEventStruct(nevents);
 	
 	mxArray *old_events = mxGetField(data_struct, 0, ml_EVENTS);
 	if(old_events) {
@@ -264,70 +262,6 @@
 			   mxCreateString([name cStringUsingEncoding:NSASCIIStringEncoding]));	
 	
 	return dataStruct;
-}
-
-- (mxArray *)createTopLevelEventStructure:(long)nevents {
-	// *****************************************************************
-	// Allocate storage for the number of events we are about to read
-	// *****************************************************************
-	
-	const char *event_field_names[] = {"event_code", "time_us", "data"};
-	int event_nfields = 3;
-	mwSize event_dims = nevents;
-	mxArray *events = mxCreateStructArray(1, &event_dims, 
-										  event_nfields, event_field_names);
-		
-	return events;
-}
-
-- (mxArray *)createCodec:(Datum *)codec {
-	ScarabDatum *payload = codec->getScarabDatum();
-	
-	int n_codec_entries = scarab_dict_number_of_elements(payload);
-	
-	ScarabDatum **keys = scarab_dict_keys(payload);
-	ScarabDatum **values = scarab_dict_values(payload);	
-	const char *codec_field_names[] = {"code", "tagname",
-		"logging",  "defaultvalue", "shortname", 
-		"longname","editable", "nvals", 
-		"domain", "viewable", "persistant"}; // more to come later?
-	int n_codec_fields = 11;
-	mwSize ndims = 1;
-	mwSize codec_size = n_codec_entries;
-	mxArray *codec_struct = mxCreateStructArray(ndims, 
-												&codec_size,
-												n_codec_fields, 
-												codec_field_names);
-
-	
-	for(int c = 0; c < n_codec_entries; c++){
-		int code = keys[c]->data.integer;
-		ScarabDatum *currentEntry = values[c];
-		
-		
-		ScarabDatum **property_keys = scarab_dict_keys(currentEntry);
-		ScarabDatum **property_values = 
-			scarab_dict_values(currentEntry);
-		
-		mxSetField(codec_struct, c, "code", 
-				   mxCreateDoubleScalar((double)code));
-		
-		for(int d = 0; d < currentEntry->data.dict->size; d++){
-			const char *thiskey = scarab_extract_string(property_keys[d]);
-			
-			if(property_values[d] == NULL){
-				
-			} else if(property_values[d]->type == SCARAB_INTEGER){
-				mxSetField(codec_struct, c, thiskey, 
-						   mxCreateDoubleScalar(property_values[d]->data.integer));
-			} else if(property_values[d]->type == SCARAB_OPAQUE){
-				mxSetField(codec_struct, c, thiskey, 
-						   mxCreateString(scarab_extract_string(property_values[d])));
-			}			
-		}
-	}
-	
-	return codec_struct;
 }
 
 @end

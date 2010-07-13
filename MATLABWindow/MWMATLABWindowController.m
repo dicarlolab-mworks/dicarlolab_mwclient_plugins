@@ -445,9 +445,7 @@
 	//	[delegate setValue:[NSNumber numberWithInt:0] forKey:[@"variables." stringByAppendingString:self.syncEventName]];
 	
 	
-    // CJS: I have no idea why the variable was set this way, but I think the replacement code
-    // below should be sufficient.
-	/*NSArray *variable_names = [delegate variableNames];
+	NSArray *variable_names = [delegate variableNames];
 	NSEnumerator *var_name_enumerator = [variable_names objectEnumerator];
 	NSString *var_name = nil;
 	
@@ -457,13 +455,7 @@
 			[delegate updateVariableWithTag:self.syncEventName 
 								   withData:&data];			
 		}
-	}*/
-    
-    if ([self.syncEventName length] > 0) {
-        Datum data(0L);
-        [delegate updateVariableWithTag:self.syncEventName 
-                               withData:&data];			
-    }
+	}
 	
 	[mi resetRetval];
 	[executionList removeAllObjects];	
