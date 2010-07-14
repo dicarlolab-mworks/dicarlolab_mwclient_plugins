@@ -22,10 +22,12 @@
 #define ml_EVENTS "events"
 
 #ifdef __x86_64__
-#  define MATLAB_APP_PATH "/Applications/MATLAB/bin/matlab -maci64"
+#  define MATLAB_ARCH "maci64"
 #else
-#  define MATLAB_APP_PATH "/Applications/MATLAB/bin/matlab -maci"
+#  define MATLAB_ARCH "maci"
 #endif
+
+#define MATLAB_APP_PATH "/Applications/MATLAB/bin/matlab -nosplash -" MATLAB_ARCH
 
 #define ml_RETVAL @"retval"
 
