@@ -147,7 +147,7 @@
 		}
 		
 		// Convert and add to event list
-		insertDatumIntoEventList(data_struct, nread, datum);
+		insertDatumIntoEventList(mxGetField(data_struct, 0, ml_EVENTS), nread, datum);
 		
 		
 		nread++;
