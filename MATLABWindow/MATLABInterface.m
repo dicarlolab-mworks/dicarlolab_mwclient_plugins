@@ -149,7 +149,7 @@
 		}
 		
 		// Convert and add to event list
-		insertDatumIntoEventList(mxGetField(data_struct, 0, ml_EVENTS), nread, datum);
+		insertDatumIntoEventList(events, nread, datum);
 		
 		
 		nread++;
@@ -177,10 +177,10 @@
 		engPutVariable(e, 
 					   [ml_RETVAL cStringUsingEncoding:NSASCIIStringEncoding], 
 					   retval);
-		cmd = [NSString stringWithFormat:@"%@=%@(events,retval); ", ml_RETVAL, matlabFunction];
+		cmd = [NSString stringWithFormat:@"%@=%@(%s,%@); ", ml_RETVAL, matlabFunction, ml_EVENTS, ml_RETVAL];
 		mxDestroyArray(retval);
 	} else {
-		cmd = [NSString stringWithFormat:@"%@=%@(events); ", ml_RETVAL, matlabFunction];
+		cmd = [NSString stringWithFormat:@"%@=%@(%s); ", ml_RETVAL, matlabFunction, ml_EVENTS];
 	}
 	engPutVariable(e, ml_EVENTS, data_struct);
 
@@ -219,7 +219,7 @@
 
 		if (!matlabEngine) {
 			[delegate appendLogText:@"** engOpen failed in starting Matlab\n"];
-			[delegate appendLogText:[NSString stringWithFormat:@"** command used was %s\n", MATLAB_APP_PATH]];			
+			[delegate appendLogText:[NSString stringWithFormat:@"** command used was \"%@\"\n", matlabStartupCommand]];			
 		} else {
 				
 			engSetVisible(matlabEngine, 1);
