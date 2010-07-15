@@ -21,13 +21,15 @@
 #define ml_EVENT_CODEC "event_codec"
 #define ml_EVENTS "events"
 
+#define MATLAB_APP_PATH @"/Applications/MATLAB/bin/matlab"
+
 #ifdef __x86_64__
 #  define MATLAB_ARCH "maci64"
 #else
 #  define MATLAB_ARCH "maci"
 #endif
 
-#define MATLAB_APP_PATH "/Applications/MATLAB/bin/matlab -nosplash -" MATLAB_ARCH
+#define MATLAB_ARGS "-nosplash -" MATLAB_ARCH
 
 #define ml_RETVAL @"retval"
 
@@ -207,7 +209,14 @@
 - (Engine *)getMATLABEngine {
 	
 	if(!matlabEngine) {
-		matlabEngine = engOpen(MATLAB_APP_PATH);
+        // Resolve the MATLAB symlink so we don't get "same name as a MATLAB builtin" warnings
+        // every time we call addpath
+        NSString *matlabAppPath = [MATLAB_APP_PATH stringByResolvingSymlinksInPath];
+        NSString *matlabStartupCommand = [NSString stringWithFormat:@"%@ %s", matlabAppPath, MATLAB_ARGS];
+
+        NSLog(@"Launching MATLAB with command \"%@\"", matlabStartupCommand);
+		matlabEngine = engOpen([matlabStartupCommand UTF8String]);
+
 		if (!matlabEngine) {
 			[delegate appendLogText:@"** engOpen failed in starting Matlab\n"];
 			[delegate appendLogText:[NSString stringWithFormat:@"** command used was %s\n", MATLAB_APP_PATH]];			
