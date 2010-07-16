@@ -147,7 +147,7 @@
 		}
 		
 		// Convert and add to event list
-		insertDatumIntoEventList(data_struct, nread, datum);
+		insertDatumIntoEventList(events, nread, datum);
 		
 		
 		nread++;
