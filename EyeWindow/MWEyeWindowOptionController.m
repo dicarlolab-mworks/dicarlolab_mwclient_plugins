@@ -114,6 +114,10 @@
 
 
 - (void)closeSheet {
+    // Finish editing in all fields
+    if (![[self window] makeFirstResponder:[self window]]) {
+        [[self window] endEditingFor:nil];
+    }
     [[self window] orderOut:self];
     [NSApp endSheet:[self window]];
 }
@@ -121,3 +125,24 @@
 
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
