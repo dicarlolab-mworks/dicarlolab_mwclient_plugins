@@ -362,8 +362,8 @@
 			mw::Datum name_data = stm_announce->getElement(STIM_NAME);
 			mw::Datum pos_x_data = stm_announce->getElement(STIM_POSX);
 			mw::Datum pos_y_data = stm_announce->getElement(STIM_POSY);
-			mw::Datum width_x_data = stm_announce->getElement(TRIGGER_WIDTH);
-			mw::Datum width_y_data = stm_announce->getElement(TRIGGER_WIDTH);
+			mw::Datum width_x_data = stm_announce->getElement("width");
+			mw::Datum width_y_data = stm_announce->getElement("width");
 			
 			stm_name = [NSString stringWithCString:name_data.getString() encoding:NSASCIIStringEncoding];
 			stm_pos_x = pos_x_data.getFloat();
