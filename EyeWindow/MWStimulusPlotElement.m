@@ -9,6 +9,8 @@
 #import "MWStimulusPlotElement.h"
 #import "MWorksCore/StandardVariables.h"
 
+#import <OpenGL/gl.h>
+
 @interface MWStimulusPlotElement(PrivateMethods)
 - (void)openGLCommandsToDrawBoxInFrame:(NSRect)visible;
 - (void)openGLCommandsToDrawCrossInFrame:(NSRect)visible
