@@ -7,7 +7,7 @@
 #import "engine.h"
 #import "matrix.h"
 #import "mat.h"
-#import "mWorksStreamUtilities.h"
+#import "MWorksMATLABTools.h"
 #import "MWMATLABWindowController.h"
 
 

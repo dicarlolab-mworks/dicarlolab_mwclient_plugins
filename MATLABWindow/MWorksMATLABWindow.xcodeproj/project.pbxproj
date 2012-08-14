@@ -353,7 +353,7 @@
 					"-leng",
 					"-lmx",
 					"-lscarab",
-					"-lMWorksStreamUtilities",
+					"-lMWorksMATLABTools",
 				);
 			};
 			name = Development;
