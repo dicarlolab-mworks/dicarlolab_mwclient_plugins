@@ -315,9 +315,6 @@
 		E17B9EAC119CA6DD00EEBF5D /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
 				PRODUCT_NAME = Everything;
 			};
 			name = Development;
@@ -327,11 +324,8 @@
 			baseConfigurationReference = E1895B26116FD52500D8CBE0 /* Development.xcconfig */;
 			buildSettings = {
 				FINAL_INSTALL_DIR = "$(CLIENT_PLUGINS_DIR)";
-				GCC_MODEL_TUNING = "";
-				GCC_OBJC_CALL_CXX_CDTORS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MWorksMATLABWindow_Prefix.pch;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(MATLAB_DIR)/extern/include",
@@ -361,9 +355,7 @@
 		E1895B32116FD5B000D8CBE0 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
-				GCC_OBJC_CALL_CXX_CDTORS = YES;
 				GCC_UNROLL_LOOPS = YES;
 				INFOPLIST_FILE = Info.plist;
 				PRODUCT_NAME = MWorksMATLABWindow;
