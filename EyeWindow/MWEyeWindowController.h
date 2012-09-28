@@ -42,7 +42,7 @@ extern NSString  * MWEyeWindowVariableUpdateNotification;
 	
 }
 
-@property (assign, readwrite) id delegate;
+@property (nonatomic, assign, readwrite) id delegate;
 /*!
  * @function acceptWidth:
  * @discussion

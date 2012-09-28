@@ -14,6 +14,8 @@
 	NSString *variableName;
 }
 
+- (id)initWithName:(NSString *)name;
+
 - (NSNumber *)selected;
 - (void)setSelected:(BOOL)selected;
 - (NSString *)name;

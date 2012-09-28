@@ -33,11 +33,11 @@
 	Datum *savedCodec;
 }
 
-@property (readwrite, assign) id delegate;
+@property (nonatomic, readwrite, assign) id delegate;
 @property (readwrite, copy) NSString *syncEventName;
 @property (readwrite, copy) NSString *numberToProcessString;
 @property (readwrite, copy) NSString *matlabFileName;
-@property (readwrite, copy) NSString *logTextContent;
+@property (nonatomic, readwrite, copy) NSString *logTextContent;
 
 - (IBAction)chooseMATLABFile:(id)sender;
 - (IBAction)primeMATLABEngine:(id)sender;

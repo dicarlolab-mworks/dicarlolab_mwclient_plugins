@@ -556,7 +556,7 @@
 		
 		@synchronized(self) {
             NSTimeInterval cutoffTime = [NSDate timeIntervalSinceReferenceDate] - timeOfTail;
-            while(([eye_samples count] > 0) && ([[eye_samples objectAtIndex:0] time] < cutoffTime)) {
+            while(([eye_samples count] > 0) && ([(MWEyeSamplePlotElement *)[eye_samples objectAtIndex:0] time] < cutoffTime)) {
                 [eye_samples removeObjectAtIndex:0];
                 needUpdate = YES;
             }

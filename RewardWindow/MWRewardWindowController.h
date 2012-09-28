@@ -10,9 +10,9 @@
 	IBOutlet id<MWClientProtocol> delegate;
 }
 
-@property (readwrite, assign) id delegate;
-@property (readwrite, copy) NSString *rewardVarName;
-@property (readwrite, assign) float duration;
+@property (nonatomic, readwrite, assign) id delegate;
+@property (nonatomic, readwrite, copy) NSString *rewardVarName;
+@property (nonatomic, readwrite, assign) float duration;
 
 - (IBAction)sendReward:(id)sender;
 

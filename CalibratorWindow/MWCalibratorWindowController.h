@@ -37,6 +37,6 @@ const int MIN_NUM_CALIBRATION_PARAMS = 3;
 // Accessors
 @property (readwrite, assign) float vOffset, hOffset, vGain, hGain;
 @property (readwrite, copy) NSString *selectedCalibratorName;
-@property (readwrite, assign) id delegate;
+@property (nonatomic, readwrite, assign) id delegate;
 
 @end

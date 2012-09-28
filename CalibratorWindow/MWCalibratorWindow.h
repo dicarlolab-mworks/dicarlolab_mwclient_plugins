@@ -13,6 +13,6 @@
 	IBOutlet id delegate;
 }
 
-@property (readwrite, assign) id delegate;
+@property (nonatomic, readwrite, assign) id delegate;
 
 @end

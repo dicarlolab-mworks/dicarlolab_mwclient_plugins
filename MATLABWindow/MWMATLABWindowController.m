@@ -157,18 +157,19 @@
 	[op setCanChooseDirectories:NO];
 	[op setCanChooseFiles:YES];
 	[op setAllowsMultipleSelection:NO];
+    [op setAllowedFileTypes:[NSArray arrayWithObject:@"m"]];
 	
-	int bp = [op runModalForTypes:[NSArray arrayWithObject:@"m"]];
+	int bp = [op runModal];
 	
-	if(bp == NSOKButton) {
+	if(bp == NSFileHandlingPanelOKButton) {
 		
-		NSArray * fn = [op filenames];
+		NSArray * fn = [op URLs];
 		NSEnumerator * fileEnum = [fn objectEnumerator];
-		NSString * filename;
+		NSURL * filename;
 		NSString *matlabFile;
 		
 		while((filename = [fileEnum nextObject])) {
-			matlabFile = filename;
+			matlabFile = [filename path];
 		}
 		
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -409,7 +410,7 @@
 	do { 
 		NSAutoreleasePool *pool2 = [[NSAutoreleasePool alloc] init];
 		[matlabLock lock];
-		self.numberToProcessString = [NSString stringWithFormat:@"Process %d events", [executionList count]];
+		self.numberToProcessString = [NSString stringWithFormat:@"Process %lu events", (unsigned long)[executionList count]];
 		[matlabLock unlock];
 		
 		
