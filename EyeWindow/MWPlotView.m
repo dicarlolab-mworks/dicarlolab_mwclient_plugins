@@ -243,7 +243,7 @@
         // We have a synced eyeH/eyeV pair, so add a plot element for it
         //
         
-        int eye_state = (max(eyeHTime, eyeVTime) >= last_state_change_time) ? current_state : !current_state;
+        int eye_state = (std::max(eyeHTime, eyeVTime) >= last_state_change_time) ? current_state : !current_state;
         
         MWEyeSamplePlotElement *sample = nil;
         sample = [[MWEyeSamplePlotElement alloc] initWithTime:[NSDate timeIntervalSinceReferenceDate]
@@ -549,7 +549,7 @@
 
         NSTimeInterval sleepInterval;
         @synchronized(self) {
-            sleepInterval = min(time_between_updates, MAX_SLEEP_INTERVAL);
+            sleepInterval = std::min(time_between_updates, MAX_SLEEP_INTERVAL);
         }
 
 		[NSThread sleepForTimeInterval:sleepInterval];
