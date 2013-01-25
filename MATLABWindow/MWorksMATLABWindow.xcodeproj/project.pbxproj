@@ -31,6 +31,7 @@
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		E16D96141157E06B00B28A8F /* Main.xib in Resources */ = {isa = PBXBuildFile; fileRef = E16D96131157E06B00B28A8F /* Main.xib */; };
+		E1F0E4E216B2D76C00C625C5 /* MWorksMATLABTools.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1F0E4E016B2D76C00C625C5 /* MWorksMATLABTools.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,8 @@
 		E16D96131157E06B00B28A8F /* Main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Main.xib; sourceTree = "<group>"; };
 		E1895B26116FD52500D8CBE0 /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Development.xcconfig; path = "/Library/Application Support/MWorks/Developer/Xcode/Development.xcconfig"; sourceTree = "<absolute>"; };
 		E1895B27116FD52500D8CBE0 /* WARNING.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = WARNING.txt; path = "/Library/Application Support/MWorks/Developer/Xcode/WARNING.txt"; sourceTree = "<absolute>"; };
+		E1F0E4E016B2D76C00C625C5 /* MWorksMATLABTools.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MWorksMATLABTools.cpp; sourceTree = "<group>"; };
+		E1F0E4E116B2D76C00C625C5 /* MWorksMATLABTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWorksMATLABTools.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +92,7 @@
 				E1895B24116FD52500D8CBE0 /* External Configs */,
 				0E5504FF0AADB7FE00987B47 /* MWorksMATLABWindow.xml */,
 				08FB77AFFE84173DC02AAC07 /* Classes */,
+				E1F0E4DF16B2D75500C625C5 /* Utilities */,
 				32C88E010371C26100C91783 /* Other Sources */,
 				089C167CFE841241C02AAC07 /* Resources */,
 				089C1671FE841209C02AAC07 /* Frameworks and Libraries */,
@@ -185,6 +189,15 @@
 			name = "External Configs";
 			sourceTree = "<group>";
 		};
+		E1F0E4DF16B2D75500C625C5 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				E1F0E4E116B2D76C00C625C5 /* MWorksMATLABTools.h */,
+				E1F0E4E016B2D76C00C625C5 /* MWorksMATLABTools.cpp */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -274,7 +287,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "# Replace @loader_path with @rpath so the linker will use the runtime search path to find the MATLAB shared libs\n\nexport FULL_NAME=${PRODUCT_NAME}.${WRAPPER_EXTENSION}\n\nfor libname in mat eng mex mx; do\n  install_name_tool -change \\\n    \"@loader_path/lib${libname}.dylib\" \\\n    \"@rpath/lib${libname}.dylib\" \\\n    \"${BUILT_PRODUCTS_DIR}/${FULL_NAME}/Contents/MacOS/${PRODUCT_NAME}\"\ndone";
+			shellScript = "# Replace @loader_path with @rpath so the linker will use the runtime search path to find the MATLAB shared libs\n\nexport FULL_NAME=${PRODUCT_NAME}.${WRAPPER_EXTENSION}\n\nfor libname in eng mx; do\n  install_name_tool -change \\\n    \"@loader_path/lib${libname}.dylib\" \\\n    \"@rpath/lib${libname}.dylib\" \\\n    \"${BUILT_PRODUCTS_DIR}/${FULL_NAME}/Contents/MacOS/${PRODUCT_NAME}\"\ndone";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -287,6 +300,7 @@
 				0ECE67F10BDD1DCA00E16CCF /* MATLABInterface.m in Sources */,
 				0E01072A0CA5D9EC00A28CAC /* MWVariableList.m in Sources */,
 				0E01072F0CA5DA2000A28CAC /* MWVarEntry.m in Sources */,
+				E1F0E4E216B2D76C00C625C5 /* MWorksMATLABTools.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,12 +356,9 @@
 				MATLAB_DIR = /Applications/MATLAB;
 				MATLAB_SCRIPT_INSTALL_DIR = "$(APP_SUPPORT_DIR)/Scripting/Matlab";
 				OTHER_LDFLAGS = (
-					"-lmat",
 					"-leng",
-					"-lmex",
 					"-lmx",
 					"-lscarab",
-					"-lMWorksMATLABTools",
 				);
 			};
 			name = Development;
