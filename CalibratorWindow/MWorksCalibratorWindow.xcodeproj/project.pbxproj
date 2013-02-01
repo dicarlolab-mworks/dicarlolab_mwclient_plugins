@@ -7,13 +7,25 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
+		E12D992016BC3142004FEF79 /* Install */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = E12D992116BC3142004FEF79 /* Build configuration list for PBXAggregateTarget "Install" */;
+			buildPhases = (
+				E12D992716BC314E004FEF79 /* CopyFiles */,
+			);
+			dependencies = (
+				E12D992616BC314B004FEF79 /* PBXTargetDependency */,
+			);
+			name = Install;
+			productName = Install;
+		};
 		E17B9E6A119CA5B700EEBF5D /* Everything */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = E17B9E73119CA5BF00EEBF5D /* Build configuration list for PBXAggregateTarget "Everything" */;
 			buildPhases = (
 			);
 			dependencies = (
-				E17B9E6D119CA5BB00EEBF5D /* PBXTargetDependency */,
+				E12D992416BC3149004FEF79 /* PBXTargetDependency */,
 			);
 			name = Everything;
 			productName = Everything;
@@ -29,10 +41,18 @@
 		5CF287520994124E000C55A3 /* MWorksCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CF287500994124E000C55A3 /* MWorksCocoa.framework */; };
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
+		E12D992816BC3152004FEF79 /* CalibratorWindow.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 686092F80AC8950400978FC3 /* CalibratorWindow.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		E17B9E6C119CA5BB00EEBF5D /* PBXContainerItemProxy */ = {
+		E12D992316BC3149004FEF79 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E12D992016BC3142004FEF79;
+			remoteInfo = Install;
+		};
+		E12D992516BC314B004FEF79 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
 			proxyType = 1;
@@ -40,6 +60,19 @@
 			remoteInfo = CalibratorWindow;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E12D992716BC314E004FEF79 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(MW_CLIENT_PLUGINS_DIR)";
+			dstSubfolderSpec = 0;
+			files = (
+				E12D992816BC3152004FEF79 /* CalibratorWindow.bundle in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -177,7 +210,6 @@
 				8D5B49AF048680CD000E48DA /* Resources */,
 				8D5B49B1048680CD000E48DA /* Sources */,
 				8D5B49B3048680CD000E48DA /* Frameworks */,
-				DA1E8AF8099AD12500CDAD82 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -212,6 +244,7 @@
 			projectRoot = "";
 			targets = (
 				8D5B49AC048680CD000E48DA /* CalibratorWindow */,
+				E12D992016BC3142004FEF79 /* Install */,
 				E17B9E6A119CA5B700EEBF5D /* Everything */,
 			);
 		};
@@ -229,22 +262,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		DA1E8AF8099AD12500CDAD82 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/zsh;
-			shellScript = "export FULL_NAME=${PRODUCT_NAME}.${WRAPPER_EXTENSION}\n\n# make the directory if it isnt there\nmkdir -p ${FINAL_INSTALL_DIR}\n\n# copy the framework to the proper directory\nrm -dfR \"${FINAL_INSTALL_DIR}/${FULL_NAME}\"\n\ncp -Rf \"${BUILT_PRODUCTS_DIR}/${FULL_NAME}\" \"${FINAL_INSTALL_DIR}/\"";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		8D5B49B1048680CD000E48DA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -259,10 +276,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		E17B9E6D119CA5BB00EEBF5D /* PBXTargetDependency */ = {
+		E12D992416BC3149004FEF79 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E12D992016BC3142004FEF79 /* Install */;
+			targetProxy = E12D992316BC3149004FEF79 /* PBXContainerItemProxy */;
+		};
+		E12D992616BC314B004FEF79 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8D5B49AC048680CD000E48DA /* CalibratorWindow */;
-			targetProxy = E17B9E6C119CA5BB00EEBF5D /* PBXContainerItemProxy */;
+			targetProxy = E12D992516BC314B004FEF79 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -278,6 +300,13 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		E12D992216BC3142004FEF79 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Development;
+		};
 		E17B9E6B119CA5B700EEBF5D /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -289,7 +318,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E1895A9C116FD00400D8CBE0 /* Development.xcconfig */;
 			buildSettings = {
-				FINAL_INSTALL_DIR = "$(CLIENT_PLUGINS_DIR)";
 				MACH_O_TYPE = mh_bundle;
 			};
 			name = Development;
@@ -324,6 +352,13 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Development;
+		};
+		E12D992116BC3142004FEF79 /* Build configuration list for PBXAggregateTarget "Install" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E12D992216BC3142004FEF79 /* Development */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		E17B9E73119CA5BF00EEBF5D /* Build configuration list for PBXAggregateTarget "Everything" */ = {
 			isa = XCConfigurationList;

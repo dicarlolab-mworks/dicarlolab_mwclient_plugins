@@ -14,13 +14,13 @@
 	NSMutableArray *hParameters;
 	NSMutableArray *vParameters;
 }
-- (id)init:(NSString *)calibratorName:(int)maxHParams:(int)maxVParams;
+- (id)initWithCalibratorName:(NSString *)calibratorName maxHParams:(int)maxHParams maxVParams:(int)maxVParams;
 - (NSString *)getCalibratorName;
 - (int)getNHParameters;
 - (int)getNVParameters;
 - (double)getHParameter:(int)index;
 - (double)getVParameter:(int)index;
-- (void)setHParameter:(int)index:(double)value;
-- (void)setVParameter:(int)index:(double)value;
+- (void)setHParameterIndex:(int)index value:(double)value;
+- (void)setVParameterIndex:(int)index value:(double)value;
 
 @end

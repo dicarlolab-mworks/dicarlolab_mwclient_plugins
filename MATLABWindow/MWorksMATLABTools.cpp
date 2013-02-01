@@ -6,12 +6,12 @@
  *  Copyright 2006 MIT. All rights reserved.
  *
  */
+#include <vector>
 
 #include "MWorksMATLABTools.h"
 
 #include <stdio.h>
 #include <string.h>
-#include <vector>
 
 //#include <mex.h>
 //

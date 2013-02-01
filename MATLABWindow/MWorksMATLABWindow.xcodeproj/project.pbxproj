@@ -7,13 +7,26 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
+		E12D993216BC355C004FEF79 /* Install */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = E12D993316BC355C004FEF79 /* Build configuration list for PBXAggregateTarget "Install" */;
+			buildPhases = (
+				E12D993916BC3567004FEF79 /* CopyFiles */,
+				E12D994116BC3622004FEF79 /* CopyFiles */,
+			);
+			dependencies = (
+				E12D993816BC3565004FEF79 /* PBXTargetDependency */,
+			);
+			name = Install;
+			productName = Install;
+		};
 		E17B9EAB119CA6DD00EEBF5D /* Everything */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = E17B9EB4119CA6E700EEBF5D /* Build configuration list for PBXAggregateTarget "Everything" */;
 			buildPhases = (
 			);
 			dependencies = (
-				E17B9EAE119CA6E300EEBF5D /* PBXTargetDependency */,
+				E12D993616BC3563004FEF79 /* PBXTargetDependency */,
 			);
 			name = Everything;
 			productName = Everything;
@@ -30,12 +43,25 @@
 		5CF287520994124E000C55A3 /* MWorksCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CF287500994124E000C55A3 /* MWorksCocoa.framework */; };
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
+		E12D993A16BC356D004FEF79 /* MWorksMATLABWindow.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 686092F80AC8950400978FC3 /* MWorksMATLABWindow.bundle */; };
+		E12D994216BC3633004FEF79 /* codec_code2idx.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = E12D993C16BC35F4004FEF79 /* codec_code2idx.m */; };
+		E12D994316BC3633004FEF79 /* codec_tag2code.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = E12D993D16BC35F4004FEF79 /* codec_tag2code.m */; };
+		E12D994416BC3633004FEF79 /* codec_tag2idx.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = E12D993E16BC35F4004FEF79 /* codec_tag2idx.m */; };
+		E12D994516BC3633004FEF79 /* dumpEvents.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = E12D993F16BC35F4004FEF79 /* dumpEvents.m */; };
+		E12D994616BC3633004FEF79 /* printErrorStack.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = E12D994016BC35F4004FEF79 /* printErrorStack.m */; };
 		E16D96141157E06B00B28A8F /* Main.xib in Resources */ = {isa = PBXBuildFile; fileRef = E16D96131157E06B00B28A8F /* Main.xib */; };
 		E1F0E4E216B2D76C00C625C5 /* MWorksMATLABTools.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1F0E4E016B2D76C00C625C5 /* MWorksMATLABTools.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		E17B9EAD119CA6E300EEBF5D /* PBXContainerItemProxy */ = {
+		E12D993516BC3563004FEF79 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E12D993216BC355C004FEF79;
+			remoteInfo = Install;
+		};
+		E12D993716BC3565004FEF79 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
 			proxyType = 1;
@@ -43,6 +69,33 @@
 			remoteInfo = MWorksMATLABWindow;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E12D993916BC3567004FEF79 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(MW_CLIENT_PLUGINS_DIR)";
+			dstSubfolderSpec = 0;
+			files = (
+				E12D993A16BC356D004FEF79 /* MWorksMATLABWindow.bundle in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E12D994116BC3622004FEF79 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(MATLAB_SCRIPT_INSTALL_DIR)";
+			dstSubfolderSpec = 0;
+			files = (
+				E12D994216BC3633004FEF79 /* codec_code2idx.m in CopyFiles */,
+				E12D994316BC3633004FEF79 /* codec_tag2code.m in CopyFiles */,
+				E12D994416BC3633004FEF79 /* codec_tag2idx.m in CopyFiles */,
+				E12D994516BC3633004FEF79 /* dumpEvents.m in CopyFiles */,
+				E12D994616BC3633004FEF79 /* printErrorStack.m in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -65,6 +118,11 @@
 		686092F80AC8950400978FC3 /* MWorksMATLABWindow.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MWorksMATLABWindow.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		E12D993C16BC35F4004FEF79 /* codec_code2idx.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = codec_code2idx.m; sourceTree = "<group>"; };
+		E12D993D16BC35F4004FEF79 /* codec_tag2code.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = codec_tag2code.m; sourceTree = "<group>"; };
+		E12D993E16BC35F4004FEF79 /* codec_tag2idx.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = codec_tag2idx.m; sourceTree = "<group>"; };
+		E12D993F16BC35F4004FEF79 /* dumpEvents.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = dumpEvents.m; sourceTree = "<group>"; };
+		E12D994016BC35F4004FEF79 /* printErrorStack.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = printErrorStack.m; sourceTree = "<group>"; };
 		E16D96131157E06B00B28A8F /* Main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Main.xib; sourceTree = "<group>"; };
 		E1895B26116FD52500D8CBE0 /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Development.xcconfig; path = "/Library/Application Support/MWorks/Developer/Xcode/Development.xcconfig"; sourceTree = "<absolute>"; };
 		E1895B27116FD52500D8CBE0 /* WARNING.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = WARNING.txt; path = "/Library/Application Support/MWorks/Developer/Xcode/WARNING.txt"; sourceTree = "<absolute>"; };
@@ -94,6 +152,7 @@
 				08FB77AFFE84173DC02AAC07 /* Classes */,
 				E1F0E4DF16B2D75500C625C5 /* Utilities */,
 				32C88E010371C26100C91783 /* Other Sources */,
+				E12D993B16BC35CD004FEF79 /* Scripts */,
 				089C167CFE841241C02AAC07 /* Resources */,
 				089C1671FE841209C02AAC07 /* Frameworks and Libraries */,
 				19C28FB8FE9D52D311CA2CBB /* Products */,
@@ -180,6 +239,19 @@
 			name = "Other Sources";
 			sourceTree = "<group>";
 		};
+		E12D993B16BC35CD004FEF79 /* Scripts */ = {
+			isa = PBXGroup;
+			children = (
+				E12D993C16BC35F4004FEF79 /* codec_code2idx.m */,
+				E12D993D16BC35F4004FEF79 /* codec_tag2code.m */,
+				E12D993E16BC35F4004FEF79 /* codec_tag2idx.m */,
+				E12D993F16BC35F4004FEF79 /* dumpEvents.m */,
+				E12D994016BC35F4004FEF79 /* printErrorStack.m */,
+			);
+			name = Scripts;
+			path = scripts;
+			sourceTree = "<group>";
+		};
 		E1895B24116FD52500D8CBE0 /* External Configs */ = {
 			isa = PBXGroup;
 			children = (
@@ -209,7 +281,6 @@
 				8D5B49B1048680CD000E48DA /* Sources */,
 				8D5B49B3048680CD000E48DA /* Frameworks */,
 				E18DFB42110F6FEC00740231 /* ShellScript */,
-				DA1E8AF8099AD12500CDAD82 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -244,6 +315,7 @@
 			projectRoot = "";
 			targets = (
 				8D5B49AC048680CD000E48DA /* MWorksMATLABWindow */,
+				E12D993216BC355C004FEF79 /* Install */,
 				E17B9EAB119CA6DD00EEBF5D /* Everything */,
 			);
 		};
@@ -263,19 +335,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		DA1E8AF8099AD12500CDAD82 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/zsh;
-			shellScript = "export FULL_NAME=${PRODUCT_NAME}.${WRAPPER_EXTENSION}\n\n# make the directory if it isnt there\nmkdir -p ${FINAL_INSTALL_DIR}\n\n# copy the framework to the proper directory\nrm -dfR \"${FINAL_INSTALL_DIR}/${FULL_NAME}\"\n\ncp -Rf \"${BUILT_PRODUCTS_DIR}/${FULL_NAME}\" \"${FINAL_INSTALL_DIR}/\"\n\n# install the MATLAB scripts\nmkdir -p \"${MATLAB_SCRIPT_INSTALL_DIR}\"\ncp -X \"${SRCROOT}\"/scripts/*.m \"${MATLAB_SCRIPT_INSTALL_DIR}\"";
-		};
 		E18DFB42110F6FEC00740231 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -307,10 +366,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		E17B9EAE119CA6E300EEBF5D /* PBXTargetDependency */ = {
+		E12D993616BC3563004FEF79 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E12D993216BC355C004FEF79 /* Install */;
+			targetProxy = E12D993516BC3563004FEF79 /* PBXContainerItemProxy */;
+		};
+		E12D993816BC3565004FEF79 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8D5B49AC048680CD000E48DA /* MWorksMATLABWindow */;
-			targetProxy = E17B9EAD119CA6E300EEBF5D /* PBXContainerItemProxy */;
+			targetProxy = E12D993716BC3565004FEF79 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -326,6 +390,13 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		E12D993416BC355C004FEF79 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Development;
+		};
 		E17B9EAC119CA6DD00EEBF5D /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -337,18 +408,17 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E1895B26116FD52500D8CBE0 /* Development.xcconfig */;
 			buildSettings = {
-				FINAL_INSTALL_DIR = "$(CLIENT_PLUGINS_DIR)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MWorksMATLABWindow_Prefix.pch;
 				HEADER_SEARCH_PATHS = (
 					"$(MATLAB_DIR)/extern/include",
-					"$(MW_INCLUDE_DIR)",
+					"$(inherited)",
 				);
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(MATLAB_DIR)/bin/$(MATLAB_ARCH_$(CURRENT_ARCH))";
 				LIBRARY_SEARCH_PATHS = (
 					"$(MATLAB_DIR)/bin/$(MATLAB_ARCH_$(CURRENT_ARCH))",
-					"$(MW_LIB_DIR)",
+					"$(inherited)",
 				);
 				MACH_O_TYPE = mh_bundle;
 				MATLAB_ARCH_i386 = maci;
@@ -391,6 +461,13 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Development;
+		};
+		E12D993316BC355C004FEF79 /* Build configuration list for PBXAggregateTarget "Install" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E12D993416BC355C004FEF79 /* Development */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		E17B9EB4119CA6E700EEBF5D /* Build configuration list for PBXAggregateTarget "Everything" */ = {
 			isa = XCConfigurationList;

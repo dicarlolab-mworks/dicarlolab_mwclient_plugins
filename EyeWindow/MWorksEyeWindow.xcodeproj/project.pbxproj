@@ -7,13 +7,25 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
+		E12D992916BC3481004FEF79 /* Install */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = E12D992A16BC3481004FEF79 /* Build configuration list for PBXAggregateTarget "Install" */;
+			buildPhases = (
+				E12D993016BC348F004FEF79 /* CopyFiles */,
+			);
+			dependencies = (
+				E12D992F16BC348C004FEF79 /* PBXTargetDependency */,
+			);
+			name = Install;
+			productName = Install;
+		};
 		E17B9E91119CA62000EEBF5D /* Everything */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = E17B9E9A119CA62700EEBF5D /* Build configuration list for PBXAggregateTarget "Everything" */;
 			buildPhases = (
 			);
 			dependencies = (
-				E17B9E94119CA62300EEBF5D /* PBXTargetDependency */,
+				E12D992D16BC348A004FEF79 /* PBXTargetDependency */,
 			);
 			name = Everything;
 			productName = Everything;
@@ -33,10 +45,18 @@
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		B283771B0A8A951400358169 /* MWStimulusPlotElement.m in Sources */ = {isa = PBXBuildFile; fileRef = B283771A0A8A951400358169 /* MWStimulusPlotElement.m */; };
 		B2F32F320A9BA48700D8EE53 /* MWorksCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CF2875F099412A7000C55A3 /* MWorksCore.framework */; };
+		E12D993116BC3494004FEF79 /* MWorksEyeWindow.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 686E22AF0AC84B19003EFDDA /* MWorksEyeWindow.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		E17B9E93119CA62300EEBF5D /* PBXContainerItemProxy */ = {
+		E12D992C16BC348A004FEF79 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E12D992916BC3481004FEF79;
+			remoteInfo = Install;
+		};
+		E12D992E16BC348C004FEF79 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
 			proxyType = 1;
@@ -44,6 +64,19 @@
 			remoteInfo = MWorksEyeWindow;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E12D993016BC348F004FEF79 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(MW_CLIENT_PLUGINS_DIR)";
+			dstSubfolderSpec = 0;
+			files = (
+				E12D993116BC3494004FEF79 /* MWorksEyeWindow.bundle in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -196,7 +229,6 @@
 				8D5B49AF048680CD000E48DA /* Resources */,
 				8D5B49B1048680CD000E48DA /* Sources */,
 				8D5B49B3048680CD000E48DA /* Frameworks */,
-				DA1E8AF8099AD12500CDAD82 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -231,6 +263,7 @@
 			projectRoot = "";
 			targets = (
 				8D5B49AC048680CD000E48DA /* MWorksEyeWindow */,
+				E12D992916BC3481004FEF79 /* Install */,
 				E17B9E91119CA62000EEBF5D /* Everything */,
 			);
 		};
@@ -249,22 +282,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		DA1E8AF8099AD12500CDAD82 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/zsh;
-			shellScript = "export FULL_NAME=${PRODUCT_NAME}.${WRAPPER_EXTENSION}\n\n# make the directory if it isnt there\nmkdir -p ${FINAL_INSTALL_DIR}\n\n# copy the framework to the proper directory\nrm -dfR \"${FINAL_INSTALL_DIR}/${FULL_NAME}\"\n\ncp -Rf \"${BUILT_PRODUCTS_DIR}/${FULL_NAME}\" \"${FINAL_INSTALL_DIR}/\"";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		8D5B49B1048680CD000E48DA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -281,10 +298,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		E17B9E94119CA62300EEBF5D /* PBXTargetDependency */ = {
+		E12D992D16BC348A004FEF79 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E12D992916BC3481004FEF79 /* Install */;
+			targetProxy = E12D992C16BC348A004FEF79 /* PBXContainerItemProxy */;
+		};
+		E12D992F16BC348C004FEF79 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8D5B49AC048680CD000E48DA /* MWorksEyeWindow */;
-			targetProxy = E17B9E93119CA62300EEBF5D /* PBXContainerItemProxy */;
+			targetProxy = E12D992E16BC348C004FEF79 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -300,6 +322,13 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		E12D992B16BC3481004FEF79 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Development;
+		};
 		E17B9E92119CA62000EEBF5D /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -311,7 +340,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E1895AC7116FD27F00D8CBE0 /* Development.xcconfig */;
 			buildSettings = {
-				FINAL_INSTALL_DIR = "$(CLIENT_PLUGINS_DIR)";
 			};
 			name = Development;
 		};
@@ -345,6 +373,13 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Development;
+		};
+		E12D992A16BC3481004FEF79 /* Build configuration list for PBXAggregateTarget "Install" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E12D992B16BC3481004FEF79 /* Development */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		E17B9E9A119CA62700EEBF5D /* Build configuration list for PBXAggregateTarget "Everything" */ = {
 			isa = XCConfigurationList;

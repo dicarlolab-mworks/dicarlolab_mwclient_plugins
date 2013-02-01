@@ -7,13 +7,25 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
+		E12D994716BC37E5004FEF79 /* Install */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = E12D994816BC37E5004FEF79 /* Build configuration list for PBXAggregateTarget "Install" */;
+			buildPhases = (
+				E12D994E16BC37F0004FEF79 /* CopyFiles */,
+			);
+			dependencies = (
+				E12D994D16BC37ED004FEF79 /* PBXTargetDependency */,
+			);
+			name = Install;
+			productName = Install;
+		};
 		E17B9ED0119CA80500EEBF5D /* Everything */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = E17B9ED6119CA80E00EEBF5D /* Build configuration list for PBXAggregateTarget "Everything" */;
 			buildPhases = (
 			);
 			dependencies = (
-				E17B9ED3119CA80A00EEBF5D /* PBXTargetDependency */,
+				E12D994B16BC37EB004FEF79 /* PBXTargetDependency */,
 			);
 			name = Everything;
 			productName = Everything;
@@ -28,10 +40,18 @@
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		DA1E8F1C099C393000CDAD82 /* MWorksRewardWindow.xml in Resources */ = {isa = PBXBuildFile; fileRef = DA1E8F1B099C393000CDAD82 /* MWorksRewardWindow.xml */; };
+		E12D994F16BC37F4004FEF79 /* MWorksRewardWindow.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 686E22920AC84A89003EFDDA /* MWorksRewardWindow.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		E17B9ED2119CA80A00EEBF5D /* PBXContainerItemProxy */ = {
+		E12D994A16BC37EB004FEF79 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E12D994716BC37E5004FEF79;
+			remoteInfo = Install;
+		};
+		E12D994C16BC37ED004FEF79 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
 			proxyType = 1;
@@ -39,6 +59,19 @@
 			remoteInfo = MWorksRewardWindow;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E12D994E16BC37F0004FEF79 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(MW_CLIENT_PLUGINS_DIR)";
+			dstSubfolderSpec = 0;
+			files = (
+				E12D994F16BC37F4004FEF79 /* MWorksRewardWindow.bundle in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -170,7 +203,6 @@
 				8D5B49AF048680CD000E48DA /* Resources */,
 				8D5B49B1048680CD000E48DA /* Sources */,
 				8D5B49B3048680CD000E48DA /* Frameworks */,
-				DA1E8AF8099AD12500CDAD82 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -205,6 +237,7 @@
 			projectRoot = "";
 			targets = (
 				8D5B49AC048680CD000E48DA /* MWorksRewardWindow */,
+				E12D994716BC37E5004FEF79 /* Install */,
 				E17B9ED0119CA80500EEBF5D /* Everything */,
 			);
 		};
@@ -223,22 +256,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		DA1E8AF8099AD12500CDAD82 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/zsh;
-			shellScript = "export FULL_NAME=${PRODUCT_NAME}.${WRAPPER_EXTENSION}\n\n# make the directory if it isnt there\nmkdir -p ${FINAL_INSTALL_DIR}\n\n# copy the framework to the proper directory\nrm -dfR \"${FINAL_INSTALL_DIR}/${FULL_NAME}\"\n\ncp -Rf \"${BUILT_PRODUCTS_DIR}/${FULL_NAME}\" \"${FINAL_INSTALL_DIR}/\"";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		8D5B49B1048680CD000E48DA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -251,10 +268,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		E17B9ED3119CA80A00EEBF5D /* PBXTargetDependency */ = {
+		E12D994B16BC37EB004FEF79 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E12D994716BC37E5004FEF79 /* Install */;
+			targetProxy = E12D994A16BC37EB004FEF79 /* PBXContainerItemProxy */;
+		};
+		E12D994D16BC37ED004FEF79 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8D5B49AC048680CD000E48DA /* MWorksRewardWindow */;
-			targetProxy = E17B9ED2119CA80A00EEBF5D /* PBXContainerItemProxy */;
+			targetProxy = E12D994C16BC37ED004FEF79 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -270,6 +292,13 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		E12D994916BC37E5004FEF79 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Development;
+		};
 		E17B9ED1119CA80500EEBF5D /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -281,7 +310,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E1895B47116FD7A500D8CBE0 /* Development.xcconfig */;
 			buildSettings = {
-				FINAL_INSTALL_DIR = "$(CLIENT_PLUGINS_DIR)";
 				MACH_O_TYPE = mh_bundle;
 			};
 			name = Development;
@@ -315,6 +343,13 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Development;
+		};
+		E12D994816BC37E5004FEF79 /* Build configuration list for PBXAggregateTarget "Install" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E12D994916BC37E5004FEF79 /* Development */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		E17B9ED6119CA80E00EEBF5D /* Build configuration list for PBXAggregateTarget "Everything" */ = {
 			isa = XCConfigurationList;

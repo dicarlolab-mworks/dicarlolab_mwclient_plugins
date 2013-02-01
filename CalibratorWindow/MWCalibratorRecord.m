@@ -10,7 +10,7 @@
 
 @implementation MWCalibratorRecord
 
-- (id)init:(NSString *)calibratorName:(int)maxHParams:(int)maxVParams {
+- (id)initWithCalibratorName:(NSString *)calibratorName maxHParams:(int)maxHParams maxVParams:(int)maxVParams {
 	name = [[NSString alloc] initWithString:calibratorName];
 	
 	hParameters = [[NSMutableArray alloc] init];
@@ -62,12 +62,12 @@
 	return 0;
 }
 
-- (void)setHParameter:(int)index:(double)value {
+- (void)setHParameterIndex:(int)index value:(double)value {
 	if(index < [hParameters count]) 
 		[hParameters replaceObjectAtIndex:index withObject:[NSNumber numberWithFloat:value ]];
 }
 
-- (void)setVParameter:(int)index:(double)value {
+- (void)setVParameterIndex:(int)index value:(double)value {
 	if(index < [vParameters count]) 
 		[vParameters replaceObjectAtIndex:index withObject:[NSNumber numberWithFloat:value ]];
 }

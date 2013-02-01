@@ -10,7 +10,7 @@
 
 @interface MWCalibratorWindowController(PrivateMethods)
 - (void)serviceEvent:(MWCocoaEvent *)event;
-- (BOOL)insertCalibratorUnlessAlreadyExists:(NSString *)calibratorName:(int)maxHParams:(int)maxVParams;
+- (BOOL)insertCalibratorUnlessAlreadyExists:(NSString *)calibratorName maxHParams:(int)maxHParams maxVParams:(int)maxVParams;
 - (BOOL)calibratorAlreadyExists:(NSString *)calibratorName;
 - (NSString *)getDisplayedCalibratorName;
 - (void)updateParameterDisplay;
@@ -105,7 +105,7 @@
 							
 							
 							[crLock lock];
-							[self insertCalibratorUnlessAlreadyExists:calibratorName:hParams.getNElements():vParams.getNElements()];
+							[self insertCalibratorUnlessAlreadyExists:calibratorName maxHParams:hParams.getNElements() maxVParams:vParams.getNElements()];
 							int calibratorIndex = [self getCalibratorIndexByName:calibratorName];
 							
 							MWCalibratorRecord *cr = [calibratorRecords objectAtIndex:calibratorIndex];
@@ -113,13 +113,13 @@
 							for(int i=0; i<hParams.getNElements(); ++i) {
 								Datum hParam(hParams[i]);
 								if(hParam.isFloat())	
-									[cr setHParameter:i :hParam.getFloat()];
+									[cr setHParameterIndex:i value:hParam.getFloat()];
 							}
 							
 							for(int i=0; i<vParams.getNElements(); ++i) {
 								Datum vParam(vParams[i]);
 								if(vParam.isFloat())	
-									[cr setVParameter:i :vParam.getFloat()];
+									[cr setVParameterIndex:i value:vParam.getFloat()];
 							}
 							
 							[crLock unlock];
@@ -183,7 +183,7 @@
 			
 			[crLock lock];
 			
-			[self insertCalibratorUnlessAlreadyExists:self.selectedCalibratorName :6 :6]; // need to find a better way to manage the max elements
+			[self insertCalibratorUnlessAlreadyExists:self.selectedCalibratorName maxHParams:6 maxVParams:6]; // need to find a better way to manage the max elements
 			
 			int calibratorIndex = [self getCalibratorIndexByName:self.selectedCalibratorName];
 			
@@ -209,7 +209,7 @@
 	{
 		[crLock lock];
 		
-		[self insertCalibratorUnlessAlreadyExists:self.selectedCalibratorName :6 :6]; // need to find a better way to manage the max elements
+		[self insertCalibratorUnlessAlreadyExists:self.selectedCalibratorName maxHParams:6 maxVParams:6]; // need to find a better way to manage the max elements
 		
 		
 		int calibratorIndex = [self getCalibratorIndexByName:self.selectedCalibratorName];
@@ -236,7 +236,7 @@
 						break;
 				}
 				
-				[cr setHParameter:i :value];
+				[cr setHParameterIndex:i value:value];
 			}
 			
 			for(int i=0; i<[cr getNVParameters]; ++i) {
@@ -254,7 +254,7 @@
 						break;
 				}
 				
-				[cr setVParameter:i :value];
+				[cr setVParameterIndex:i value:value];
 			}
 			
 			[self sendCalibrationParams:calibratorIndex];
@@ -320,9 +320,9 @@
 	return NO;
 }
 
-- (BOOL)insertCalibratorUnlessAlreadyExists:(NSString *)calibratorName:(int)maxHParams:(int)maxVParams {
+- (BOOL)insertCalibratorUnlessAlreadyExists:(NSString *)calibratorName maxHParams:(int)maxHParams maxVParams:(int)maxVParams {
 	if(![self calibratorAlreadyExists:calibratorName]) {
-		MWCalibratorRecord *cr = [[MWCalibratorRecord alloc] init:calibratorName:maxHParams:maxVParams];
+		MWCalibratorRecord *cr = [[MWCalibratorRecord alloc] initWithCalibratorName:calibratorName maxHParams:maxHParams maxVParams:maxVParams];
 		[calibratorRecords addObject:cr];
 		if(displayedCalibratorIndex == -1)
 			displayedCalibratorIndex = 0;
