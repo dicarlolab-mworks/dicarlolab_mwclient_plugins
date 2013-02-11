@@ -37,11 +37,11 @@
 		0E5505030AADB81800987B47 /* MWCalibratorWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5505020AADB81800987B47 /* MWCalibratorWindowController.m */; };
 		0E6DAFF40DCC792300DA90B0 /* MWCalibratorWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6DAFF30DCC792300DA90B0 /* MWCalibratorWindow.m */; };
 		0EABD5AA0AADC5EF00DF111C /* Main.nib in Resources */ = {isa = PBXBuildFile; fileRef = 0EABD5A90AADC5EF00DF111C /* Main.nib */; };
-		0EB67A120AAE11E00034D377 /* MWorksCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CF2875F099412A7000C55A3 /* MWorksCore.framework */; };
-		5CF287520994124E000C55A3 /* MWorksCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CF287500994124E000C55A3 /* MWorksCocoa.framework */; };
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
-		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		E12D992816BC3152004FEF79 /* CalibratorWindow.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 686092F80AC8950400978FC3 /* CalibratorWindow.bundle */; };
+		E15D0B2E16C2C8DC00F331B1 /* MWorksCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E15D0B2D16C2C8DC00F331B1 /* MWorksCore.framework */; };
+		E15D0B3016C2C8EF00F331B1 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E15D0B2F16C2C8EF00F331B1 /* AppKit.framework */; };
+		E15D0B3216C2C8F400F331B1 /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E15D0B3116C2C8F400F331B1 /* libboost_system.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,9 +75,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		0E1913D40AB73C0E00ECCD13 /* MWCalibratorRecord.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MWCalibratorRecord.h; sourceTree = "<group>"; };
 		0E1913D50AB73C0E00ECCD13 /* MWCalibratorRecord.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = MWCalibratorRecord.m; sourceTree = "<group>"; };
 		0E5504FC0AADB7EC00987B47 /* MWorksCalibratorWindow_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MWorksCalibratorWindow_Prefix.pch; sourceTree = "<group>"; };
@@ -86,12 +84,11 @@
 		0E6DAFF20DCC792300DA90B0 /* MWCalibratorWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWCalibratorWindow.h; sourceTree = "<group>"; };
 		0E6DAFF30DCC792300DA90B0 /* MWCalibratorWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWCalibratorWindow.m; sourceTree = "<group>"; };
 		0EABD5A90AADC5EF00DF111C /* Main.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = Main.nib; sourceTree = "<group>"; };
-		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		5CF287500994124E000C55A3 /* MWorksCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MWorksCocoa.framework; path = /Library/Frameworks/MWorksCocoa.framework; sourceTree = "<absolute>"; };
-		5CF2875F099412A7000C55A3 /* MWorksCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MWorksCore.framework; path = /Library/Frameworks/MWorksCore.framework; sourceTree = "<absolute>"; };
 		686092F80AC8950400978FC3 /* CalibratorWindow.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CalibratorWindow.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		E15D0B2D16C2C8DC00F331B1 /* MWorksCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MWorksCore.framework; path = /Library/Frameworks/MWorksCore.framework; sourceTree = "<absolute>"; };
+		E15D0B2F16C2C8EF00F331B1 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		E15D0B3116C2C8F400F331B1 /* libboost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_system.a; path = "/Library/Application Support/MWorks/Developer/lib/libboost_system.a"; sourceTree = "<absolute>"; };
 		E1895A9C116FD00400D8CBE0 /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Development.xcconfig; path = "/Library/Application Support/MWorks/Developer/Xcode/Development.xcconfig"; sourceTree = "<absolute>"; };
 		E1895A9D116FD00400D8CBE0 /* WARNING.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = WARNING.txt; path = "/Library/Application Support/MWorks/Developer/Xcode/WARNING.txt"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
@@ -101,9 +98,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */,
-				5CF287520994124E000C55A3 /* MWorksCocoa.framework in Frameworks */,
-				0EB67A120AAE11E00034D377 /* MWorksCore.framework in Frameworks */,
+				E15D0B2E16C2C8DC00F331B1 /* MWorksCore.framework in Frameworks */,
+				E15D0B3016C2C8EF00F331B1 /* AppKit.framework in Frameworks */,
+				E15D0B3216C2C8F400F331B1 /* libboost_system.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,19 +114,20 @@
 				08FB77AFFE84173DC02AAC07 /* Classes */,
 				32C88E010371C26100C91783 /* Other Sources */,
 				089C167CFE841241C02AAC07 /* Resources */,
-				089C1671FE841209C02AAC07 /* Frameworks and Libraries */,
+				089C1671FE841209C02AAC07 /* Frameworks & Libraries */,
 				19C28FB8FE9D52D311CA2CBB /* Products */,
 			);
 			name = MonkeyWorksRewardWindow;
 			sourceTree = "<group>";
 		};
-		089C1671FE841209C02AAC07 /* Frameworks and Libraries */ = {
+		089C1671FE841209C02AAC07 /* Frameworks & Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */,
-				1058C7AEFEA557BF11CA2CBB /* Other Frameworks */,
+				E15D0B2D16C2C8DC00F331B1 /* MWorksCore.framework */,
+				E15D0B2F16C2C8EF00F331B1 /* AppKit.framework */,
+				E15D0B3116C2C8F400F331B1 /* libboost_system.a */,
 			);
-			name = "Frameworks and Libraries";
+			name = "Frameworks & Libraries";
 			sourceTree = "<group>";
 		};
 		089C167CFE841241C02AAC07 /* Resources */ = {
@@ -153,26 +151,6 @@
 				0E6DAFF30DCC792300DA90B0 /* MWCalibratorWindow.m */,
 			);
 			name = Classes;
-			sourceTree = "<group>";
-		};
-		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */,
-			);
-			name = "Linked Frameworks";
-			sourceTree = "<group>";
-		};
-		1058C7AEFEA557BF11CA2CBB /* Other Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				5CF2875F099412A7000C55A3 /* MWorksCore.framework */,
-				5CF287500994124E000C55A3 /* MWorksCocoa.framework */,
-				089C167FFE841241C02AAC07 /* AppKit.framework */,
-				D2F7E65807B2D6F200F64583 /* CoreData.framework */,
-				089C1672FE841209C02AAC07 /* Foundation.framework */,
-			);
-			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
 		19C28FB8FE9D52D311CA2CBB /* Products */ = {
@@ -359,6 +337,7 @@
 				E12D992216BC3142004FEF79 /* Development */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
 		};
 		E17B9E73119CA5BF00EEBF5D /* Build configuration list for PBXAggregateTarget "Everything" */ = {
 			isa = XCConfigurationList;

@@ -232,7 +232,7 @@
 	}	
 
 	// check to see if engine is still running
-	mxArray *dummyArray = mxCreateScalarDouble(0);
+	mxArray *dummyArray = mxCreateDoubleScalar(0);
 	if(engPutVariable(matlabEngine, "MW_DUMMY_VAR", dummyArray)) {
 		[delegate appendLogText:@"** MATLAB engine found dead"];
 		// if it's not, start it up again
