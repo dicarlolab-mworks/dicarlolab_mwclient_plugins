@@ -7,7 +7,7 @@
 
 @protocol MWDataEventListenerProtocol;
 
-@interface MWMATLABWindowController : NSWindowController {
+@interface MWMATLABWindowController : NSWindowController <MWClientPluginTaskState> {
 
 	IBOutlet MATLABInterface *mi;
 	IBOutlet id<MWClientProtocol> delegate;

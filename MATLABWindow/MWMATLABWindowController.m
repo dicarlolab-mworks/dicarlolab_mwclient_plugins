@@ -473,17 +473,10 @@
 - (void)updateVariableFilter {
 	[matlabLock lock];
 	
-	NSMutableArray *selected_variables = [NSMutableArray array];
+	NSArray *selected_variables;
 	
 	@synchronized(vl) {
-		NSEnumerator *enumerator = [[vl current_vars] objectEnumerator];
-		MWVarEntry *var;
-		
-		while(var = [enumerator nextObject]) {
-			if([[var selected] boolValue]) {
-				[selected_variables addObject:[var name]];
-			}
-		}
+        selected_variables = [vl currentSelectedVariables];
 	}
 	
 	if([selected_variables count] > 1) {
@@ -510,4 +503,73 @@
 						waitUntilDone:YES];
 }
 
+
+- (NSDictionary *)taskState {
+    NSMutableDictionary *taskState = [NSMutableDictionary dictionary];
+    
+    if (running == NSOnState) {
+        if (matlab_file_name) {
+            [taskState setObject:matlab_file_name forKey:@"filePath"];
+        }
+        if (sync_event_name) {
+            [taskState setObject:sync_event_name forKey:@"syncEventName"];
+        }
+        @synchronized(vl) {
+            [taskState setObject:[vl currentSelectedVariables] forKey:@"selectedVariables"];
+        }
+    }
+    
+    return taskState;
+}
+
+
+- (void)setTaskState:(NSDictionary *)taskState {
+    NSString *newFilePath = [taskState objectForKey:@"filePath"];
+    if (newFilePath && [newFilePath isKindOfClass:[NSString class]]) {
+        [[NSUserDefaults standardUserDefaults] setObject:newFilePath forKey:MATLAB_M_FILE];
+        [self setMatlabFileName:newFilePath];
+    }
+    
+    NSString *newSyncEventName = [taskState objectForKey:@"syncEventName"];
+    if (newSyncEventName && [newSyncEventName isKindOfClass:[NSString class]]) {
+        [self setSyncEventName:newSyncEventName];
+    }
+    
+    NSArray *newSelectedVariables = [taskState objectForKey:@"selectedVariables"];
+    if (newSelectedVariables &&
+        [newSelectedVariables isKindOfClass:[NSArray class]] &&
+        [newSelectedVariables count] > 0)
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:newSelectedVariables forKey:SELECTED_VAR_NAMES];
+    }
+}
+
+
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

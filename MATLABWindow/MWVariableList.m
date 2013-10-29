@@ -76,10 +76,7 @@
 - (NSArray *)currentSelectedVariables {
 	NSMutableArray *current_selected_variables = [NSMutableArray array];
 	
-	NSEnumerator *var_enumerator = [current_vars objectEnumerator];
-	MWVarEntry *mve = nil;
-	
-	while(mve = [var_enumerator nextObject]) {
+	for (MWVarEntry *mve in current_vars) {
 		if([[mve selected] boolValue]) {
 			[current_selected_variables addObject:[mve name]];
 		}
