@@ -245,7 +245,7 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 		}
 		
 		warningMessage = [warningMessage substringToIndex:([warningMessage length] - 2)];
-		mwarning(M_NETWORK_MESSAGE_DOMAIN, [warningMessage cStringUsingEncoding:NSASCIIStringEncoding]);		
+		mwarning(M_NETWORK_MESSAGE_DOMAIN, "%s", [warningMessage cStringUsingEncoding:NSASCIIStringEncoding]);		
 		
 	}
 }	

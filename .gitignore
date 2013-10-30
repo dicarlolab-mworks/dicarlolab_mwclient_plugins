@@ -3,3 +3,4 @@
 */*.xcodeproj/project.xcworkspace/xcuserdata/
 */*.xcodeproj/xcuserdata/
 */build/
+*.xccheckout
