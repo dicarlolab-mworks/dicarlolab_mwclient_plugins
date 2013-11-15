@@ -308,7 +308,7 @@
 			[tStr deleteCharactersInRange:deleteRange];
 		}
 			  
-		[self->logTextView display];
+		[self->logTextView setNeedsDisplay:YES];
 		if (self->scrollToBottom) {
 			[self doScrollToBottom];
 		}
@@ -500,7 +500,7 @@
 	
 	[self performSelectorOnMainThread: @selector(appendLogTextMain:)
 						   withObject: logText
-						waitUntilDone: YES];	
+						waitUntilDone: NO];
 }
 
 -(void) doScrollToBottom {
