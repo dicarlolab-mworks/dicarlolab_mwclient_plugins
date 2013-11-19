@@ -1,5 +1,6 @@
 #import "MWorksCocoa/MWCocoaEvent.h"
 #import "MWorksCocoa/MWClientServerBase.h"
+#import "MWorksCocoa/NSString+MWorksCocoaAdditions.h"
 #import "MWorksCore/GenericData.h"
 #import "MWorksCore/VariableProperties.h"
 #import "MWMATLABWindowController.h"
@@ -526,6 +527,7 @@
 - (void)setTaskState:(NSDictionary *)taskState {
     NSString *newFilePath = [taskState objectForKey:@"filePath"];
     if (newFilePath && [newFilePath isKindOfClass:[NSString class]]) {
+        newFilePath = [newFilePath mwk_absolutePath];
         [[NSUserDefaults standardUserDefaults] setObject:newFilePath forKey:MATLAB_M_FILE];
         [self setMatlabFileName:newFilePath];
     }
