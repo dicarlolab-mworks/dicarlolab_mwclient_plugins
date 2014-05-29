@@ -505,39 +505,39 @@
 }
 
 
-- (NSDictionary *)taskState {
-    NSMutableDictionary *taskState = [NSMutableDictionary dictionary];
+- (NSDictionary *)workspaceState {
+    NSMutableDictionary *workspaceState = [NSMutableDictionary dictionary];
     
     if (running == NSOnState) {
         if (matlab_file_name) {
-            [taskState setObject:matlab_file_name forKey:@"filePath"];
+            [workspaceState setObject:matlab_file_name forKey:@"filePath"];
         }
         if (sync_event_name) {
-            [taskState setObject:sync_event_name forKey:@"syncEventName"];
+            [workspaceState setObject:sync_event_name forKey:@"syncEventName"];
         }
         @synchronized(vl) {
-            [taskState setObject:[vl currentSelectedVariables] forKey:@"selectedVariables"];
+            [workspaceState setObject:[vl currentSelectedVariables] forKey:@"selectedVariables"];
         }
     }
     
-    return taskState;
+    return workspaceState;
 }
 
 
-- (void)setTaskState:(NSDictionary *)taskState {
-    NSString *newFilePath = [taskState objectForKey:@"filePath"];
+- (void)setWorkspaceState:(NSDictionary *)workspaceState {
+    NSString *newFilePath = [workspaceState objectForKey:@"filePath"];
     if (newFilePath && [newFilePath isKindOfClass:[NSString class]]) {
         newFilePath = [newFilePath mwk_absolutePath];
         [[NSUserDefaults standardUserDefaults] setObject:newFilePath forKey:MATLAB_M_FILE];
         [self setMatlabFileName:newFilePath];
     }
     
-    NSString *newSyncEventName = [taskState objectForKey:@"syncEventName"];
+    NSString *newSyncEventName = [workspaceState objectForKey:@"syncEventName"];
     if (newSyncEventName && [newSyncEventName isKindOfClass:[NSString class]]) {
         [self setSyncEventName:newSyncEventName];
     }
     
-    NSArray *newSelectedVariables = [taskState objectForKey:@"selectedVariables"];
+    NSArray *newSelectedVariables = [workspaceState objectForKey:@"selectedVariables"];
     if (newSelectedVariables &&
         [newSelectedVariables isKindOfClass:[NSArray class]] &&
         [newSelectedVariables count] > 0)
