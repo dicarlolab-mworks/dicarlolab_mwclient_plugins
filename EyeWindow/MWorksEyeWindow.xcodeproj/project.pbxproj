@@ -146,10 +146,8 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				5C8E4A68098FA2A600EB44CA /* Main.xib */,
 				8D5B49B7048680CD000E48DA /* Info.plist */,
 				089C167DFE841241C02AAC07 /* InfoPlist.strings */,
-				68D292E10AF8EB8900E9A885 /* OptionWindow.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -168,6 +166,8 @@
 				5C8E4A7A098FB02400EB44CA /* MWEyeWindowController.m */,
 				5CF28588099402F4000C55A3 /* MWEyeSamplePlotElement.h */,
 				5CF28589099402F4000C55A3 /* MWEyeSamplePlotElement.m */,
+				5C8E4A68098FA2A600EB44CA /* Main.xib */,
+				68D292E10AF8EB8900E9A885 /* OptionWindow.xib */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
