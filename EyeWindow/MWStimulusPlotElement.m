@@ -124,15 +124,15 @@
 //========================= Drawing the stimulus ====================================
 - (void)stroke:(NSRect)visible {
 	if (stm_isOn) {
-		if ([stm_type isEqualToString:[NSString stringWithCString:STIM_TYPE_POINT encoding:NSASCIIStringEncoding]]) {
+		if ([stm_type isEqualToString:@STIM_TYPE_POINT]) {
 			glColor3f (0,1,0);
 			
 			[self openGLCommandsToDrawBoxInFrame:visible];
 			glLineWidth (1);
 			[self openGLCommandsToDrawCrossInFrame:visible 
 										  withSize:NSMakeSize(0.3*size.width, 0.3*size.height)];
-		} else if ([stm_type isEqualToString:[NSString stringWithCString:STIM_TYPE_POINT encoding:NSASCIIStringEncoding]] ||
-				   [stm_type isEqualToString:[NSString stringWithCString:STIM_TYPE_IMAGE encoding:NSASCIIStringEncoding]]) {
+		} else if ([stm_type isEqualToString:@STIM_TYPE_POINT] ||
+				   [stm_type isEqualToString:@STIM_TYPE_IMAGE]) {
 			glLineWidth (1);
 			glColor3f (1,0,0);
 			

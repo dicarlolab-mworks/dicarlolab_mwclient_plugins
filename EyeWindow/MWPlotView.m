@@ -111,10 +111,10 @@
 		glDisable(GL_LINE_STIPPLE);
 
 		if([eye_samples count]) {
-			MWEyeSamplePlotElement *last_sample = [eye_samples objectAtIndex:0];			
+			MWEyeSamplePlotElement *last_sample = eye_samples[0];			
 			
 			for(int i = 1; i < [eye_samples count]-1; ++i) {
-				MWEyeSamplePlotElement *current_sample = [eye_samples objectAtIndex:i];
+				MWEyeSamplePlotElement *current_sample = eye_samples[i];
 				
 				NSPoint last_pos = NSMakePoint(2*((last_sample.position.x-visible.origin.x)/(visible.size.width))-1,
 											   2*((last_sample.position.y-visible.origin.y)/(visible.size.height))-1);
@@ -148,7 +148,7 @@
 		// Goes through the NSMutable array 'stm_samples' to display each item in 
 		// the array
 		for(int i = 0; i < [stm_samples count]; i++) {
-			MWStimulusPlotElement *stimulus = [stm_samples objectAtIndex:i];
+			MWStimulusPlotElement *stimulus = stm_samples[i];
 			
 			[stimulus stroke:visible];              
 		}
@@ -277,10 +277,10 @@
 			
 			int i;
 			for(i = 0; i < [stm_samples count]; i++) { 
-				MWStimulusPlotElement *existing_stm = [stm_samples objectAtIndex:i];
+				MWStimulusPlotElement *existing_stm = stm_samples[i];
 				
 				[existing_stm setOnOff:NO];
-				[stm_samples replaceObjectAtIndex:i withObject:existing_stm];
+				stm_samples[i] = existing_stm;
 			}
 		}
 		
@@ -299,7 +299,7 @@
 		
 		//check for stimulus type
 		mw::Datum type_data = stm_announce->getElement(STIM_TYPE);
-		NSString* stm_type = [NSString stringWithCString:type_data.getString() encoding:NSASCIIStringEncoding];	
+		NSString* stm_type = @(type_data.getString());	
 		
 		//only update eye window when encounting images and fixation stimulus 
 		if (type_data == STIM_TYPE_IMAGE) {
@@ -310,7 +310,7 @@
 			mw::Datum width_x_data = stm_announce->getElement(STIM_SIZEX);
 			mw::Datum width_y_data = stm_announce->getElement(STIM_SIZEY);
 			
-			stm_name = [NSString stringWithCString:name_data.getString() encoding:NSASCIIStringEncoding];
+			stm_name = @(name_data.getString());
 			stm_pos_x = pos_x_data.getFloat();
 			stm_pos_y = pos_y_data.getFloat();
 			stm_width_x = width_x_data.getFloat();
@@ -322,7 +322,7 @@
 			int i;
 			
 			for(i = 0; i < [stm_samples count]; i++) { 
-				MWStimulusPlotElement *existing_stm = [stm_samples objectAtIndex:i];
+				MWStimulusPlotElement *existing_stm = stm_samples[i];
 				if([[existing_stm getName] isEqualToString:stm_name]) {
 					
 					[existing_stm setOnOff:YES];
@@ -331,7 +331,7 @@
 					[existing_stm setSizeX:stm_width_x];
 					[existing_stm setSizeY:stm_width_y];
 					
-					[stm_samples replaceObjectAtIndex:i withObject:existing_stm];
+					stm_samples[i] = existing_stm;
 					Item_exist = YES;
 				}
 			}
@@ -355,7 +355,7 @@
 			mw::Datum width_x_data = stm_announce->getElement("width");
 			mw::Datum width_y_data = stm_announce->getElement("width");
 			
-			stm_name = [NSString stringWithCString:name_data.getString() encoding:NSASCIIStringEncoding];
+			stm_name = @(name_data.getString());
 			stm_pos_x = pos_x_data.getFloat();
 			stm_pos_y = pos_y_data.getFloat();
 			stm_width_x = width_x_data.getFloat();
@@ -367,7 +367,7 @@
 			int i;
 			
 			for(i = 0; i < [stm_samples count]; i++) { 
-				MWStimulusPlotElement *existing_stm = [stm_samples objectAtIndex:i];
+				MWStimulusPlotElement *existing_stm = stm_samples[i];
 				if([[existing_stm getName] isEqualToString:stm_name]) {
 					
 					[existing_stm setOnOff:YES];
@@ -376,7 +376,7 @@
 					[existing_stm setSizeX:stm_width_x];
 					[existing_stm setSizeY:stm_width_y];
 					
-					[stm_samples replaceObjectAtIndex:i withObject:existing_stm];
+					stm_samples[i] = existing_stm;
 					Item_exist = YES;
 				}
 			}
@@ -399,7 +399,7 @@
 			mw::Datum width_x_data = stm_announce->getElement(STIM_SIZEX);
 			mw::Datum width_y_data = stm_announce->getElement(STIM_SIZEY);
 			
-			stm_name = [NSString stringWithCString:name_data.getString() encoding:NSASCIIStringEncoding];
+			stm_name = @(name_data.getString());
 			stm_pos_x = pos_x_data.getFloat();
 			stm_pos_y = pos_y_data.getFloat();
 			stm_width_x = width_x_data.getFloat();
@@ -411,7 +411,7 @@
 			int i;
 			
 			for(i = 0; i < [stm_samples count]; i++) { 
-				MWStimulusPlotElement *existing_stm = [stm_samples objectAtIndex:i];
+				MWStimulusPlotElement *existing_stm = stm_samples[i];
 				if([[existing_stm getName] isEqualToString:stm_name]) {
 					
 					[existing_stm setOnOff:YES];
@@ -420,7 +420,7 @@
 					[existing_stm setSizeX:stm_width_x];
 					[existing_stm setSizeY:stm_width_y];
 					
-					[stm_samples replaceObjectAtIndex:i withObject:existing_stm];
+					stm_samples[i] = existing_stm;
 					Item_exist = YES;
 				}
 			}
@@ -467,7 +467,7 @@
 				int i;
 				
 				for(i = 0; i < [stm_samples count]; i++) { 
-					MWStimulusPlotElement *existing_stm = [stm_samples objectAtIndex:i];
+					MWStimulusPlotElement *existing_stm = stm_samples[i];
 					if ([[existing_stm getName] isEqualToString: stm_name]) {
 						
 						[existing_stm setOnOff:YES];
@@ -476,7 +476,7 @@
 						[existing_stm setSizeX:0];
 						[existing_stm setSizeY:0];
 						
-						[stm_samples replaceObjectAtIndex:i withObject:existing_stm];
+						stm_samples[i] = existing_stm;
 						Item_exist = YES;
 					}
 				}
@@ -543,7 +543,7 @@
 		
 		@synchronized(self) {
             NSTimeInterval cutoffTime = [NSDate timeIntervalSinceReferenceDate] - timeOfTail;
-            while(([eye_samples count] > 0) && ([(MWEyeSamplePlotElement *)[eye_samples objectAtIndex:0] time] < cutoffTime)) {
+            while(([eye_samples count] > 0) && ([(MWEyeSamplePlotElement *)eye_samples[0] time] < cutoffTime)) {
                 [eye_samples removeObjectAtIndex:0];
                 needUpdate = YES;
             }

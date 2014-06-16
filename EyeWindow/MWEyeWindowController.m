@@ -169,10 +169,8 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 	if(delegate != nil) {
 		hCodecCode = [[delegate codeForTag:EYE_H] intValue];
 		vCodecCode = [[delegate codeForTag:EYE_V] intValue];
-		stmAnnounceCodecCode = [[delegate codeForTag:[NSString stringWithCString:ANNOUNCE_STIMULUS_TAGNAME
-																		encoding:NSASCIIStringEncoding]] intValue];
-		calAnnounceCodecCode = [[delegate codeForTag:[NSString stringWithCString:ANNOUNCE_CALIBRATOR_TAGNAME
-																		encoding:NSASCIIStringEncoding]] intValue];
+		stmAnnounceCodecCode = [[delegate codeForTag:@ANNOUNCE_STIMULUS_TAGNAME] intValue];
+		calAnnounceCodecCode = [[delegate codeForTag:@ANNOUNCE_CALIBRATOR_TAGNAME] intValue];
 		eyeStateCodecCode = [[delegate codeForTag:EYE_STATE] intValue];
 		
 		[delegate unregisterCallbacksWithKey:[EYE_WINDOW_CALLBACK_KEY UTF8String]];
@@ -227,13 +225,11 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 			warningMessage = [warningMessage stringByAppendingString:@", "];
 		}
 		if(stmAnnounceCodecCode == -1) {
-			warningMessage = [warningMessage stringByAppendingString:[NSString stringWithCString:ANNOUNCE_STIMULUS_TAGNAME
-																						encoding:NSASCIIStringEncoding]];
+			warningMessage = [warningMessage stringByAppendingString:@ANNOUNCE_STIMULUS_TAGNAME];
 			warningMessage = [warningMessage stringByAppendingString:@", "];
 		}
 		if(calAnnounceCodecCode == -1) {
-			warningMessage = [warningMessage stringByAppendingString:[NSString stringWithCString:ANNOUNCE_CALIBRATOR_TAGNAME
-																						encoding:NSASCIIStringEncoding]];
+			warningMessage = [warningMessage stringByAppendingString:@ANNOUNCE_CALIBRATOR_TAGNAME];
 			warningMessage = [warningMessage stringByAppendingString:@", "];
 		}
 		if(eyeStateCodecCode == -1) {
