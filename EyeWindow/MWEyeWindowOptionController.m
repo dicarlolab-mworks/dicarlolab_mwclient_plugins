@@ -25,12 +25,6 @@
     return self;
 }
 
-- (void)dealloc {
-	[h release];
-	[v release];
-	[eye_state release];
-	[super dealloc];
-}
 
 - (void)awakeFromNib {
 	NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
@@ -63,7 +57,6 @@
 	return h;
 }
 - (void)setH:(NSString *)_h {
-	[h release];
 	h = [_h copy];
 }
 
@@ -71,7 +64,6 @@
 	return v;	
 }
 - (void)setV:(NSString *)_v {
-	[v release];
 	v = [_v copy];
 }
 
@@ -80,7 +72,6 @@
 }
 
 - (void)setEyeState:(NSString *)_eye_state {
-	[eye_state release];
 	eye_state = [_eye_state copy];
 }
 

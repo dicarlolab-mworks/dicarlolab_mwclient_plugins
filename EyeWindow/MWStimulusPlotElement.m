@@ -36,11 +36,6 @@
 	return self;
 }
 
-- (void)dealloc {
-	[stm_type release];
-	[stm_name release];
-	[super dealloc];
-}
 
 - (NSString *)getName {
 	return stm_name;

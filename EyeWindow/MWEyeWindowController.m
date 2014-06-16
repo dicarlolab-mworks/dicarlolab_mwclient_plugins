@@ -99,9 +99,6 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 - (void)updateEyeVariableNames {
 	[plotView setTimeOfTail:[OptionWindow timeOfTail]];
 	[plotView setUpdateRate:[OptionWindow updateRate]];
-	[EYE_H release];
-	[EYE_V release];
-	[EYE_STATE release];
 	EYE_H = [[NSString alloc] initWithString:[OptionWindow h]];
 	EYE_V = [[NSString alloc] initWithString:[OptionWindow v]];
 	EYE_STATE = [[NSString alloc] initWithString:[OptionWindow eyeState]];

@@ -318,12 +318,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E1895AC7116FD27F00D8CBE0 /* Development.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 			};
 			name = Development;
 		};
 		E1895AD3116FD2C700D8CBE0 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MWorksEyeWindow_Prefix.pch;

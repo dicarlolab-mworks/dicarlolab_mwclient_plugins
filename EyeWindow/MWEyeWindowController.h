@@ -28,7 +28,7 @@ extern NSString  * MWEyeWindowVariableUpdateNotification;
     IBOutlet NSScrollView *scrollView;
 	IBOutlet NSSlider *scaleSlider;
     IBOutlet NSTextField *scaleTextField;
-	IBOutlet id<MWClientProtocol> delegate;
+	IBOutlet id<MWClientProtocol> __unsafe_unretained delegate;
 
 	MWEyeWindowOptionController * OptionWindow;
 	
@@ -42,7 +42,7 @@ extern NSString  * MWEyeWindowVariableUpdateNotification;
 	
 }
 
-@property (nonatomic, assign, readwrite) id delegate;
+@property (nonatomic, unsafe_unretained, readwrite) id delegate;
 /*!
  * @function acceptWidth:
  * @discussion

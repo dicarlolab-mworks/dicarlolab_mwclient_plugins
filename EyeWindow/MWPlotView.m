@@ -13,8 +13,8 @@
 
 @interface MWPlotView ()
 
-@property(nonatomic, retain) MWCocoaEvent *currentEyeH;
-@property(nonatomic, retain) MWCocoaEvent *currentEyeV;
+@property(nonatomic, strong) MWCocoaEvent *currentEyeH;
+@property(nonatomic, strong) MWCocoaEvent *currentEyeV;
 
 - (void)syncHEvent:(MWCocoaEvent *)eyeH withVEvent:(MWCocoaEvent *)eyeV;
 - (void)checkForUpdates:(id)object;
@@ -68,18 +68,10 @@
 		//[self setFrameSize:NSMakeSize(PLOT_VIEW_FULL_SIZE,PLOT_VIEW_FULL_SIZE)];
 	}
     
-    [fmt release];
     
 	return self;
 }
 
-- (void)dealloc {
-	[eye_samples release];	
-	[stm_samples release];
-    [currentEyeH release];
-    [currentEyeV release];
-	[super dealloc];
-}
 
 #define FIXATION_DOT_SIZE 2.0f
 #define SACCADE_LINE_WIDTH 1.0f
@@ -251,7 +243,6 @@
                                                                           [self.currentEyeV data]->getFloat()) 
                                                   isSaccading:eye_state];
         [eye_samples addObject:sample];
-        [sample release];
         
         self.currentEyeH = nil;
         self.currentEyeV = nil;
@@ -354,7 +345,6 @@
                                                                                          WidthX:stm_width_x 
                                                                                          WidthY:stm_width_y];
 				[stm_samples addObject:new_stm];
-                [new_stm release];
 			}
 			
 		} else if (type_data == STIM_TYPE_POINT) {
@@ -400,7 +390,6 @@
                                                                                          WidthX:stm_width_x 
                                                                                          WidthY:stm_width_y];
 				[stm_samples addObject:new_stm];
-                [new_stm release];
 			}
 		} else if (type_data == STIM_TYPE_POINT) {
 			
@@ -445,7 +434,6 @@
                                                                                          WidthX:stm_width_x 
                                                                                          WidthY:stm_width_y];
 				[stm_samples addObject:new_stm];
-                [new_stm release];
 			}
 		}
 	}
@@ -502,7 +490,6 @@
                                                                                              WidthX:0 
                                                                                              WidthY:0];
 					[stm_samples addObject:new_stm];
-                    [new_stm release];
 				}
 			}
 		}
@@ -545,7 +532,7 @@
 
 - (void)checkForUpdates:(id)object {
 	while(1) {
-		NSAutoreleasePool *loop_pool = [[NSAutoreleasePool alloc] init];
+		@autoreleasepool {
 
         NSTimeInterval sleepInterval;
         @synchronized(self) {
@@ -569,7 +556,7 @@
             }
 		}
 		
-		[loop_pool drain];
+		}
 	}
 }
 
