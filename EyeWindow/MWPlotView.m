@@ -295,147 +295,66 @@
 		float stm_width_x = 0.0;
 		float stm_width_y = 0.0;
 		
+        mw::Datum name_data = stm_announce->getElement(STIM_NAME);
+        mw::Datum pos_x_data = stm_announce->getElement(STIM_POSX);
+        mw::Datum pos_y_data = stm_announce->getElement(STIM_POSY);
+        mw::Datum width_x_data = stm_announce->getElement(STIM_SIZEX);
+        mw::Datum width_y_data = stm_announce->getElement(STIM_SIZEY);
+        
+        if (!name_data.isString() ||
+            !pos_x_data.isNumber() ||
+            !pos_y_data.isNumber() ||
+            !width_x_data.isNumber() ||
+            !width_y_data.isNumber())
+        {
+            // Not enough data to show this stimulus
+            return;
+        }
 		
-		
-		//check for stimulus type
-		mw::Datum type_data = stm_announce->getElement(STIM_TYPE);
-		NSString* stm_type = @(type_data.getString());	
-		
-		//only update eye window when encounting images and fixation stimulus 
-		if (type_data == STIM_TYPE_IMAGE) {
-			
-			mw::Datum name_data = stm_announce->getElement(STIM_NAME);
-			mw::Datum pos_x_data = stm_announce->getElement(STIM_POSX);
-			mw::Datum pos_y_data = stm_announce->getElement(STIM_POSY);
-			mw::Datum width_x_data = stm_announce->getElement(STIM_SIZEX);
-			mw::Datum width_y_data = stm_announce->getElement(STIM_SIZEY);
-			
-			stm_name = @(name_data.getString());
-			stm_pos_x = pos_x_data.getFloat();
-			stm_pos_y = pos_y_data.getFloat();
-			stm_width_x = width_x_data.getFloat();
-			stm_width_y = width_y_data.getFloat();
-			
-			
-			//Checking to see if the item is already in the list
-			BOOL Item_exist = NO;
-			int i;
-			
-			for(i = 0; i < [stm_samples count]; i++) { 
-				MWStimulusPlotElement *existing_stm = stm_samples[i];
-				if([[existing_stm getName] isEqualToString:stm_name]) {
-					
-					[existing_stm setOnOff:YES];
-					[existing_stm setPositionX:stm_pos_x];
-					[existing_stm setPositionY:stm_pos_y];
-					[existing_stm setSizeX:stm_width_x];
-					[existing_stm setSizeY:stm_width_y];
-					
-					stm_samples[i] = existing_stm;
-					Item_exist = YES;
-				}
-			}
-			
-			//If the item's not in the list, add it to the existing list
-			if (Item_exist == NO) {
-				MWStimulusPlotElement *new_stm = [[MWStimulusPlotElement alloc] initStimElement:stm_type 
-                                                                                           Name:stm_name
-                                                                                            AtX:stm_pos_x 
-                                                                                            AtY:stm_pos_y 
-                                                                                         WidthX:stm_width_x 
-                                                                                         WidthY:stm_width_y];
-				[stm_samples addObject:new_stm];
-			}
-			
-		} else if (type_data == STIM_TYPE_POINT) {
-			
-			mw::Datum name_data = stm_announce->getElement(STIM_NAME);
-			mw::Datum pos_x_data = stm_announce->getElement(STIM_POSX);
-			mw::Datum pos_y_data = stm_announce->getElement(STIM_POSY);
-			mw::Datum width_x_data = stm_announce->getElement("width");
-			mw::Datum width_y_data = stm_announce->getElement("width");
-			
-			stm_name = @(name_data.getString());
-			stm_pos_x = pos_x_data.getFloat();
-			stm_pos_y = pos_y_data.getFloat();
-			stm_width_x = width_x_data.getFloat();
-			stm_width_y = width_y_data.getFloat();
-			
-			
-			//Checking to see if the item is already in the list
-			BOOL Item_exist = NO;
-			int i;
-			
-			for(i = 0; i < [stm_samples count]; i++) { 
-				MWStimulusPlotElement *existing_stm = stm_samples[i];
-				if([[existing_stm getName] isEqualToString:stm_name]) {
-					
-					[existing_stm setOnOff:YES];
-					[existing_stm setPositionX:stm_pos_x];
-					[existing_stm setPositionY:stm_pos_y];
-					[existing_stm setSizeX:stm_width_x];
-					[existing_stm setSizeY:stm_width_y];
-					
-					stm_samples[i] = existing_stm;
-					Item_exist = YES;
-				}
-			}
-			
-			//If the item's not in the list, add it to the existing list
-			if (Item_exist == NO) {
-				MWStimulusPlotElement *new_stm = [[MWStimulusPlotElement alloc] initStimElement:stm_type
-                                                                                           Name:stm_name
-                                                                                            AtX:stm_pos_x
-                                                                                            AtY:stm_pos_y 
-                                                                                         WidthX:stm_width_x 
-                                                                                         WidthY:stm_width_y];
-				[stm_samples addObject:new_stm];
-			}
-		} else if (type_data == STIM_TYPE_POINT) {
-			
-			mw::Datum name_data = stm_announce->getElement(STIM_NAME);
-			mw::Datum pos_x_data = stm_announce->getElement(STIM_POSX);
-			mw::Datum pos_y_data = stm_announce->getElement(STIM_POSY);
-			mw::Datum width_x_data = stm_announce->getElement(STIM_SIZEX);
-			mw::Datum width_y_data = stm_announce->getElement(STIM_SIZEY);
-			
-			stm_name = @(name_data.getString());
-			stm_pos_x = pos_x_data.getFloat();
-			stm_pos_y = pos_y_data.getFloat();
-			stm_width_x = width_x_data.getFloat();
-			stm_width_y = width_y_data.getFloat();
-			
-			
-			//Checking to see if the item is already in the list
-			BOOL Item_exist = NO;
-			int i;
-			
-			for(i = 0; i < [stm_samples count]; i++) { 
-				MWStimulusPlotElement *existing_stm = stm_samples[i];
-				if([[existing_stm getName] isEqualToString:stm_name]) {
-					
-					[existing_stm setOnOff:YES];
-					[existing_stm setPositionX:stm_pos_x];
-					[existing_stm setPositionY:stm_pos_y];
-					[existing_stm setSizeX:stm_width_x];
-					[existing_stm setSizeY:stm_width_y];
-					
-					stm_samples[i] = existing_stm;
-					Item_exist = YES;
-				}
-			}
-			
-			//If the item's not in the list, add it to the existing list
-			if (Item_exist == NO) {
-				MWStimulusPlotElement *new_stm = [[MWStimulusPlotElement alloc] initStimElement:stm_type
-                                                                                           Name:stm_name
-                                                                                            AtX:stm_pos_x
-                                                                                            AtY:stm_pos_y 
-                                                                                         WidthX:stm_width_x 
-                                                                                         WidthY:stm_width_y];
-				[stm_samples addObject:new_stm];
-			}
-		}
+        mw::Datum type_data = stm_announce->getElement(STIM_TYPE);
+        NSString* stm_type = @(type_data.getString());
+        
+        if (type_data == STIM_TYPE_POINT) {
+            // For fixation points, we want to display the trigger area, not the visible rectangle
+            width_x_data = width_y_data = stm_announce->getElement("width");
+        }
+        
+        stm_name = @(name_data.getString());
+        stm_pos_x = pos_x_data.getFloat();
+        stm_pos_y = pos_y_data.getFloat();
+        stm_width_x = width_x_data.getFloat();
+        stm_width_y = width_y_data.getFloat();
+        
+        
+        //Checking to see if the item is already in the list
+        BOOL Item_exist = NO;
+        int i;
+        
+        for(i = 0; i < [stm_samples count]; i++) {
+            MWStimulusPlotElement *existing_stm = stm_samples[i];
+            if([[existing_stm getName] isEqualToString:stm_name]) {
+                
+                [existing_stm setOnOff:YES];
+                [existing_stm setPositionX:stm_pos_x];
+                [existing_stm setPositionY:stm_pos_y];
+                [existing_stm setSizeX:stm_width_x];
+                [existing_stm setSizeY:stm_width_y];
+                
+                stm_samples[i] = existing_stm;
+                Item_exist = YES;
+            }
+        }
+        
+        //If the item's not in the list, add it to the existing list
+        if (Item_exist == NO) {
+            MWStimulusPlotElement *new_stm = [[MWStimulusPlotElement alloc] initStimElement:stm_type
+                                                                                       Name:stm_name
+                                                                                        AtX:stm_pos_x
+                                                                                        AtY:stm_pos_y
+                                                                                     WidthX:stm_width_x
+                                                                                     WidthY:stm_width_y];
+            [stm_samples addObject:new_stm];
+        }
 	}
 }
 //=====================================================================================

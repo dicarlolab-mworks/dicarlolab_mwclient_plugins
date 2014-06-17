@@ -131,12 +131,6 @@
 			glLineWidth (1);
 			[self openGLCommandsToDrawCrossInFrame:visible 
 										  withSize:NSMakeSize(0.3*size.width, 0.3*size.height)];
-		} else if ([stm_type isEqualToString:@STIM_TYPE_POINT] ||
-				   [stm_type isEqualToString:@STIM_TYPE_IMAGE]) {
-			glLineWidth (1);
-			glColor3f (1,0,0);
-			
-			[self openGLCommandsToDrawBoxInFrame:visible];
 		} else if ([stm_type isEqualToString:@"calibratorSample"]) {
 			glLineWidth (1);
 			glColor3f (1,0,0);
@@ -151,7 +145,12 @@
 				selector: @selector(eraseCalSample:)
 				userInfo: nil
 				repeats: NO];	
-		}
+		} else {
+			glLineWidth (1);
+			glColor3f (1,0,0);
+			
+			[self openGLCommandsToDrawBoxInFrame:visible];
+        }
 	}
 }
 //=====================================================================================
