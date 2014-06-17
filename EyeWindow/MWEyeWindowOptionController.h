@@ -16,9 +16,6 @@
 	NSString * eye_state;
 	
 	NSTimeInterval time_of_tail;
-	float update_rate;
-	
-
 }
 
 
@@ -29,9 +26,6 @@
 
 - (NSTimeInterval)timeOfTail;
 - (void)setTimeOfTail:(NSTimeInterval)new_time_of_tail;
-
-- (float)updateRate;
-- (void)setUpdateRate:(float)new_update_rate;
 
 - (NSString *)v;
 - (void)setV:(NSString *)_v;

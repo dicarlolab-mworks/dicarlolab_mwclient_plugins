@@ -9,7 +9,6 @@
 #import "MWEyeWindowOptionController.h"
 #import "MWEyeWindowController.h"
 
-#define MW_EYE_WINDOW_UPDATE_RATE @"MWorksClient - Eye Window - update_rate"
 #define MW_EYE_WINDOW_TIME_OF_TAIL @"MWorksClient - Eye Window - time_of_tail"
 #define MW_EYE_WINDOW_H_NAME @"MWorksClient - Eye Window - h"
 #define MW_EYE_WINDOW_V_NAME @"MWorksClient - Eye Window - v"
@@ -29,8 +28,7 @@
 - (void)awakeFromNib {
 	NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
 	
-	[self setUpdateRate:[ud floatForKey:MW_EYE_WINDOW_UPDATE_RATE]];
-	[self setTimeOfTail:[ud floatForKey:MW_EYE_WINDOW_TIME_OF_TAIL]];	
+	[self setTimeOfTail:[ud floatForKey:MW_EYE_WINDOW_TIME_OF_TAIL]];
 	[self setV:[ud stringForKey:MW_EYE_WINDOW_V_NAME]];
 	[self setH:[ud stringForKey:MW_EYE_WINDOW_H_NAME]];
 	[self setEyeState:[ud stringForKey:MW_EYE_WINDOW_EYE_STATE_NAME]];
@@ -75,13 +73,6 @@
 	eye_state = [_eye_state copy];
 }
 
-- (void)setUpdateRate:(float)new_update_rate {
-	update_rate = new_update_rate;
-}
-- (float)updateRate {
-	return update_rate;
-}
-
 - (IBAction)updateVariables:(id)sender {
 	[self closeSheet];
     [[NSNotificationCenter defaultCenter] 
@@ -93,7 +84,6 @@
 	[ud setObject:[self h] forKey:MW_EYE_WINDOW_H_NAME];
 	[ud setObject:[self v] forKey:MW_EYE_WINDOW_V_NAME];
 	[ud setFloat:[self timeOfTail] forKey:MW_EYE_WINDOW_TIME_OF_TAIL];
-	[ud setFloat:[self updateRate] forKey:MW_EYE_WINDOW_UPDATE_RATE];
 	[ud synchronize];
 }
 

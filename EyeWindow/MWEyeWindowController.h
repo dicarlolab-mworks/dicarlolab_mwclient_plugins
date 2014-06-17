@@ -36,10 +36,6 @@ extern NSString  * MWEyeWindowVariableUpdateNotification;
 	NSString *EYE_H;
 	NSString *EYE_V;
 	NSString *EYE_STATE;
-
-	
-	bool eyeWindowStarted;
-	
 }
 
 @property (nonatomic, unsafe_unretained, readwrite) id delegate;

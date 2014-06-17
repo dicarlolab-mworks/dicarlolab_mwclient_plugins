@@ -28,9 +28,6 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 	self = [super init];
 	if (self != nil) {
 		OptionWindow = [[MWEyeWindowOptionController alloc] init];
-		
-		
-		eyeWindowStarted = NO;
 	}
 	return self;
 }
@@ -42,7 +39,6 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 											   object:nil];
 	
 	[plotView setTimeOfTail:[OptionWindow timeOfTail]];
-	[plotView setUpdateRate:[OptionWindow updateRate]];
 	EYE_H = [[NSString alloc] initWithString:[OptionWindow h]];
 	EYE_V = [[NSString alloc] initWithString:[OptionWindow v]];
 	EYE_STATE = [[NSString alloc] initWithString:[OptionWindow eyeState]];
@@ -98,7 +94,6 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 
 - (void)updateEyeVariableNames {
 	[plotView setTimeOfTail:[OptionWindow timeOfTail]];
-	[plotView setUpdateRate:[OptionWindow updateRate]];
 	EYE_H = [[NSString alloc] initWithString:[OptionWindow h]];
 	EYE_V = [[NSString alloc] initWithString:[OptionWindow v]];
 	EYE_STATE = [[NSString alloc] initWithString:[OptionWindow eyeState]];
@@ -111,12 +106,6 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
  *                Callback Methods
  *******************************************************************/
 - (void)codecReceived:(MWCocoaEvent *)event {
-	if(!eyeWindowStarted) {
-		[NSThread detachNewThreadSelector:@selector(checkForUpdates:)
-								 toTarget:plotView
-							   withObject:nil];			
-		eyeWindowStarted = YES;
-	}
 	[self cacheCodes];	
 }
 

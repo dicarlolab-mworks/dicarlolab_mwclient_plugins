@@ -16,14 +16,12 @@
 @property(nonatomic, strong) MWCocoaEvent *currentEyeH;
 @property(nonatomic, strong) MWCocoaEvent *currentEyeV;
 
-- (void)syncHEvent:(MWCocoaEvent *)eyeH withVEvent:(MWCocoaEvent *)eyeV;
-- (void)checkForUpdates:(id)object;
-
 @end
 
 
 @implementation MWPlotView {
     dispatch_queue_t serialQueue;
+    BOOL updatePending;
 }
 
 @synthesize currentEyeH, currentEyeV;
@@ -45,7 +43,8 @@
 	
 	// these correspond to the defaults in the options window.
 	timeOfTail = 1.0; // 1s
-	time_between_updates = 0.1; // 100ms
+    
+    updatePending = NO;
 	
 	GLuint attribs[] = 
 	{
@@ -114,6 +113,20 @@
 		glEnd();
 		
 		glDisable(GL_LINE_STIPPLE);
+        
+        NSTimeInterval currentTime = [NSDate timeIntervalSinceReferenceDate];
+        NSTimeInterval cutoffTime = currentTime - timeOfTail;
+        NSUInteger firstValidIndex = [eye_samples indexOfObjectPassingTest:^BOOL (id obj, NSUInteger idx, BOOL *stop) {
+            MWEyeSamplePlotElement *sample = obj;
+            return (sample.time >= cutoffTime);
+        }];
+        
+        if (firstValidIndex != NSNotFound) {
+            [eye_samples removeObjectsInRange:NSMakeRange(0, firstValidIndex)];
+        } else {
+            // All samples have expired
+            [eye_samples removeAllObjects];
+        }
 
 		if([eye_samples count]) {
 			MWEyeSamplePlotElement *last_sample = eye_samples[0];			
@@ -146,6 +159,21 @@
 								
 				last_sample = current_sample;
 			}
+            
+            //
+            // Schedule the next check for expired samples to occur at the first sample's expiration time.
+            // We don't need to worry about timeOfTail getting smaller, because setTimeOfTail: always
+            // triggers an update.
+            //
+            NSTimeInterval firstSampleExpirationTime = ((MWEyeSamplePlotElement *)eye_samples[0]).time + timeOfTail;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (firstSampleExpirationTime - currentTime) * NSEC_PER_SEC),
+                           serialQueue,
+                           ^{
+                               NSTimeInterval cutoffTime = [NSDate timeIntervalSinceReferenceDate] - timeOfTail;
+                               if (([eye_samples count] > 0) && ([(MWEyeSamplePlotElement *)eye_samples[0] time] < cutoffTime)) {
+                                   [self triggerUpdate];
+                               }
+                           });
 		}
 		
 		
@@ -157,6 +185,8 @@
 			
 			[stimulus stroke:visible];              
 		}
+        
+        updatePending = NO;
 	});
 	[[self openGLContext] flushBuffer];
 }
@@ -183,7 +213,7 @@
                                          - clipview_bounds.size.height/2);
             [clipview scrollToPoint:target];
             
-            [self clear];
+            [self triggerUpdate];
         });
     });
 }
@@ -245,7 +275,7 @@
         
         self.currentEyeH = nil;
         self.currentEyeV = nil;
-        needUpdate = YES;
+        [self triggerUpdate];
     }
 }
 
@@ -357,6 +387,8 @@
                                                                                      WidthY:stm_width_y];
             [stm_samples addObject:new_stm];
         }
+        
+        [self triggerUpdate];
 	});
 }
 //=====================================================================================
@@ -415,6 +447,8 @@
                                                                                              WidthY:0];
 					[stm_samples addObject:new_stm];
 				}
+                
+                [self triggerUpdate];
 			}
 		}
 	});
@@ -431,7 +465,7 @@
 	dispatch_async(serialQueue, ^{
 		[eye_samples removeAllObjects];
 		[stm_samples removeAllObjects];
-        needUpdate = YES;
+        [self triggerUpdate];
 	});
 }
 
@@ -439,12 +473,7 @@
 - (void)setTimeOfTail:(NSTimeInterval)_newTimeOfTail {
 	dispatch_async(serialQueue, ^{
 		timeOfTail = _newTimeOfTail;
-	});
-}
-
-- (void)setUpdateRate:(float)updates_per_second {
-	dispatch_async(serialQueue, ^{
-		time_between_updates = 1.0/updates_per_second;
+        [self triggerUpdate];
 	});
 }
 
@@ -452,36 +481,41 @@
 // Private methods
 /////////////////////////////////////////////////////////////////////////
 
-#define MAX_SLEEP_INTERVAL 1.0  // 1 second
 
-- (void)checkForUpdates:(id)object {
-	while(1) {
-		@autoreleasepool {
-
-        __block NSTimeInterval sleepInterval;
-        dispatch_sync(serialQueue, ^{
-            sleepInterval = std::min(time_between_updates, MAX_SLEEP_INTERVAL);
+- (void)triggerUpdate {
+    if (!updatePending) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self setNeedsDisplay:YES];
         });
-
-		[NSThread sleepForTimeInterval:sleepInterval];
-		
-		dispatch_sync(serialQueue, ^{
-            NSTimeInterval cutoffTime = [NSDate timeIntervalSinceReferenceDate] - timeOfTail;
-            while(([eye_samples count] > 0) && ([(MWEyeSamplePlotElement *)eye_samples[0] time] < cutoffTime)) {
-                [eye_samples removeObjectAtIndex:0];
-                needUpdate = YES;
-            }
-
-            if (needUpdate) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self setNeedsDisplay:YES];
-                });
-                needUpdate = NO;
-            }
-		});
-		
-		}
-	}
+        updatePending = YES;
+    }
 }
 
+
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

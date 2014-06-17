@@ -38,8 +38,6 @@ Copy right 2006 MIT. All rights reserved.
 	int current_state;
 	
 	NSTimeInterval timeOfTail;	
-	NSTimeInterval time_between_updates;
-    BOOL needUpdate;
 }
 
 - (void)setWidth:(int)width;
@@ -49,7 +47,6 @@ Copy right 2006 MIT. All rights reserved.
 - (void)acceptStmAnnounce:(mw::Datum *)stm_announce 
 					 Time:(MWorksTime)event_time;
 - (void)setTimeOfTail:(NSTimeInterval)_newTimeOfTail;
-- (void)setUpdateRate:(float)updates_per_second;
 - (void)acceptCalAnnounce:(mw::Datum *)cal_announce;
 - (void)clear;
 
