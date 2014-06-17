@@ -30,6 +30,7 @@ Copy right 2006 MIT. All rights reserved.
 	
 	NSMutableArray *eye_samples;
 	NSMutableArray *stm_samples;
+	NSMutableArray *cal_samples;
 	
     MWCocoaEvent *currentEyeH;
     MWCocoaEvent *currentEyeV;

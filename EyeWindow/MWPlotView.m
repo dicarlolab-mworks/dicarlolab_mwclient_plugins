@@ -37,6 +37,7 @@
 	
 	eye_samples = [[NSMutableArray alloc] init];
 	stm_samples = [[NSMutableArray alloc] init];
+	cal_samples = [[NSMutableArray alloc] init];
 
 	last_state_change_time = 0;
 	current_state = FIXATION;
@@ -180,10 +181,11 @@
 		//======================= Draws stimulus ==================================
 		// Goes through the NSMutable array 'stm_samples' to display each item in 
 		// the array
-		for(int i = 0; i < [stm_samples count]; i++) {
-			MWStimulusPlotElement *stimulus = stm_samples[i];
-			
-			[stimulus stroke:visible];              
+		for (MWStimulusPlotElement *stimulus in stm_samples) {
+			[stimulus stroke:visible];
+		}
+		for (MWStimulusPlotElement *cal in cal_samples) {
+			[cal stroke:visible];
 		}
         
         updatePending = NO;
@@ -379,8 +381,8 @@
 				BOOL Item_exist = NO;
 				int i;
 				
-				for(i = 0; i < [stm_samples count]; i++) { 
-					MWStimulusPlotElement *existing_stm = stm_samples[i];
+				for(i = 0; i < [cal_samples count]; i++) {
+					MWStimulusPlotElement *existing_stm = cal_samples[i];
 					if ([[existing_stm getName] isEqualToString: stm_name]) {
 						
 						[existing_stm setOnOff:YES];
@@ -389,7 +391,7 @@
 						[existing_stm setSizeX:0];
 						[existing_stm setSizeY:0];
 						
-						stm_samples[i] = existing_stm;
+						cal_samples[i] = existing_stm;
 						Item_exist = YES;
 					}
 				}
@@ -402,7 +404,7 @@
                                                                                                 AtY:cal_sample_V
                                                                                              WidthX:0 
                                                                                              WidthY:0];
-					[stm_samples addObject:new_stm];
+					[cal_samples addObject:new_stm];
 				}
                 
                 [self triggerUpdate];
@@ -422,6 +424,7 @@
 	dispatch_async(serialQueue, ^{
 		[eye_samples removeAllObjects];
 		[stm_samples removeAllObjects];
+		[cal_samples removeAllObjects];
         [self triggerUpdate];
 	});
 }
