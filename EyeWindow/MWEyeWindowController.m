@@ -173,31 +173,31 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
                                            selector:@selector(serviceHEvent:)
                                         callbackKey:[EYE_WINDOW_CALLBACK_KEY UTF8String]
 									forVariableCode:hCodecCode
-                                       onMainThread:YES];
+                                       onMainThread:NO];
 		
 		[delegate registerEventCallbackWithReceiver:self 
                                            selector:@selector(serviceVEvent:)
                                         callbackKey:[EYE_WINDOW_CALLBACK_KEY UTF8String]
 									forVariableCode:vCodecCode
-                                       onMainThread:YES];
+                                       onMainThread:NO];
 		
 		[delegate registerEventCallbackWithReceiver:self 
                                            selector:@selector(serviceStmEvent:)
                                         callbackKey:[EYE_WINDOW_CALLBACK_KEY UTF8String]
 									forVariableCode:stmAnnounceCodecCode
-                                       onMainThread:YES];
+                                       onMainThread:NO];
 		
 		[delegate registerEventCallbackWithReceiver:self 
                                            selector:@selector(serviceCalEvent:)
                                         callbackKey:[EYE_WINDOW_CALLBACK_KEY UTF8String]
 									forVariableCode:calAnnounceCodecCode
-                                       onMainThread:YES];
+                                       onMainThread:NO];
 		
 		[delegate registerEventCallbackWithReceiver:self 
                                            selector:@selector(serviceStateEvent:)
                                         callbackKey:[EYE_WINDOW_CALLBACK_KEY UTF8String]
 									forVariableCode:eyeStateCodecCode
-                                       onMainThread:YES];
+                                       onMainThread:NO];
 	}
 	if(hCodecCode == -1 || 
 	   vCodecCode == -1 || 
