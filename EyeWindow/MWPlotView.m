@@ -311,6 +311,14 @@
                 continue;
             }
             
+            // Handle movies
+            {
+                mw::Datum current_stimulus = stm_announce.getElement("current_stimulus");
+                if (current_stimulus.isDictionary()) {
+                    stm_announce = current_stimulus;
+                }
+            }
+            
             mw::Datum type_data = stm_announce.getElement(STIM_TYPE);
             mw::Datum name_data = stm_announce.getElement(STIM_NAME);
             mw::Datum pos_x_data = stm_announce.getElement(STIM_POSX);
