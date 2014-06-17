@@ -293,99 +293,56 @@
 
 
 //==================== stimulus announce is handled here ===============================
-- (void)acceptStmAnnounce:(mw::Datum *)_stm_announce Time:(MWorksTime)event_time
+- (void)acceptStmAnnounce:(mw::Datum *)_stm_announce_list Time:(MWorksTime)event_time
 {
     // Need a copy for async usage
-    mw::Datum stm_announce = *_stm_announce;
+    mw::Datum stm_announce_list = *_stm_announce_list;
     
 	dispatch_async(serialQueue, ^{
-#define MAX_STIM_DRAW_LAG   1000
-		
-		static MWorksTime last_event_time = 0LL;
-		
-		
-		//First check for refresh
-		if ((event_time - last_event_time) > MAX_STIM_DRAW_LAG) {
-			
-			int i;
-			for(i = 0; i < [stm_samples count]; i++) { 
-				MWStimulusPlotElement *existing_stm = stm_samples[i];
-				
-				[existing_stm setOnOff:NO];
-				stm_samples[i] = existing_stm;
-			}
-		}
-		
-		last_event_time = event_time;
-		
-		
-		
-		NSString* stm_name = @"";
-		//BOOL stm_on = NO;
-		float stm_pos_x = 0.0;
-		float stm_pos_y = 0.0;
-		float stm_width_x = 0.0;
-		float stm_width_y = 0.0;
-		
-        mw::Datum name_data = stm_announce.getElement(STIM_NAME);
-        mw::Datum pos_x_data = stm_announce.getElement(STIM_POSX);
-        mw::Datum pos_y_data = stm_announce.getElement(STIM_POSY);
-        mw::Datum width_x_data = stm_announce.getElement(STIM_SIZEX);
-        mw::Datum width_y_data = stm_announce.getElement(STIM_SIZEY);
+        [stm_samples removeAllObjects];
         
-        if (!name_data.isString() ||
-            !pos_x_data.isNumber() ||
-            !pos_y_data.isNumber() ||
-            !width_x_data.isNumber() ||
-            !width_y_data.isNumber())
-        {
-            // Not enough data to show this stimulus
-            return;
-        }
-		
-        mw::Datum type_data = stm_announce.getElement(STIM_TYPE);
-        NSString* stm_type = @(type_data.getString());
-        
-        if (type_data == STIM_TYPE_POINT) {
-            // For fixation points, we want to display the trigger area, not the visible rectangle
-            width_x_data = width_y_data = stm_announce.getElement("width");
-        }
-        
-        stm_name = @(name_data.getString());
-        stm_pos_x = pos_x_data.getFloat();
-        stm_pos_y = pos_y_data.getFloat();
-        stm_width_x = width_x_data.getFloat();
-        stm_width_y = width_y_data.getFloat();
-        
-        
-        //Checking to see if the item is already in the list
-        BOOL Item_exist = NO;
-        int i;
-        
-        for(i = 0; i < [stm_samples count]; i++) {
-            MWStimulusPlotElement *existing_stm = stm_samples[i];
-            if([[existing_stm getName] isEqualToString:stm_name]) {
-                
-                [existing_stm setOnOff:YES];
-                [existing_stm setPositionX:stm_pos_x];
-                [existing_stm setPositionY:stm_pos_y];
-                [existing_stm setSizeX:stm_width_x];
-                [existing_stm setSizeY:stm_width_y];
-                
-                stm_samples[i] = existing_stm;
-                Item_exist = YES;
+        const int numStims = stm_announce_list.getNElements();
+        for (int i =  0; i < numStims; i++) {
+            mw::Datum stm_announce = stm_announce_list.getElement(i);
+            
+            if (!stm_announce.isDictionary()) {
+                continue;
             }
-        }
-        
-        //If the item's not in the list, add it to the existing list
-        if (Item_exist == NO) {
-            MWStimulusPlotElement *new_stm = [[MWStimulusPlotElement alloc] initStimElement:stm_type
-                                                                                       Name:stm_name
-                                                                                        AtX:stm_pos_x
-                                                                                        AtY:stm_pos_y
-                                                                                     WidthX:stm_width_x
-                                                                                     WidthY:stm_width_y];
-            [stm_samples addObject:new_stm];
+            
+            mw::Datum type_data = stm_announce.getElement(STIM_TYPE);
+            mw::Datum name_data = stm_announce.getElement(STIM_NAME);
+            mw::Datum pos_x_data = stm_announce.getElement(STIM_POSX);
+            mw::Datum pos_y_data = stm_announce.getElement(STIM_POSY);
+            mw::Datum width_x_data = stm_announce.getElement(STIM_SIZEX);
+            mw::Datum width_y_data = stm_announce.getElement(STIM_SIZEY);
+            
+            if (type_data.isString() &&
+                name_data.isString() &&
+                pos_x_data.isNumber() &&
+                pos_y_data.isNumber() &&
+                width_x_data.isNumber() &&
+                width_y_data.isNumber())
+            {
+                if (type_data == STIM_TYPE_POINT) {
+                    // For fixation points, we want to display the trigger area, not the visible rectangle
+                    width_x_data = width_y_data = stm_announce.getElement("width");
+                }
+                
+                NSString* stm_type = @(type_data.getString());
+                NSString* stm_name = @(name_data.getString());
+                float stm_pos_x = pos_x_data.getFloat();
+                float stm_pos_y = pos_y_data.getFloat();
+                float stm_width_x = width_x_data.getFloat();
+                float stm_width_y = width_y_data.getFloat();
+                
+                MWStimulusPlotElement *new_stm = [[MWStimulusPlotElement alloc] initStimElement:stm_type
+                                                                                           Name:stm_name
+                                                                                            AtX:stm_pos_x
+                                                                                            AtY:stm_pos_y
+                                                                                         WidthX:stm_width_x
+                                                                                         WidthY:stm_width_y];
+                [stm_samples addObject:new_stm];
+            }
         }
         
         [self triggerUpdate];

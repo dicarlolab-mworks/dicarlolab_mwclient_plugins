@@ -123,7 +123,7 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 	if (stm_announce->isUndefined()) {					//stimulus announce should NEVER be NULL
 		mwarning(M_NETWORK_MESSAGE_DOMAIN, "Received NULL for stimulus announce event.");
 	} else {
-		if(stm_announce->isDictionary()) {
+		if(stm_announce->isList()) {
 			[plotView acceptStmAnnounce:stm_announce Time:[event time]];
 		}
 	}
@@ -151,14 +151,14 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 - (void)cacheCodes {
 	int hCodecCode = -1;
 	int vCodecCode = -1;
-	int stmAnnounceCodecCode = -1;
+	int stimDisplayUpdateCodecCode = -1;
 	int calAnnounceCodecCode = -1;
 	int eyeStateCodecCode = -1;
 	
 	if(delegate != nil) {
 		hCodecCode = [[delegate codeForTag:EYE_H] intValue];
 		vCodecCode = [[delegate codeForTag:EYE_V] intValue];
-		stmAnnounceCodecCode = [[delegate codeForTag:@ANNOUNCE_STIMULUS_TAGNAME] intValue];
+		stimDisplayUpdateCodecCode = [[delegate codeForTag:@STIMULUS_DISPLAY_UPDATE_TAGNAME] intValue];
 		calAnnounceCodecCode = [[delegate codeForTag:@ANNOUNCE_CALIBRATOR_TAGNAME] intValue];
 		eyeStateCodecCode = [[delegate codeForTag:EYE_STATE] intValue];
 		
@@ -184,7 +184,7 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 		[delegate registerEventCallbackWithReceiver:self 
                                            selector:@selector(serviceStmEvent:)
                                         callbackKey:[EYE_WINDOW_CALLBACK_KEY UTF8String]
-									forVariableCode:stmAnnounceCodecCode
+									forVariableCode:stimDisplayUpdateCodecCode
                                        onMainThread:NO];
 		
 		[delegate registerEventCallbackWithReceiver:self 
@@ -203,7 +203,7 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 	   vCodecCode == -1 || 
 	   calAnnounceCodecCode == -1 || 
 	   eyeStateCodecCode == -1 || 
-	   stmAnnounceCodecCode == -1) {
+	   stimDisplayUpdateCodecCode == -1) {
 		NSString *warningMessage = @"Eye window can't find the following variables: ";
 		if(hCodecCode == -1) {
 			warningMessage = [warningMessage stringByAppendingString:EYE_H];
@@ -213,8 +213,8 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 			warningMessage = [warningMessage stringByAppendingString:EYE_V];
 			warningMessage = [warningMessage stringByAppendingString:@", "];
 		}
-		if(stmAnnounceCodecCode == -1) {
-			warningMessage = [warningMessage stringByAppendingString:@ANNOUNCE_STIMULUS_TAGNAME];
+		if(stimDisplayUpdateCodecCode == -1) {
+			warningMessage = [warningMessage stringByAppendingString:@STIMULUS_DISPLAY_UPDATE_TAGNAME];
 			warningMessage = [warningMessage stringByAppendingString:@", "];
 		}
 		if(calAnnounceCodecCode == -1) {
