@@ -18,15 +18,20 @@
 
 - (void)syncHEvent:(MWCocoaEvent *)eyeH withVEvent:(MWCocoaEvent *)eyeV;
 - (void)checkForUpdates:(id)object;
-- (void)setNeedsDisplayOnMainThread:(id)arg;
 
 @end
 
-@implementation MWPlotView
+
+@implementation MWPlotView {
+    dispatch_queue_t serialQueue;
+}
 
 @synthesize currentEyeH, currentEyeV;
 
+
 - (id)initWithFrame:(NSRect)frameRect {
+    serialQueue = dispatch_queue_create(NULL, DISPATCH_QUEUE_SERIAL);
+    
 	width = 180;
 	gridStepX = 10;
 	gridStepY = 10;
@@ -79,7 +84,7 @@
 
 
 - (void)drawRect:(NSRect)rect {	
-	@synchronized(self){
+	dispatch_sync(serialQueue, ^{
 		NSClipView *clipview = (NSClipView *)[self superview];
 		NSRect visible = [clipview documentVisibleRect];
 		
@@ -152,57 +157,51 @@
 			
 			[stimulus stroke:visible];              
 		}
-	}	
+	});
 	[[self openGLContext] flushBuffer];
 }
 
 - (void)setWidth:(int)width_in {
-	@synchronized(self) {
-		width = width_in;
-		float scaleFactor = 180/width;
-		NSClipView *clipview = (NSClipView *)[self superview];
-		NSRect visible = [clipview documentVisibleRect];
-		NSPoint visible_center = NSMakePoint(NSMidX(visible), NSMidY(visible));
-		
-		float newFullSize = (180 / width) * PLOT_VIEW_FULL_SIZE;
-		
-		[self setFrameSize:NSMakeSize(newFullSize,
-									  newFullSize)];
-		[self setBounds:NSMakeRect(-90,-90,180,180)];
-		
-		// THREAD SAFETY!!!!
-		// was commented out?
-		//[MWPlotView performSelectorOnMainThread:@selector(setNeedsDisplayOnMainThread:) 
-		//		  withObject: self waitUntilDone: NO];
-		//[self setNeedsDisplay:YES];
-		
-		NSRect clipview_bounds = [clipview bounds];
-		NSPoint target = NSMakePoint((400 + 800*visible_center.x/180) *scaleFactor 
-									 - clipview_bounds.size.width/2,
-									 (400 + 800*visible_center.y/180) *scaleFactor
-									 - clipview_bounds.size.height/2);
-		//NSPoint target = [scrollview constrainScrollPoint:visible.origin];
-		[clipview scrollToPoint:target];
-		
-	}
-	[self clear];
-	[self setNeedsDisplay:YES];	
+    dispatch_async(serialQueue, ^{
+        width = width_in;
+        float scaleFactor = 180/width;
+        float newFullSize = (180 / width) * PLOT_VIEW_FULL_SIZE;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSClipView *clipview = (NSClipView *)[self superview];
+            NSRect visible = [clipview documentVisibleRect];
+            NSPoint visible_center = NSMakePoint(NSMidX(visible), NSMidY(visible));
+            
+            [self setFrameSize:NSMakeSize(newFullSize,
+                                          newFullSize)];
+            [self setBounds:NSMakeRect(-90,-90,180,180)];
+            
+            NSRect clipview_bounds = [clipview bounds];
+            NSPoint target = NSMakePoint((400 + 800*visible_center.x/180) *scaleFactor
+                                         - clipview_bounds.size.width/2,
+                                         (400 + 800*visible_center.y/180) *scaleFactor
+                                         - clipview_bounds.size.height/2);
+            [clipview scrollToPoint:target];
+            
+            [self clear];
+        });
+    });
 }
 
 - (void)addEyeHEvent:(MWCocoaEvent *)event {
-	@synchronized(self) {
+	dispatch_async(serialQueue, ^{
         if (!self.currentEyeH || ([event time] > [self.currentEyeH time])) {
             [self syncHEvent:event withVEvent:self.currentEyeV];
         }
-	}
+	});
 }
 
 - (void)addEyeVEvent:(MWCocoaEvent *)event {
-	@synchronized(self) {
+	dispatch_async(serialQueue, ^{
         if (!self.currentEyeV || ([event time] > [self.currentEyeV time])) {
             [self syncHEvent:self.currentEyeH withVEvent:event];
         }
-	}	
+	});
 }
 
 #define EVENT_SYNC_TIME_US 250
@@ -251,7 +250,7 @@
 }
 
 - (void)addEyeStateEvent:(MWCocoaEvent *)event {
-	@synchronized(self) {
+	dispatch_async(serialQueue, ^{
 		if([event data]->getInteger() != current_state) {
 			MWorksTime time_of_state_change = [event time];
 			if(time_of_state_change > last_state_change_time) {
@@ -259,14 +258,17 @@
 				current_state = !current_state;
 			}
 		}
-	}	
+	});
 }
 
 
 //==================== stimulus announce is handled here ===============================
-- (void)acceptStmAnnounce:(mw::Datum *)stm_announce Time:(MWorksTime)event_time
+- (void)acceptStmAnnounce:(mw::Datum *)_stm_announce Time:(MWorksTime)event_time
 {
-	@synchronized(self) {
+    // Need a copy for async usage
+    mw::Datum stm_announce = *_stm_announce;
+    
+	dispatch_async(serialQueue, ^{
 #define MAX_STIM_DRAW_LAG   1000
 		
 		static MWorksTime last_event_time = 0LL;
@@ -295,11 +297,11 @@
 		float stm_width_x = 0.0;
 		float stm_width_y = 0.0;
 		
-        mw::Datum name_data = stm_announce->getElement(STIM_NAME);
-        mw::Datum pos_x_data = stm_announce->getElement(STIM_POSX);
-        mw::Datum pos_y_data = stm_announce->getElement(STIM_POSY);
-        mw::Datum width_x_data = stm_announce->getElement(STIM_SIZEX);
-        mw::Datum width_y_data = stm_announce->getElement(STIM_SIZEY);
+        mw::Datum name_data = stm_announce.getElement(STIM_NAME);
+        mw::Datum pos_x_data = stm_announce.getElement(STIM_POSX);
+        mw::Datum pos_y_data = stm_announce.getElement(STIM_POSY);
+        mw::Datum width_x_data = stm_announce.getElement(STIM_SIZEX);
+        mw::Datum width_y_data = stm_announce.getElement(STIM_SIZEY);
         
         if (!name_data.isString() ||
             !pos_x_data.isNumber() ||
@@ -311,12 +313,12 @@
             return;
         }
 		
-        mw::Datum type_data = stm_announce->getElement(STIM_TYPE);
+        mw::Datum type_data = stm_announce.getElement(STIM_TYPE);
         NSString* stm_type = @(type_data.getString());
         
         if (type_data == STIM_TYPE_POINT) {
             // For fixation points, we want to display the trigger area, not the visible rectangle
-            width_x_data = width_y_data = stm_announce->getElement("width");
+            width_x_data = width_y_data = stm_announce.getElement("width");
         }
         
         stm_name = @(name_data.getString());
@@ -355,7 +357,7 @@
                                                                                      WidthY:stm_width_y];
             [stm_samples addObject:new_stm];
         }
-	}
+	});
 }
 //=====================================================================================
 
@@ -365,15 +367,18 @@
 
 
 //==================== calibrator announce is handled here ===============================
-- (void)acceptCalAnnounce:(mw::Datum *)cal_announce
+- (void)acceptCalAnnounce:(mw::Datum *)_cal_announce
 {
-	@synchronized(self) {
+    // Need a copy for async usage
+    mw::Datum cal_announce = *_cal_announce;
+    
+	dispatch_async(serialQueue, ^{
 		NSString* stm_name = @"calibrator";
 		NSString *stm_type = @"calibratorSample";
 		
 		//Check calibrator action first
-		mw::Datum actionData = cal_announce->getElement(CALIBRATOR_ACTION);
-		mw::Datum cal_sample_HV = cal_announce->getElement(CALIBRATOR_SAMPLE_SAMPLED_HV);
+		mw::Datum actionData = cal_announce.getElement(CALIBRATOR_ACTION);
+		mw::Datum cal_sample_HV = cal_announce.getElement(CALIBRATOR_SAMPLE_SAMPLED_HV);
 		
 		if(actionData.isString() && cal_sample_HV.isList()) {
 			if (actionData == CALIBRATOR_ACTION_SAMPLE && cal_sample_HV.getNElements() == 2) {
@@ -412,7 +417,7 @@
 				}
 			}
 		}
-	}
+	});
 }
 
 
@@ -423,24 +428,24 @@
 
 - (void)clear
 {	
-	@synchronized(self) {
+	dispatch_async(serialQueue, ^{
 		[eye_samples removeAllObjects];
 		[stm_samples removeAllObjects];
         needUpdate = YES;
-	}
+	});
 }
 
 
 - (void)setTimeOfTail:(NSTimeInterval)_newTimeOfTail {
-	@synchronized(self)	{
+	dispatch_async(serialQueue, ^{
 		timeOfTail = _newTimeOfTail;
-	}
+	});
 }
 
 - (void)setUpdateRate:(float)updates_per_second {
-	@synchronized(self)	{
+	dispatch_async(serialQueue, ^{
 		time_between_updates = 1.0/updates_per_second;
-	}
+	});
 }
 
 /////////////////////////////////////////////////////////////////////////
@@ -453,14 +458,14 @@
 	while(1) {
 		@autoreleasepool {
 
-        NSTimeInterval sleepInterval;
-        @synchronized(self) {
+        __block NSTimeInterval sleepInterval;
+        dispatch_sync(serialQueue, ^{
             sleepInterval = std::min(time_between_updates, MAX_SLEEP_INTERVAL);
-        }
+        });
 
 		[NSThread sleepForTimeInterval:sleepInterval];
 		
-		@synchronized(self) {
+		dispatch_sync(serialQueue, ^{
             NSTimeInterval cutoffTime = [NSDate timeIntervalSinceReferenceDate] - timeOfTail;
             while(([eye_samples count] > 0) && ([(MWEyeSamplePlotElement *)eye_samples[0] time] < cutoffTime)) {
                 [eye_samples removeObjectAtIndex:0];
@@ -468,19 +473,15 @@
             }
 
             if (needUpdate) {
-                [self performSelectorOnMainThread:@selector(setNeedsDisplayOnMainThread:) 
-                                       withObject:nil 
-                                    waitUntilDone:NO];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self setNeedsDisplay:YES];
+                });
                 needUpdate = NO;
             }
-		}
+		});
 		
 		}
 	}
-}
-
-- (void)setNeedsDisplayOnMainThread:(id)arg {
-	[self setNeedsDisplay:YES];
 }
 
 @end
