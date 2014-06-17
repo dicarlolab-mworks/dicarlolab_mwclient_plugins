@@ -15,10 +15,8 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "MWPlotViewElement.h"
 
-
-@interface MWStimulusPlotElement : NSObject <MWPlotViewElement>{
+@interface MWStimulusPlotElement : NSObject {
 	
 	BOOL stm_isOn;
 	NSString *stm_name;
@@ -47,5 +45,7 @@
 - (void)setPositionY: (float)pos_y;
 - (void)setSizeX: (float)size_x;
 - (void)setSizeY: (float)size_y;
+
+- (void)stroke:(NSRect)visible;
 
 @end

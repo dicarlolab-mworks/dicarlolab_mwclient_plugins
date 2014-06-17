@@ -81,7 +81,6 @@
 /* Begin PBXFileReference section */
 		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		32DBCF630370AF2F00C91783 /* MWorksEyeWindow_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWorksEyeWindow_Prefix.pch; sourceTree = "<group>"; };
-		5C10618C09904FE9007A63F8 /* MWPlotViewElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWPlotViewElement.h; sourceTree = "<group>"; };
 		5C8E4A68098FA2A600EB44CA /* Main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Main.xib; sourceTree = "<group>"; };
 		5C8E4A6B098FA6FF00EB44CA /* MWPlotView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MWPlotView.h; sourceTree = "<group>"; };
 		5C8E4A6C098FA6FF00EB44CA /* MWPlotView.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = MWPlotView.m; sourceTree = "<group>"; };
@@ -157,7 +156,6 @@
 			children = (
 				68D2929F0AF8E8AE00E9A885 /* MWEyeWindowOptionController.h */,
 				68D292A00AF8E8AE00E9A885 /* MWEyeWindowOptionController.m */,
-				5C10618C09904FE9007A63F8 /* MWPlotViewElement.h */,
 				B28377190A8A951400358169 /* MWStimulusPlotElement.h */,
 				B283771A0A8A951400358169 /* MWStimulusPlotElement.m */,
 				5C8E4A6B098FA6FF00EB44CA /* MWPlotView.h */,

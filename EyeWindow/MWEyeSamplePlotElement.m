@@ -10,21 +10,17 @@
 
 
 @implementation MWEyeSamplePlotElement
-- (id)initWithTime:(NSTimeInterval)_time 
-		  position:(NSPoint)_position 
-	   isSaccading:(int)_is_saccading {
-	
+
+
+- (id)initWithTime:(NSTimeInterval)time position:(NSPoint)position saccading:(BOOL)saccading {
     self = [super init];
-    if(self) {
-		position = _position;
-        is_saccading = _is_saccading;
-		time = _time;
+    if (self) {
+		_position = position;
+		_time = time;
+        _saccading = saccading;
     }
     return self;
 }
 
-@synthesize position=position;
-@synthesize time=time;
-@synthesize saccading=is_saccading;
 
 @end

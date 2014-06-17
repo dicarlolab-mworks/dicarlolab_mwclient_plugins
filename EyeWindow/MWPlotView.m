@@ -240,7 +240,7 @@
         sample = [[MWEyeSamplePlotElement alloc] initWithTime:[NSDate timeIntervalSinceReferenceDate]
                                                      position:NSMakePoint([self.currentEyeH data]->getFloat(),
                                                                           [self.currentEyeV data]->getFloat()) 
-                                                  isSaccading:eye_state];
+                                                  saccading:eye_state];
         [eye_samples addObject:sample];
         
         self.currentEyeH = nil;
