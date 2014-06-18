@@ -22,6 +22,7 @@
 @implementation MWPlotView {
     dispatch_queue_t serialQueue;
     BOOL updatePending;
+    float newWidth;
 }
 
 @synthesize currentEyeH, currentEyeV;
@@ -46,6 +47,7 @@
 	timeOfTail = 1.0; // 1s
     
     updatePending = NO;
+    newWidth = width;
 	
 	GLuint attribs[] = 
 	{
@@ -75,6 +77,35 @@
     
     
 	return self;
+}
+
+
+- (void)viewWillDraw {
+    //
+    // width and newWidth are only set from the main thread, so we don't need to dispatch to serialQueue
+    //
+    
+    if (width != newWidth) {
+        width = newWidth;
+        float scaleFactor = 180/width;
+        float newFullSize = scaleFactor * PLOT_VIEW_FULL_SIZE;
+        
+        NSClipView *clipview = (NSClipView *)[self superview];
+        NSRect visible = [clipview documentVisibleRect];
+        NSPoint visible_center = NSMakePoint(NSMidX(visible), NSMidY(visible));
+        
+        [self setFrameSize:NSMakeSize(newFullSize, newFullSize)];
+        [self setBounds:NSMakeRect(-90,-90,180,180)];
+        
+        NSRect clipview_bounds = [clipview bounds];
+        NSPoint target = NSMakePoint((400 + 800*visible_center.x/180) *scaleFactor
+                                     - clipview_bounds.size.width/2,
+                                     (400 + 800*visible_center.y/180) *scaleFactor
+                                     - clipview_bounds.size.height/2);
+        [clipview scrollToPoint:target];
+    }
+    
+    [super viewWillDraw];
 }
 
 
@@ -194,30 +225,16 @@
 }
 
 - (void)setWidth:(int)width_in {
-    dispatch_async(serialQueue, ^{
-        width = width_in;
-        float scaleFactor = 180/width;
-        float newFullSize = (180 / width) * PLOT_VIEW_FULL_SIZE;
+    // This method should never be called from a non-main thread
+    NSAssert([NSThread isMainThread], @"%s called on non-main thread", __func__);
+    
+    if ((float)width_in != newWidth) {
+        newWidth = (float)width_in;
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSClipView *clipview = (NSClipView *)[self superview];
-            NSRect visible = [clipview documentVisibleRect];
-            NSPoint visible_center = NSMakePoint(NSMidX(visible), NSMidY(visible));
-            
-            [self setFrameSize:NSMakeSize(newFullSize,
-                                          newFullSize)];
-            [self setBounds:NSMakeRect(-90,-90,180,180)];
-            
-            NSRect clipview_bounds = [clipview bounds];
-            NSPoint target = NSMakePoint((400 + 800*visible_center.x/180) *scaleFactor
-                                         - clipview_bounds.size.width/2,
-                                         (400 + 800*visible_center.y/180) *scaleFactor
-                                         - clipview_bounds.size.height/2);
-            [clipview scrollToPoint:target];
-            
-            [self triggerUpdate];
-        });
-    });
+        // Call setNeedsDisplay: directly, instead of invoking triggerUpdate, because we're already on the
+        // main queue, and we don't want to introduce delays by dispatching to serialQueue
+        [self setNeedsDisplay:YES];
+    }
 }
 
 - (void)addEyeHEvent:(MWCocoaEvent *)event {

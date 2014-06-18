@@ -78,8 +78,12 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 - (IBAction)acceptWidth:(id)sender {
 	int width = [sender intValue];
 	[plotView setWidth:width];
-	[scaleSlider  setIntValue:width];
-	[scaleTextField setIntValue:width];
+    if (sender != scaleSlider) {
+        [scaleSlider setIntValue:width];
+    }
+    if (sender != scaleTextField) {
+        [scaleTextField setIntValue:width];
+    }
 }
 
 - (IBAction)clear:(id)sender {
