@@ -70,7 +70,7 @@
 	
 	if ((self = [super initWithFrame:frameRect pixelFormat:fmt]) != nil) {
 		
-		[self setBounds:NSMakeRect(-90,-90,180,180)];
+		//[self setBounds:NSMakeRect(-90,-90,180,180)];
 		//[self setFrameSize:NSMakeSize(180,180)];
 		//[self setFrameSize:NSMakeSize(PLOT_VIEW_FULL_SIZE,PLOT_VIEW_FULL_SIZE)];
 	}
@@ -93,16 +93,19 @@
         NSClipView *clipview = (NSClipView *)[self superview];
         NSRect visible = [clipview documentVisibleRect];
         NSPoint visible_center = NSMakePoint(NSMidX(visible), NSMidY(visible));
+        NSSize oldSize = [self bounds].size;
         
-        [self setFrameSize:NSMakeSize(newFullSize, newFullSize)];
-        [self setBounds:NSMakeRect(-90,-90,180,180)];
+        NSRect newFrame = [self frame];
+        newFrame.size.width = newFrame.size.height = newFullSize;
+        [self setFrame:newFrame];
         
         NSRect clipview_bounds = [clipview bounds];
-        NSPoint target = NSMakePoint((400 + 800*visible_center.x/180) *scaleFactor
+        NSPoint target = NSMakePoint((800*visible_center.x/oldSize.width) *scaleFactor
                                      - clipview_bounds.size.width/2,
-                                     (400 + 800*visible_center.y/180) *scaleFactor
+                                     (800*visible_center.y/oldSize.height) *scaleFactor
                                      - clipview_bounds.size.height/2);
         [clipview scrollToPoint:target];
+        [(NSScrollView *)[clipview superview] reflectScrolledClipView:clipview];
     }
     
     [super viewWillDraw];
@@ -116,9 +119,16 @@
 
 - (void)drawRect:(NSRect)rect {	
 	dispatch_sync(serialQueue, ^{
+        NSRect bounds = [self bounds];
+        NSAffineTransform *pointsToDegrees = [NSAffineTransform transform];
+        [pointsToDegrees translateXBy:-90.0 yBy:-90.0];
+        [pointsToDegrees scaleXBy:(180.0/NSWidth(bounds)) yBy:(180.0/NSHeight(bounds))];
+		
 		NSClipView *clipview = (NSClipView *)[self superview];
 		NSRect visible = [clipview documentVisibleRect];
-		
+        visible.origin = [pointsToDegrees transformPoint:visible.origin];
+        visible.size = [pointsToDegrees transformSize:visible.size];
+        
 		glClearColor(1, 1, 1, 0);
 		glClear(GL_COLOR_BUFFER_BIT);
 		glLineWidth (1);
@@ -232,7 +242,7 @@
         newWidth = (float)width_in;
         
         // Call setNeedsDisplay: directly, instead of invoking triggerUpdate, because we're already on the
-        // main queue, and we don't want to introduce delays by dispatching to serialQueue
+        // main thread, and we don't want to introduce delays by dispatching to serialQueue
         [self setNeedsDisplay:YES];
     }
 }
