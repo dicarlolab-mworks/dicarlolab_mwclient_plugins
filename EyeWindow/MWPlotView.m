@@ -150,23 +150,30 @@
 			MWEyeSamplePlotElement *last_sample = eye_samples[0];
             NSPoint lastPos = [degreesToPoints transformPoint:last_sample.position];
 			
+            NSBezierPath *saccadePath = [NSBezierPath bezierPath];
+            [[NSColor blackColor] set];
+            
 			for(int i = 1; i < [eye_samples count]-1; ++i) {
 				MWEyeSamplePlotElement *current_sample = eye_samples[i];
                 NSPoint currentPos = [degreesToPoints transformPoint:current_sample.position];
 				
 				if(last_sample.saccading == SACCADING || current_sample.saccading == SACCADING) {
-                    [[NSColor blueColor] set];
-                    [NSBezierPath strokeLineFromPoint:lastPos toPoint:currentPos];
+                    [saccadePath moveToPoint:lastPos];
+                    [saccadePath lineToPoint:currentPos];
 				}
 				
 				if(current_sample.saccading == FIXATION) {
-                    [[NSColor blackColor] set];
                     NSRectFill(NSMakeRect(currentPos.x - 0.5, currentPos.y - 0.5, 1, 1));
 				}
                 
                 last_sample = current_sample;
                 lastPos = currentPos;
 			}
+            
+            if (![saccadePath isEmpty]) {
+                [[NSColor blueColor] set];
+                [saccadePath stroke];
+            }
             
             //
             // Schedule the next check for expired samples to occur at the first sample's expiration time.
