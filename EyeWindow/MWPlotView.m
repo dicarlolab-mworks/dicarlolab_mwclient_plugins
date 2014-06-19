@@ -112,12 +112,7 @@
         
         // Grid lines
         {
-            
             NSBezierPath *grid = [NSBezierPath bezierPath];
-            {
-                const CGFloat lengths[] = { 1.0, 1.0 };
-                [grid setLineDash:lengths count:2 phase:0.0];
-            }
             
             const float lowest_y_draw = 10*round(visible.origin.y/10);
             for(float y_pos=lowest_y_draw; y_pos<visible.origin.y+visible.size.height; y_pos+=gridStepY) {
@@ -133,7 +128,7 @@
             
             [grid transformUsingAffineTransform:degreesToPoints];
             
-            [[NSColor blackColor] set];
+            [[NSColor lightGrayColor] set];
             [grid stroke];
         }
         
