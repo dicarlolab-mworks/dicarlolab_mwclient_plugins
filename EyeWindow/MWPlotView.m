@@ -1,5 +1,4 @@
 //#import "MWorksCore/InterfaceSetting.h"
-#include <OpenGL/gl.h>
 #import "MWPlotView.h"
 #import "MWStimulusPlotElement.h"
 #import "MWorksCore/StandardVariables.h"
@@ -29,52 +28,27 @@
 
 
 - (id)initWithFrame:(NSRect)frameRect {
-    serialQueue = dispatch_queue_create(NULL, DISPATCH_QUEUE_SERIAL);
-    
-	width = 180;
-	gridStepX = 10;
-	gridStepY = 10;
-	cartesianGrid = YES;
-	
-	eye_samples = [[NSMutableArray alloc] init];
-	stm_samples = [[NSMutableArray alloc] init];
-	cal_samples = [[NSMutableArray alloc] init];
-
-	last_state_change_time = 0;
-	current_state = FIXATION;
-	
-	// these correspond to the defaults in the options window.
-	timeOfTail = 1.0; // 1s
-    
-    updatePending = NO;
-    newWidth = width;
-	
-	GLuint attribs[] = 
-	{
-		NSOpenGLPFANoRecovery,
-		NSOpenGLPFAWindow,
-		NSOpenGLPFAAccelerated,
-		NSOpenGLPFADoubleBuffer,
-		NSOpenGLPFAColorSize, 24,
-		NSOpenGLPFAAlphaSize, 8,
-		NSOpenGLPFADepthSize, 24,
-		NSOpenGLPFAStencilSize, 8,
-		NSOpenGLPFAAccumSize, 0,
-		0
-	};
-	
-	NSOpenGLPixelFormat* fmt = [[NSOpenGLPixelFormat alloc] initWithAttributes: (NSOpenGLPixelFormatAttribute*) attribs]; 
-	
-	if (!fmt)
-		NSLog(@"No OpenGL pixel format");
-	
-	if ((self = [super initWithFrame:frameRect pixelFormat:fmt]) != nil) {
-		
-		//[self setBounds:NSMakeRect(-90,-90,180,180)];
-		//[self setFrameSize:NSMakeSize(180,180)];
-		//[self setFrameSize:NSMakeSize(PLOT_VIEW_FULL_SIZE,PLOT_VIEW_FULL_SIZE)];
+    if ((self = [super initWithFrame:frameRect])) {
+        serialQueue = dispatch_queue_create(NULL, DISPATCH_QUEUE_SERIAL);
+        
+        width = 180;
+        gridStepX = 10;
+        gridStepY = 10;
+        cartesianGrid = YES;
+        
+        eye_samples = [[NSMutableArray alloc] init];
+        stm_samples = [[NSMutableArray alloc] init];
+        cal_samples = [[NSMutableArray alloc] init];
+        
+        last_state_change_time = 0;
+        current_state = FIXATION;
+        
+        // these correspond to the defaults in the options window.
+        timeOfTail = 1.0; // 1s
+        
+        updatePending = NO;
+        newWidth = width;
 	}
-    
     
 	return self;
 }
@@ -112,49 +86,56 @@
 }
 
 
-#define FIXATION_DOT_SIZE 2.0f
-#define SACCADE_LINE_WIDTH 1.0f
-
-
-
 - (void)drawRect:(NSRect)rect {	
 	dispatch_sync(serialQueue, ^{
+        [[NSGraphicsContext currentContext] setShouldAntialias:NO];
+        [NSBezierPath setDefaultLineWidth:0.0];  // Draw lines as thin as possible
+        
         NSRect bounds = [self bounds];
+        
         NSAffineTransform *pointsToDegrees = [NSAffineTransform transform];
         [pointsToDegrees translateXBy:-90.0 yBy:-90.0];
         [pointsToDegrees scaleXBy:(180.0/NSWidth(bounds)) yBy:(180.0/NSHeight(bounds))];
+        
+        NSAffineTransform *degreesToPoints = [pointsToDegrees copy];
+        [degreesToPoints invert];
 		
-		NSClipView *clipview = (NSClipView *)[self superview];
-		NSRect visible = [clipview documentVisibleRect];
+		NSRect visible = [(NSClipView *)[self superview] documentVisibleRect];
         visible.origin = [pointsToDegrees transformPoint:visible.origin];
         visible.size = [pointsToDegrees transformSize:visible.size];
         
-		glClearColor(1, 1, 1, 0);
-		glClear(GL_COLOR_BUFFER_BIT);
-		glLineWidth (1);
-		glColor3f (0,0,0);
-		glEnable(GL_LINE_STIPPLE);
-		//		glLineStipple(1, (short) 0x1C47);
-		glLineStipple(1, (short) 0xAAAA);
-		glBegin (GL_LINES);
-		
-		const float lowest_y_draw = 10*round(visible.origin.y/10);
-		for(float y_pos=lowest_y_draw; y_pos<visible.origin.y+visible.size.height; y_pos+=gridStepY) {
-			const float y_pos_scaled = 2*((y_pos-visible.origin.y)/(visible.size.height))-1;
-			glVertex2f (-1.0, y_pos_scaled);
-			glVertex2f (1.0, y_pos_scaled);		
-		}
-		
-		const float lowest_x_draw = 10*round(visible.origin.x/10);
-		for(float x_pos=lowest_x_draw; x_pos<visible.origin.x+visible.size.width; x_pos+=gridStepX) {
-			const float x_pos_scaled = 2*((x_pos-visible.origin.x)/(visible.size.width))-1;
-			glVertex2f (x_pos_scaled, -1.0);
-			glVertex2f (x_pos_scaled, 1.0);		
-		}
-		
-		glEnd();
-		
-		glDisable(GL_LINE_STIPPLE);
+        // White background
+        {
+            [[NSColor whiteColor] set];
+            NSRectFill(bounds);
+        }
+        
+        // Grid lines
+        {
+            
+            NSBezierPath *grid = [NSBezierPath bezierPath];
+            {
+                const CGFloat lengths[] = { 1.0, 1.0 };
+                [grid setLineDash:lengths count:2 phase:0.0];
+            }
+            
+            const float lowest_y_draw = 10*round(visible.origin.y/10);
+            for(float y_pos=lowest_y_draw; y_pos<visible.origin.y+visible.size.height; y_pos+=gridStepY) {
+                [grid moveToPoint:NSMakePoint(-90, y_pos)];
+                [grid lineToPoint:NSMakePoint(90, y_pos)];
+            }
+            
+            const float lowest_x_draw = 10*round(visible.origin.x/10);
+            for(float x_pos=lowest_x_draw; x_pos<visible.origin.x+visible.size.width; x_pos+=gridStepX) {
+                [grid moveToPoint:NSMakePoint(x_pos, -90)];
+                [grid lineToPoint:NSMakePoint(x_pos, 90)];
+            }
+            
+            [grid transformUsingAffineTransform:degreesToPoints];
+            
+            [[NSColor blackColor] set];
+            [grid stroke];
+        }
         
         NSTimeInterval currentTime = [NSDate timeIntervalSinceReferenceDate];
         NSTimeInterval cutoffTime = currentTime - timeOfTail;
@@ -171,35 +152,25 @@
         }
 
 		if([eye_samples count]) {
-			MWEyeSamplePlotElement *last_sample = eye_samples[0];			
+			MWEyeSamplePlotElement *last_sample = eye_samples[0];
+            NSPoint lastPos = [degreesToPoints transformPoint:last_sample.position];
 			
 			for(int i = 1; i < [eye_samples count]-1; ++i) {
 				MWEyeSamplePlotElement *current_sample = eye_samples[i];
-				
-				NSPoint last_pos = NSMakePoint(2*((last_sample.position.x-visible.origin.x)/(visible.size.width))-1,
-											   2*((last_sample.position.y-visible.origin.y)/(visible.size.height))-1);
-				NSPoint current_pos = NSMakePoint(2*((current_sample.position.x-visible.origin.x)/(visible.size.width))-1,
-												  2*((current_sample.position.y-visible.origin.y)/(visible.size.height))-1);
-				
+                NSPoint currentPos = [degreesToPoints transformPoint:current_sample.position];
 				
 				if(last_sample.saccading == SACCADING || current_sample.saccading == SACCADING) {
-					glColor3f(0.0f, 0.0f, 1.0f);
-					glLineWidth(SACCADE_LINE_WIDTH);
-					glBegin(GL_LINES);
-					glVertex2f(last_pos.x, last_pos.y);
-					glVertex2f(current_pos.x, current_pos.y);						
-					glEnd();												
+                    [[NSColor blueColor] set];
+                    [NSBezierPath strokeLineFromPoint:lastPos toPoint:currentPos];
 				}
 				
 				if(current_sample.saccading == FIXATION) {
-					glColor3f(0.0f, 0.0f, 0.0f);
-					glPointSize(FIXATION_DOT_SIZE);
-					glBegin(GL_POINTS); 
-					glVertex2f(current_pos.x, current_pos.y);
-					glEnd();					
+                    [[NSColor blackColor] set];
+                    NSRectFill(NSMakeRect(currentPos.x - 0.5, currentPos.y - 0.5, 1, 1));
 				}
-								
-				last_sample = current_sample;
+                
+                last_sample = current_sample;
+                lastPos = currentPos;
 			}
             
             //
@@ -223,15 +194,14 @@
 		// Goes through the NSMutable array 'stm_samples' to display each item in 
 		// the array
 		for (MWStimulusPlotElement *stimulus in stm_samples) {
-			[stimulus stroke:visible];
+			[stimulus stroke:visible degreesToPoints:degreesToPoints];
 		}
 		for (MWStimulusPlotElement *cal in cal_samples) {
-			[cal stroke:visible];
+			[cal stroke:visible degreesToPoints:degreesToPoints];
 		}
         
         updatePending = NO;
 	});
-	[[self openGLContext] flushBuffer];
 }
 
 - (void)setWidth:(int)width_in {

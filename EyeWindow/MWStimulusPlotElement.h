@@ -46,6 +46,6 @@
 - (void)setSizeX: (float)size_x;
 - (void)setSizeY: (float)size_y;
 
-- (void)stroke:(NSRect)visible;
+- (void)stroke:(NSRect)visible degreesToPoints:(NSAffineTransform *)degreesToPoints;
 
 @end

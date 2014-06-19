@@ -21,7 +21,7 @@ Copy right 2006 MIT. All rights reserved.
 #import "MWorksCocoa/MWCocoaEvent.h"
 #import "MWorksCore/GenericData.h"
 
-@interface MWPlotView : NSOpenGLView
+@interface MWPlotView : NSView
 {
 	float width;
 	float gridStepX;
