@@ -64,22 +64,21 @@
         float scaleFactor = 180/width;
         float newFullSize = scaleFactor * PLOT_VIEW_FULL_SIZE;
         
-        NSClipView *clipview = (NSClipView *)[self superview];
-        NSRect visible = [clipview documentVisibleRect];
+        NSRect visible = [self visibleRect];
         NSPoint visible_center = NSMakePoint(NSMidX(visible), NSMidY(visible));
-        NSSize oldSize = [self bounds].size;
         
         NSRect newFrame = [self frame];
         newFrame.size.width = newFrame.size.height = newFullSize;
         [self setFrame:newFrame];
         
-        NSRect clipview_bounds = [clipview bounds];
-        NSPoint target = NSMakePoint((800*visible_center.x/oldSize.width) *scaleFactor
+        NSSize oldSize = [self bounds].size;
+        NSRect clipview_bounds = [self.clipView bounds];
+        NSPoint target = NSMakePoint((PLOT_VIEW_FULL_SIZE*visible_center.x/oldSize.width) *scaleFactor
                                      - clipview_bounds.size.width/2,
-                                     (800*visible_center.y/oldSize.height) *scaleFactor
+                                     (PLOT_VIEW_FULL_SIZE*visible_center.y/oldSize.height) *scaleFactor
                                      - clipview_bounds.size.height/2);
-        [clipview scrollToPoint:target];
-        [(NSScrollView *)[clipview superview] reflectScrolledClipView:clipview];
+        [self.clipView scrollToPoint:target];
+        [self.scrollView reflectScrolledClipView:self.clipView];
     }
     
     [super viewWillDraw];
@@ -100,7 +99,7 @@
         NSAffineTransform *degreesToPoints = [pointsToDegrees copy];
         [degreesToPoints invert];
 		
-		NSRect visible = [(NSClipView *)[self superview] documentVisibleRect];
+		NSRect visible = [self visibleRect];
         visible.origin = [pointsToDegrees transformPoint:visible.origin];
         visible.size = [pointsToDegrees transformSize:visible.size];
         
