@@ -67,12 +67,14 @@
         NSRect visible = [self visibleRect];
         NSPoint visible_center = NSMakePoint(NSMidX(visible), NSMidY(visible));
         
+        // Store these *before* changing the frame
+        NSSize oldSize = [self bounds].size;
+        NSRect clipview_bounds = [self.clipView bounds];
+        
         NSRect newFrame = [self frame];
         newFrame.size.width = newFrame.size.height = newFullSize;
         [self setFrame:newFrame];
         
-        NSSize oldSize = [self bounds].size;
-        NSRect clipview_bounds = [self.clipView bounds];
         NSPoint target = NSMakePoint((PLOT_VIEW_FULL_SIZE*visible_center.x/oldSize.width) *scaleFactor
                                      - clipview_bounds.size.width/2,
                                      (PLOT_VIEW_FULL_SIZE*visible_center.y/oldSize.height) *scaleFactor
