@@ -429,8 +429,6 @@
 {	
 	dispatch_async(serialQueue, ^{
 		[eye_samples removeAllObjects];
-		[stm_samples removeAllObjects];
-		[cal_samples removeAllObjects];
         [self triggerUpdate];
 	});
 }
