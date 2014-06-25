@@ -11,18 +11,18 @@
         <window title="Eye Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="5" userLabel="Window">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" unifiedTitleAndToolbar="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="714" y="275" width="820" height="612"/>
+            <rect key="contentRect" x="714" y="275" width="866" height="529"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
             <value key="minSize" type="size" width="213" height="107"/>
             <view key="contentView" id="6">
-                <rect key="frame" x="0.0" y="0.0" width="820" height="612"/>
+                <rect key="frame" x="0.0" y="0.0" width="866" height="529"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8">
-                        <rect key="frame" x="18" y="16" width="128" height="21"/>
+                        <rect key="frame" x="18" y="18" width="128" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="124" id="Tp3-Wd-Ip0"/>
+                            <constraint firstAttribute="width" constant="124" id="WKi-CP-E3I"/>
                         </constraints>
                         <sliderCell key="cell" continuous="YES" alignment="left" minValue="5" maxValue="180" doubleValue="180" tickMarkPosition="above" sliderType="linear" id="122">
                             <font key="font" size="12" name="Helvetica"/>
@@ -32,10 +32,10 @@
                         </connections>
                     </slider>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9">
-                        <rect key="frame" x="160" y="18" width="43" height="22"/>
+                        <rect key="frame" x="152" y="18" width="43" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="43" id="q2g-No-dzx"/>
+                            <constraint firstAttribute="width" constant="43" id="05t-Wo-Kak"/>
                         </constraints>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" state="on" borderStyle="bezel" title="180" drawsBackground="YES" id="123">
                             <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="lPt-zH-93Z">
@@ -51,7 +51,7 @@
                         </connections>
                     </textField>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="11">
-                        <rect key="frame" x="733" y="13" width="73" height="32"/>
+                        <rect key="frame" x="779" y="11" width="73" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                         <buttonCell key="cell" type="push" title="Clear" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="124">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -62,7 +62,7 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="13">
-                        <rect key="frame" x="644" y="13" width="89" height="32"/>
+                        <rect key="frame" x="690" y="11" width="89" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                         <buttonCell key="cell" type="push" title="Options" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="125">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -72,66 +72,80 @@
                             <action selector="openOptionWin:" target="102" id="119"/>
                         </connections>
                     </button>
-                    <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="19">
-                        <rect key="frame" x="20" y="58" width="780" height="534"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <clipView key="contentView" autoresizesSubviews="NO" id="U03-oo-Sho">
-                            <rect key="frame" x="1" y="1" width="778" height="532"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <customView translatesAutoresizingMaskIntoConstraints="NO" id="17" customClass="MWPlotView">
-                                    <rect key="frame" x="0.0" y="0.0" width="800" height="800"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                    <splitView dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WFq-yQ-Jfv">
+                        <rect key="frame" x="20" y="59" width="826" height="450"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <subviews>
+                            <scrollView fixedFrame="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="1hl-Y9-g0u">
+                                <rect key="frame" x="0.0" y="0.0" width="450" height="450"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <clipView key="contentView" autoresizesSubviews="NO" id="yfD-XQ-WQs">
+                                    <rect key="frame" x="1" y="1" width="448" height="448"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="8xE-KM-eiM" customClass="MWPlotView">
+                                            <rect key="frame" x="0.0" y="0.0" width="800" height="800"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="800" id="3pC-MW-dDG"/>
+                                                <constraint firstAttribute="width" constant="800" id="vpp-cN-v7L"/>
+                                            </constraints>
+                                            <connections>
+                                                <outlet property="clipView" destination="yfD-XQ-WQs" id="0PG-zt-77U"/>
+                                                <outlet property="scrollView" destination="1hl-Y9-g0u" id="ux4-iw-bTt"/>
+                                            </connections>
+                                        </customView>
+                                    </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="800" id="QLY-uU-mdU"/>
-                                        <constraint firstAttribute="height" constant="800" id="dbN-Xy-ujB"/>
+                                        <constraint firstItem="8xE-KM-eiM" firstAttribute="top" relation="lessThanOrEqual" secondItem="yfD-XQ-WQs" secondAttribute="top" id="GZo-Fa-1ff"/>
+                                        <constraint firstItem="8xE-KM-eiM" firstAttribute="leading" secondItem="yfD-XQ-WQs" secondAttribute="leading" id="Lap-Fp-bVO"/>
+                                        <constraint firstAttribute="bottom" secondItem="8xE-KM-eiM" secondAttribute="bottom" id="VUe-1Q-TVG"/>
+                                        <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="8xE-KM-eiM" secondAttribute="trailing" id="c72-BX-fJd"/>
                                     </constraints>
-                                    <connections>
-                                        <outlet property="clipView" destination="U03-oo-Sho" id="N9R-07-YnM"/>
-                                        <outlet property="scrollView" destination="19" id="wSq-m5-dPg"/>
-                                    </connections>
-                                </customView>
-                            </subviews>
-                            <constraints>
-                                <constraint firstItem="17" firstAttribute="top" relation="lessThanOrEqual" secondItem="U03-oo-Sho" secondAttribute="top" id="ZLB-Np-YOf"/>
-                                <constraint firstItem="17" firstAttribute="leading" secondItem="U03-oo-Sho" secondAttribute="leading" id="dpb-Mv-Ukg"/>
-                                <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="17" secondAttribute="trailing" id="nA4-9k-aZC"/>
-                                <constraint firstAttribute="bottom" secondItem="17" secondAttribute="bottom" id="r0V-rQ-9Dk"/>
-                            </constraints>
-                        </clipView>
-                        <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="127">
-                            <rect key="frame" x="1" y="517" width="778" height="16"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                        </scroller>
-                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="126">
-                            <rect key="frame" x="763" y="1" width="16" height="532"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                        </scroller>
-                    </scrollView>
+                                </clipView>
+                                <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="z0p-Nv-tQ0">
+                                    <rect key="frame" x="1" y="433" width="448" height="16"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="uf5-5l-xWZ">
+                                    <rect key="frame" x="433" y="1" width="16" height="448"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
+                            <customView fixedFrame="YES" id="Ax9-Z8-1vZ">
+                                <rect key="frame" x="451" y="0.0" width="375" height="450"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </customView>
+                        </subviews>
+                        <holdingPriorities>
+                            <real value="250"/>
+                            <real value="250"/>
+                        </holdingPriorities>
+                    </splitView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="11" firstAttribute="trailing" secondItem="19" secondAttribute="trailing" id="3M7-Ci-p9r"/>
-                    <constraint firstItem="9" firstAttribute="leading" secondItem="8" secondAttribute="trailing" constant="16" id="5YB-CI-JJl"/>
-                    <constraint firstAttribute="bottom" secondItem="13" secondAttribute="bottom" constant="20" symbolic="YES" id="6v7-UR-T1t"/>
-                    <constraint firstItem="9" firstAttribute="bottom" secondItem="8" secondAttribute="bottom" id="GUK-Q0-Ii1"/>
-                    <constraint firstAttribute="trailing" secondItem="19" secondAttribute="trailing" constant="20" symbolic="YES" id="Kg2-Dj-Zp3"/>
-                    <constraint firstItem="9" firstAttribute="top" secondItem="19" secondAttribute="bottom" constant="18" id="R17-RS-IQs"/>
-                    <constraint firstItem="19" firstAttribute="leading" secondItem="8" secondAttribute="leading" id="R67-zO-7Nf"/>
-                    <constraint firstItem="19" firstAttribute="top" secondItem="6" secondAttribute="top" constant="20" symbolic="YES" id="aiF-n7-S2i"/>
-                    <constraint firstItem="13" firstAttribute="baseline" secondItem="11" secondAttribute="baseline" id="bDI-xc-fdU"/>
-                    <constraint firstItem="13" firstAttribute="top" secondItem="19" secondAttribute="bottom" constant="17" id="bj6-1U-9xz"/>
-                    <constraint firstItem="19" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="20" symbolic="YES" id="imB-Ua-QGw"/>
-                    <constraint firstItem="11" firstAttribute="leading" secondItem="13" secondAttribute="trailing" constant="12" symbolic="YES" id="sLH-pf-AVS"/>
+                    <constraint firstItem="WFq-yQ-Jfv" firstAttribute="top" secondItem="6" secondAttribute="top" constant="20" symbolic="YES" id="4MO-zx-Hdj"/>
+                    <constraint firstAttribute="bottom" secondItem="8" secondAttribute="bottom" constant="20" symbolic="YES" id="O78-Va-4vT"/>
+                    <constraint firstItem="9" firstAttribute="baseline" secondItem="8" secondAttribute="baseline" id="UVX-wa-9Zi"/>
+                    <constraint firstItem="13" firstAttribute="top" secondItem="WFq-yQ-Jfv" secondAttribute="bottom" constant="20" symbolic="YES" id="WWV-N0-EiT"/>
+                    <constraint firstItem="13" firstAttribute="baseline" secondItem="11" secondAttribute="baseline" id="XZB-LR-JsY"/>
+                    <constraint firstItem="9" firstAttribute="bottom" secondItem="13" secondAttribute="bottom" id="b6f-YW-aXl"/>
+                    <constraint firstItem="8" firstAttribute="leading" secondItem="WFq-yQ-Jfv" secondAttribute="leading" id="ehD-IU-bPm"/>
+                    <constraint firstAttribute="trailing" secondItem="WFq-yQ-Jfv" secondAttribute="trailing" constant="20" symbolic="YES" id="fzz-dQ-AKl"/>
+                    <constraint firstItem="11" firstAttribute="trailing" secondItem="WFq-yQ-Jfv" secondAttribute="trailing" id="h6U-6J-k2P"/>
+                    <constraint firstItem="11" firstAttribute="leading" secondItem="13" secondAttribute="trailing" constant="12" symbolic="YES" id="koc-Mn-Z2g"/>
+                    <constraint firstItem="9" firstAttribute="leading" secondItem="8" secondAttribute="trailing" constant="8" symbolic="YES" id="kyf-x1-j3N"/>
+                    <constraint firstItem="WFq-yQ-Jfv" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="20" symbolic="YES" id="vgU-Fq-sbv"/>
                 </constraints>
             </view>
         </window>
         <customObject id="102" userLabel="Eye Window Controller" customClass="MWEyeWindowController">
             <connections>
                 <outlet property="delegate" destination="-2" id="111"/>
-                <outlet property="plotView" destination="17" id="113"/>
+                <outlet property="plotView" destination="8xE-KM-eiM" id="A7K-GG-BXQ"/>
                 <outlet property="scaleSlider" destination="8" id="116"/>
                 <outlet property="scaleTextField" destination="9" id="115"/>
-                <outlet property="scrollView" destination="19" id="114"/>
+                <outlet property="scrollView" destination="1hl-Y9-g0u" id="pKD-yS-yUK"/>
                 <outlet property="window" destination="5" id="112"/>
             </connections>
         </customObject>
