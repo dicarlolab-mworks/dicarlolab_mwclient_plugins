@@ -3,7 +3,7 @@
 #import "MWStimulusPlotElement.h"
 #import "MWorksCore/StandardVariables.h"
 
-#define PLOT_VIEW_FULL_SIZE	800.0f
+#define PLOT_VIEW_FULL_SIZE	900.0f
 #define MAX_ANGLE	180.0f
 
 #define FIXATION 0
