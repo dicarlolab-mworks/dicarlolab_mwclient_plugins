@@ -25,7 +25,6 @@ extern NSString  * MWEyeWindowVariableUpdateNotification;
 
 @interface MWEyeWindowController : NSWindowController {
     IBOutlet MWPlotView *plotView;
-    IBOutlet NSScrollView *scrollView;
 	IBOutlet NSSlider *scaleSlider;
     IBOutlet NSTextField *scaleTextField;
 	IBOutlet id<MWClientProtocol> __unsafe_unretained delegate;

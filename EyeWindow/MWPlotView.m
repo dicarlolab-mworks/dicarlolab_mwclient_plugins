@@ -3,8 +3,8 @@
 #import "MWStimulusPlotElement.h"
 #import "MWorksCore/StandardVariables.h"
 
-#define PLOT_VIEW_FULL_SIZE	800
-#define MAX_ANGLE	180
+#define PLOT_VIEW_FULL_SIZE	800.0f
+#define MAX_ANGLE	180.0f
 
 #define FIXATION 0
 #define SACCADING 1
@@ -21,7 +21,11 @@
 @implementation MWPlotView {
     dispatch_queue_t serialQueue;
     BOOL updatePending;
-    float newWidth;
+    
+    CGFloat degreesPerPoint;
+    NSPoint frameCenterDegrees;
+    
+    NSPoint lastDragLocation;
 }
 
 @synthesize currentEyeH, currentEyeV;
@@ -31,7 +35,7 @@
     if ((self = [super initWithFrame:frameRect])) {
         serialQueue = dispatch_queue_create(NULL, DISPATCH_QUEUE_SERIAL);
         
-        width = 180;
+        width = MAX_ANGLE;
         gridStepX = 10;
         gridStepY = 10;
         cartesianGrid = YES;
@@ -47,68 +51,52 @@
         timeOfTail = 1.0; // 1s
         
         updatePending = NO;
-        newWidth = width;
+        
+        degreesPerPoint = MAX_ANGLE / PLOT_VIEW_FULL_SIZE;
+        frameCenterDegrees = NSMakePoint(0, 0);
 	}
     
 	return self;
 }
 
 
-- (void)viewWillDraw {
-    //
-    // width and newWidth are only set from the main thread, so we don't need to dispatch to serialQueue
-    //
+- (NSAffineTransform *)pointsToDegrees {
+    NSAffineTransform *pointsToDegrees = [NSAffineTransform transform];
+    NSRect bounds = [self bounds];
     
-    if (width != newWidth) {
-        width = newWidth;
-        float scaleFactor = 180/width;
-        float newFullSize = scaleFactor * PLOT_VIEW_FULL_SIZE;
-        
-        NSRect visible = [self visibleRect];
-        NSPoint visible_center = NSMakePoint(NSMidX(visible), NSMidY(visible));
-        
-        // Store these *before* changing the frame
-        NSSize oldSize = [self bounds].size;
-        NSRect clipview_bounds = [self.clipView bounds];
-        
-        NSRect newFrame = [self frame];
-        newFrame.size.width = newFrame.size.height = newFullSize;
-        [self setFrame:newFrame];
-        
-        NSPoint target = NSMakePoint((PLOT_VIEW_FULL_SIZE*visible_center.x/oldSize.width) *scaleFactor
-                                     - clipview_bounds.size.width/2,
-                                     (PLOT_VIEW_FULL_SIZE*visible_center.y/oldSize.height) *scaleFactor
-                                     - clipview_bounds.size.height/2);
-        [self.clipView scrollToPoint:target];
-        [self.scrollView reflectScrolledClipView:self.clipView];
-    }
+    [pointsToDegrees translateXBy:(frameCenterDegrees.x - (NSWidth(bounds)  * degreesPerPoint / 2))
+                              yBy:(frameCenterDegrees.y - (NSHeight(bounds) * degreesPerPoint / 2))];
+    [pointsToDegrees scaleBy:degreesPerPoint];
     
-    [super viewWillDraw];
+    return pointsToDegrees;
 }
 
 
-- (void)drawRect:(NSRect)rect {	
+- (void)drawRect:(NSRect)rect {
 	dispatch_sync(serialQueue, ^{
         [[NSGraphicsContext currentContext] setShouldAntialias:NO];
         [NSBezierPath setDefaultLineWidth:0.0];  // Draw lines as thin as possible
         
         NSRect bounds = [self bounds];
         
-        NSAffineTransform *pointsToDegrees = [NSAffineTransform transform];
-        [pointsToDegrees translateXBy:-90.0 yBy:-90.0];
-        [pointsToDegrees scaleXBy:(180.0/NSWidth(bounds)) yBy:(180.0/NSHeight(bounds))];
-        
+        NSAffineTransform *pointsToDegrees = [self pointsToDegrees];
         NSAffineTransform *degreesToPoints = [pointsToDegrees copy];
         [degreesToPoints invert];
 		
-		NSRect visible = [self visibleRect];
-        visible.origin = [pointsToDegrees transformPoint:visible.origin];
-        visible.size = [pointsToDegrees transformSize:visible.size];
+		NSRect visible;
+        visible.origin = [pointsToDegrees transformPoint:bounds.origin];
+        visible.size = [pointsToDegrees transformSize:bounds.size];
         
-        // White background
+        // Background
         {
             [[NSColor whiteColor] set];
             NSRectFill(bounds);
+        }
+        
+        // Border
+        {
+            [[NSColor lightGrayColor] set];
+            NSFrameRect(bounds);
         }
         
         // Grid lines
@@ -117,14 +105,14 @@
             
             const float lowest_y_draw = 10*round(visible.origin.y/10);
             for(float y_pos=lowest_y_draw; y_pos<visible.origin.y+visible.size.height; y_pos+=gridStepY) {
-                [grid moveToPoint:NSMakePoint(-90, y_pos)];
-                [grid lineToPoint:NSMakePoint(90, y_pos)];
+                [grid moveToPoint:NSMakePoint(NSMinX(visible), y_pos)];
+                [grid lineToPoint:NSMakePoint(NSMaxX(visible), y_pos)];
             }
             
             const float lowest_x_draw = 10*round(visible.origin.x/10);
             for(float x_pos=lowest_x_draw; x_pos<visible.origin.x+visible.size.width; x_pos+=gridStepX) {
-                [grid moveToPoint:NSMakePoint(x_pos, -90)];
-                [grid lineToPoint:NSMakePoint(x_pos, 90)];
+                [grid moveToPoint:NSMakePoint(x_pos, NSMinY(visible))];
+                [grid lineToPoint:NSMakePoint(x_pos, NSMaxY(visible))];
             }
             
             [grid transformUsingAffineTransform:degreesToPoints];
@@ -207,12 +195,64 @@
 	});
 }
 
+
+- (BOOL)acceptsFirstMouse:(NSEvent *)event {
+    return YES;
+}
+
+
+- (void)mouseDown:(NSEvent *)event {
+    lastDragLocation = [self convertPoint:[event locationInWindow] fromView:nil];
+    [[NSCursor closedHandCursor] push];
+}
+
+
+- (void)mouseDragged:(NSEvent *)event {
+    NSPoint dragLocation = [self convertPoint:[event locationInWindow] fromView:nil];
+    NSSize displacement = NSMakeSize(dragLocation.x - lastDragLocation.x,
+                                     dragLocation.y - lastDragLocation.y);
+    
+    NSAffineTransform *pointsToDegrees = [self pointsToDegrees];
+    NSSize displacementDegrees = [pointsToDegrees transformSize:displacement];
+    
+    frameCenterDegrees.x -= displacementDegrees.width;
+    frameCenterDegrees.y -= displacementDegrees.height;
+    
+    //
+    // TODO: Need to think about this more
+    //
+    // Prevent dragging beyond field bounds
+    /*
+    {
+        NSSize size = [pointsToDegrees transformSize:[self bounds].size];
+        
+        CGFloat halfWidth = size.width / 2;
+        frameCenterDegrees.x = fmaxf(frameCenterDegrees.x, -MAX_ANGLE / 2 + halfWidth);
+        frameCenterDegrees.x = fminf(frameCenterDegrees.x, +MAX_ANGLE / 2 - halfWidth);
+        
+        CGFloat halfHeight = size.height / 2;
+        frameCenterDegrees.y = fmaxf(frameCenterDegrees.y, -MAX_ANGLE / 2 + halfHeight);
+        frameCenterDegrees.y = fminf(frameCenterDegrees.y, +MAX_ANGLE / 2 - halfHeight);
+    }
+     */
+    
+    lastDragLocation = dragLocation;
+    [self setNeedsDisplay:YES];
+}
+
+
+- (void)mouseUp:(NSEvent *)event {
+    [NSCursor pop];
+}
+
+
 - (void)setWidth:(int)width_in {
     // This method should never be called from a non-main thread
     NSAssert([NSThread isMainThread], @"%s called on non-main thread", __func__);
     
-    if ((float)width_in != newWidth) {
-        newWidth = (float)width_in;
+    if ((float)width_in != width) {
+        width = (float)width_in;
+        degreesPerPoint = width / PLOT_VIEW_FULL_SIZE;
         
         // Call setNeedsDisplay: directly, instead of invoking triggerUpdate, because we're already on the
         // main thread, and we don't want to introduce delays by dispatching to serialQueue

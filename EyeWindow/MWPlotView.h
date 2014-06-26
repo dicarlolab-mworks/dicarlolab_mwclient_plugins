@@ -41,9 +41,6 @@ Copy right 2006 MIT. All rights reserved.
 	NSTimeInterval timeOfTail;	
 }
 
-@property(nonatomic, weak) IBOutlet NSScrollView *scrollView;
-@property(nonatomic, weak) IBOutlet NSClipView *clipView;
-
 - (void)setWidth:(int)width;
 - (void)addEyeHEvent:(MWCocoaEvent *)event;
 - (void)addEyeVEvent:(MWCocoaEvent *)event;
