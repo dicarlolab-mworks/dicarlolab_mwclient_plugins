@@ -41,6 +41,7 @@ Copy right 2006 MIT. All rights reserved.
 	NSTimeInterval timeOfTail;	
 }
 
+@property(nonatomic, weak) IBOutlet NSSlider *scaleSlider;
 @property(nonatomic, weak) IBOutlet NSTextField *scaleLabel;
 
 - (void)setWidth:(float)width;
@@ -51,7 +52,7 @@ Copy right 2006 MIT. All rights reserved.
 					 Time:(MWorksTime)event_time;
 - (void)setTimeOfTail:(NSTimeInterval)_newTimeOfTail;
 - (void)acceptCalAnnounce:(mw::Datum *)cal_announce;
-- (void)clear;
+- (void)reset;
 
 @end
 

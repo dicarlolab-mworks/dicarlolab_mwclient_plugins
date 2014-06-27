@@ -471,8 +471,13 @@
 //=====================================================================================
 
 
-- (void)clear
+- (void)reset
 {	
+    [self setWidth:MAX_ANGLE];
+    [self.scaleSlider setFloatValue:MAX_ANGLE];
+    
+    frameCenterDegrees = NSMakePoint(0, 0);
+    
 	dispatch_async(serialQueue, ^{
 		[eye_samples removeAllObjects];
         [self triggerUpdate];

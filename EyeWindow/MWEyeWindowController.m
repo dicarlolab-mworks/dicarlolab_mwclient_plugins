@@ -75,8 +75,8 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 	[plotView setWidth:[scaleSlider floatValue]];
 }
 
-- (IBAction)clear:(id)sender {
-	[plotView clear];
+- (IBAction)reset:(id)sender {
+	[plotView reset];
 }
 
 - (IBAction)openOptionWin:(id)sender {

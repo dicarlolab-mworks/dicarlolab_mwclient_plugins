@@ -47,12 +47,12 @@ extern NSString  * MWEyeWindowVariableUpdateNotification;
 - (IBAction)openOptionWin:(id)sender;
 
 /*!
- * @function clear:
+ * @function reset:
  * @discussion 
  *
  * @param sender
  */
-- (IBAction)clear:(id)sender;
+- (IBAction)reset:(id)sender;
 
 
 @end

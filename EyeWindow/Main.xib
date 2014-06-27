@@ -76,6 +76,7 @@
                                 </constraints>
                                 <connections>
                                     <outlet property="scaleLabel" destination="sDF-BY-CFt" id="KAl-xM-ex3"/>
+                                    <outlet property="scaleSlider" destination="OpJ-Sn-JNr" id="bJL-6I-fnU"/>
                                 </connections>
                             </customView>
                             <customView id="Ax9-Z8-1vZ">
@@ -95,20 +96,20 @@
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
                                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="11">
-                                                        <rect key="frame" x="288" y="-7" width="73" height="32"/>
+                                                        <rect key="frame" x="287" y="-7" width="74" height="32"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                                        <buttonCell key="cell" type="push" title="Clear" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="124">
+                                                        <buttonCell key="cell" type="push" title="Reset" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="124">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                         <connections>
-                                                            <action selector="clear:" target="102" id="120"/>
+                                                            <action selector="reset:" target="102" id="km9-N2-Izn"/>
                                                         </connections>
                                                     </button>
                                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="13">
-                                                        <rect key="frame" x="199" y="-7" width="89" height="32"/>
+                                                        <rect key="frame" x="185" y="-7" width="102" height="32"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                                        <buttonCell key="cell" type="push" title="Options" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="125">
+                                                        <buttonCell key="cell" type="push" title="Options…" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="125">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
@@ -118,10 +119,10 @@
                                                     </button>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="11" firstAttribute="leading" secondItem="13" secondAttribute="trailing" constant="12" symbolic="YES" id="OOx-Vu-AXe"/>
-                                                    <constraint firstAttribute="bottom" secondItem="13" secondAttribute="bottom" id="YHr-eJ-Xdo"/>
-                                                    <constraint firstAttribute="trailing" secondItem="11" secondAttribute="trailing" id="lSS-RT-D6i"/>
-                                                    <constraint firstItem="11" firstAttribute="baseline" secondItem="13" secondAttribute="baseline" id="yK4-ei-rVz"/>
+                                                    <constraint firstAttribute="bottom" secondItem="11" secondAttribute="bottom" id="0n5-vA-O5l"/>
+                                                    <constraint firstItem="11" firstAttribute="leading" secondItem="13" secondAttribute="trailing" constant="12" symbolic="YES" id="83Q-jD-ypH"/>
+                                                    <constraint firstAttribute="trailing" secondItem="11" secondAttribute="trailing" id="OVn-YK-8Qk"/>
+                                                    <constraint firstItem="13" firstAttribute="baseline" secondItem="11" secondAttribute="baseline" id="jQy-eO-2Dd"/>
                                                 </constraints>
                                             </customView>
                                         </subviews>
