@@ -41,7 +41,9 @@ Copy right 2006 MIT. All rights reserved.
 	NSTimeInterval timeOfTail;	
 }
 
-- (void)setWidth:(int)width;
+@property(nonatomic, weak) IBOutlet NSTextField *scaleLabel;
+
+- (void)setWidth:(float)width;
 - (void)addEyeHEvent:(MWCocoaEvent *)event;
 - (void)addEyeVEvent:(MWCocoaEvent *)event;
 - (void)addEyeStateEvent:(MWCocoaEvent *)event;

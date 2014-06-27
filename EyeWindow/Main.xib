@@ -33,7 +33,7 @@
                                             <constraint firstAttribute="height" constant="17" id="N9v-Bl-dN2"/>
                                             <constraint firstAttribute="width" constant="100" id="Qn0-D6-jj8"/>
                                         </constraints>
-                                        <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="5" maxValue="180" doubleValue="180" tickMarkPosition="above" sliderType="linear" id="oiz-cb-aSa"/>
+                                        <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="4.5" maxValue="180" doubleValue="180" tickMarkPosition="above" sliderType="linear" id="oiz-cb-aSa"/>
                                         <connections>
                                             <action selector="acceptWidth:" target="102" id="Oxg-wA-ZF1"/>
                                         </connections>
@@ -52,17 +52,31 @@
                                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <font key="titleFont" metaFont="system"/>
                                     </box>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sDF-BY-CFt">
+                                        <rect key="frame" x="363" y="6" width="34" height="14"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="20.0°" id="gq0-kO-y91">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="OpJ-Sn-JNr" secondAttribute="trailing" constant="20" id="0cj-Rb-RRO"/>
+                                    <constraint firstAttribute="bottom" secondItem="sDF-BY-CFt" secondAttribute="bottom" constant="6" id="ASI-2B-hFX"/>
                                     <constraint firstItem="Km7-Hj-4pw" firstAttribute="top" secondItem="OpJ-Sn-JNr" secondAttribute="top" id="Ayy-7S-4k0"/>
                                     <constraint firstItem="qwf-0C-rXc" firstAttribute="bottom" secondItem="OpJ-Sn-JNr" secondAttribute="bottom" id="BOK-Zn-y2p"/>
                                     <constraint firstItem="Km7-Hj-4pw" firstAttribute="bottom" secondItem="OpJ-Sn-JNr" secondAttribute="bottom" id="NO5-of-8UZ"/>
                                     <constraint firstItem="qwf-0C-rXc" firstAttribute="trailing" secondItem="OpJ-Sn-JNr" secondAttribute="trailing" id="O9z-Ja-YCA"/>
                                     <constraint firstItem="Km7-Hj-4pw" firstAttribute="leading" secondItem="OpJ-Sn-JNr" secondAttribute="leading" id="SHG-wD-ObY"/>
                                     <constraint firstItem="qwf-0C-rXc" firstAttribute="top" secondItem="Km7-Hj-4pw" secondAttribute="top" id="aMs-HW-eLn"/>
+                                    <constraint firstItem="sDF-BY-CFt" firstAttribute="centerX" secondItem="OpJ-Sn-JNr" secondAttribute="centerX" id="bqx-KP-VkF"/>
                                     <constraint firstAttribute="bottom" secondItem="OpJ-Sn-JNr" secondAttribute="bottom" constant="20" id="zP1-er-FfS"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="scaleLabel" destination="sDF-BY-CFt" id="KAl-xM-ex3"/>
+                                </connections>
                             </customView>
                             <customView id="Ax9-Z8-1vZ">
                                 <rect key="frame" x="451" y="0.0" width="375" height="450"/>
@@ -102,32 +116,11 @@
                                                             <action selector="openOptionWin:" target="102" id="119"/>
                                                         </connections>
                                                     </button>
-                                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9">
-                                                        <rect key="frame" x="0.0" y="1" width="43" height="22"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="43" id="Ipa-h3-o81"/>
-                                                        </constraints>
-                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" state="on" borderStyle="bezel" title="180" drawsBackground="YES" id="123">
-                                                            <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="lPt-zH-93Z">
-                                                                <real key="minimum" value="5"/>
-                                                                <real key="maximum" value="180"/>
-                                                            </numberFormatter>
-                                                            <font key="font" metaFont="system"/>
-                                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                        </textFieldCell>
-                                                        <connections>
-                                                            <action selector="acceptWidth:" target="102" id="118"/>
-                                                        </connections>
-                                                    </textField>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="13" firstAttribute="baseline" secondItem="9" secondAttribute="baseline" id="F7S-Az-Cqs"/>
                                                     <constraint firstItem="11" firstAttribute="leading" secondItem="13" secondAttribute="trailing" constant="12" symbolic="YES" id="OOx-Vu-AXe"/>
                                                     <constraint firstAttribute="bottom" secondItem="13" secondAttribute="bottom" id="YHr-eJ-Xdo"/>
                                                     <constraint firstAttribute="trailing" secondItem="11" secondAttribute="trailing" id="lSS-RT-D6i"/>
-                                                    <constraint firstItem="9" firstAttribute="leading" secondItem="5Zf-65-wdg" secondAttribute="leading" id="sdC-gi-bv1"/>
                                                     <constraint firstItem="11" firstAttribute="baseline" secondItem="13" secondAttribute="baseline" id="yK4-ei-rVz"/>
                                                 </constraints>
                                             </customView>
@@ -165,7 +158,6 @@
                 <outlet property="delegate" destination="-2" id="111"/>
                 <outlet property="plotView" destination="ZSC-vl-U1d" id="9KD-lF-Zb2"/>
                 <outlet property="scaleSlider" destination="OpJ-Sn-JNr" id="GNm-ub-dVe"/>
-                <outlet property="scaleTextField" destination="9" id="115"/>
                 <outlet property="window" destination="5" id="112"/>
             </connections>
         </customObject>

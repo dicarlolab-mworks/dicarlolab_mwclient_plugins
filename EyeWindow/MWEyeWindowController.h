@@ -26,7 +26,6 @@ extern NSString  * MWEyeWindowVariableUpdateNotification;
 @interface MWEyeWindowController : NSWindowController {
     IBOutlet MWPlotView *plotView;
 	IBOutlet NSSlider *scaleSlider;
-    IBOutlet NSTextField *scaleTextField;
 	IBOutlet id<MWClientProtocol> __unsafe_unretained delegate;
 
 	MWEyeWindowOptionController * OptionWindow;
@@ -45,7 +44,6 @@ extern NSString  * MWEyeWindowVariableUpdateNotification;
  * @param sender
  */
 - (IBAction)acceptWidth:(id)sender;
-- (IBAction)redrawPlot:(id)sender;
 - (IBAction)openOptionWin:(id)sender;
 
 /*!

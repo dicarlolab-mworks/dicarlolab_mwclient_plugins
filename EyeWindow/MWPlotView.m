@@ -5,6 +5,7 @@
 
 #define PLOT_VIEW_FULL_SIZE	900.0f
 #define MAX_ANGLE	180.0f
+#define SCALE_SLIDER_WIDTH 100.0f
 
 #define FIXATION 0
 #define SACCADING 1
@@ -246,13 +247,16 @@
 }
 
 
-- (void)setWidth:(int)width_in {
+- (void)setWidth:(float)width_in {
     // This method should never be called from a non-main thread
     NSAssert([NSThread isMainThread], @"%s called on non-main thread", __func__);
     
-    if ((float)width_in != width) {
-        width = (float)width_in;
+    if (width_in != width) {
+        width = width_in;
         degreesPerPoint = width / PLOT_VIEW_FULL_SIZE;
+        
+        // \xc2\xb0 is the UTF-8 encoding of the degree symbol (¡)
+        [self.scaleLabel setStringValue:[NSString stringWithFormat:@"%.1f\xc2\xb0", SCALE_SLIDER_WIDTH * degreesPerPoint]];
         
         // Call setNeedsDisplay: directly, instead of invoking triggerUpdate, because we're already on the
         // main thread, and we don't want to introduce delays by dispatching to serialQueue
