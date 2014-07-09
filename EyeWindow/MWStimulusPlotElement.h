@@ -23,18 +23,19 @@
 	NSString* stm_type;
 	NSSize size;
 	NSPoint center;
+    float rotation;
 
 	
 }
 
 
-- (id)initStimElement: (NSString *)type Name:(NSString* )name;
 - (id)initStimElement: (NSString *)type 
 				 Name:(NSString *)name 
 				  AtX:(float)pos_x 
 				  AtY:(float)pos_y 
 			   WidthX:(float)size_x 
-			   WidthY:(float)size_y;
+			   WidthY:(float)size_y
+               Rotation:(float)rot;
 
 - (NSString *)getType;
 - (NSString *)getName;

@@ -369,13 +369,15 @@
             mw::Datum pos_y_data = stm_announce.getElement(STIM_POSY);
             mw::Datum width_x_data = stm_announce.getElement(STIM_SIZEX);
             mw::Datum width_y_data = stm_announce.getElement(STIM_SIZEY);
+            mw::Datum rotation_data = stm_announce.getElement(STIM_ROT);
             
             if (type_data.isString() &&
                 name_data.isString() &&
                 pos_x_data.isNumber() &&
                 pos_y_data.isNumber() &&
                 width_x_data.isNumber() &&
-                width_y_data.isNumber())
+                width_y_data.isNumber() &&
+                rotation_data.isNumber())
             {
                 if (type_data == STIM_TYPE_POINT) {
                     // For fixation points, we want to display the trigger area, not the visible rectangle
@@ -388,13 +390,15 @@
                 float stm_pos_y = pos_y_data.getFloat();
                 float stm_width_x = width_x_data.getFloat();
                 float stm_width_y = width_y_data.getFloat();
+                float rotation = rotation_data.getFloat();
                 
                 MWStimulusPlotElement *new_stm = [[MWStimulusPlotElement alloc] initStimElement:stm_type
                                                                                            Name:stm_name
                                                                                             AtX:stm_pos_x
                                                                                             AtY:stm_pos_y
                                                                                          WidthX:stm_width_x
-                                                                                         WidthY:stm_width_y];
+                                                                                         WidthY:stm_width_y
+                                                                                       Rotation:rotation];
                 [stm_samples addObject:new_stm];
             }
         }
@@ -455,7 +459,8 @@
                                                                                                 AtX:cal_sample_H 
                                                                                                 AtY:cal_sample_V
                                                                                              WidthX:0 
-                                                                                             WidthY:0];
+                                                                                             WidthY:0
+                                                                                           Rotation:0];
 					[cal_samples addObject:new_stm];
 				}
                 

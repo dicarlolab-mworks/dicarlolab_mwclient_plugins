@@ -13,12 +13,14 @@
 @implementation MWStimulusPlotElement
 
 
-- (id)initStimElement: (NSString *)type Name:(NSString *)name {
-	return [self initStimElement:type Name:name AtX:0 AtY:0 WidthX:0 WidthY:0];
-}
-
-
-- (id)initStimElement:(NSString *)type Name:(NSString *)name AtX:(float)pos_x AtY:(float)pos_y WidthX:(float)size_x WidthY:(float)size_y {
+- (id)initStimElement:(NSString *)type
+                 Name:(NSString *)name
+                  AtX:(float)pos_x
+                  AtY:(float)pos_y
+               WidthX:(float)size_x
+               WidthY:(float)size_y
+             Rotation:(float)rot
+{
 	self = [super init];
 	if (self) {
 		stm_name = [name copy];
@@ -26,6 +28,7 @@
 		stm_isOn = YES;
 		center = NSMakePoint(pos_x, pos_y);
 		size = NSMakeSize(size_x, size_y);
+        rotation = rot;
 	}
 	return self;
 }
@@ -69,10 +72,17 @@
 }
 
 - (NSBezierPath *)pathForBox {
-    return [NSBezierPath bezierPathWithRect:NSMakeRect(center.x-(size.width/2),
-                                                       center.y-(size.height/2),
-                                                       size.width,
-                                                       size.height)];
+    NSBezierPath *path = [NSBezierPath bezierPathWithRect:NSMakeRect(-(size.width/2),
+                                                                     -(size.height/2),
+                                                                     size.width,
+                                                                     size.height)];
+    
+    NSAffineTransform *transform = [NSAffineTransform transform];
+    [transform translateXBy:center.x yBy:center.y];
+    [transform rotateByDegrees:rotation];
+    [path transformUsingAffineTransform:transform];
+    
+    return path;
 }
 
 - (NSBezierPath *)pathForCrossWithSize:(NSSize)draw_size {
@@ -96,7 +106,14 @@
 		if ([stm_type isEqualToString:@STIM_TYPE_POINT]) {
             
             [[NSColor greenColor] set];
-            [path appendBezierPath:[self pathForBox]];
+            
+            // Don't use pathForBox, because, as currently implemented, the fixation window is never
+            // rotated, even if the visible fixation rectangle is
+            [path appendBezierPath:[NSBezierPath bezierPathWithRect:NSMakeRect(center.x-(size.width/2),
+                                                                               center.y-(size.height/2),
+                                                                               size.width,
+                                                                               size.height)]];
+            
             [path appendBezierPath:[self pathForCrossWithSize:NSMakeSize(0.3*size.width, 0.3*size.height)]];
             
 		} else if ([stm_type isEqualToString:@"calibratorSample"]) {
