@@ -72,10 +72,14 @@
 }
 
 - (NSBezierPath *)pathForBox {
-    NSBezierPath *path = [NSBezierPath bezierPathWithRect:NSMakeRect(-(size.width/2),
-                                                                     -(size.height/2),
-                                                                     size.width,
-                                                                     size.height)];
+    NSBezierPath *path = [NSBezierPath bezierPath];
+    NSRect rect = NSMakeRect(-(size.width/2), -(size.height/2), size.width, size.height);
+    
+    if ([stm_type isEqualToString:@"circle"]) {
+        [path appendBezierPathWithOvalInRect:rect];
+    } else {
+        [path appendBezierPathWithRect:rect];
+    }
     
     NSAffineTransform *transform = [NSAffineTransform transform];
     [transform translateXBy:center.x yBy:center.y];
