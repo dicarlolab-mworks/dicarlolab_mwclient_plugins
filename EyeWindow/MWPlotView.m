@@ -137,14 +137,14 @@
         }
 
 		if([eye_samples count]) {
-			MWEyeSamplePlotElement *last_sample = eye_samples[0];
+			MWEyeSamplePlotElement *last_sample = [eye_samples objectAtIndex:0];
             NSPoint lastPos = [degreesToPoints transformPoint:last_sample.position];
 			
             NSBezierPath *saccadePath = [NSBezierPath bezierPath];
             [[NSColor blackColor] set];
             
 			for(int i = 1; i < [eye_samples count]-1; ++i) {
-				MWEyeSamplePlotElement *current_sample = eye_samples[i];
+				MWEyeSamplePlotElement *current_sample = [eye_samples objectAtIndex:i];
                 NSPoint currentPos = [degreesToPoints transformPoint:current_sample.position];
 				
 				if(last_sample.saccading == SACCADING || current_sample.saccading == SACCADING) {
@@ -170,12 +170,12 @@
             // We don't need to worry about timeOfTail getting smaller, because setTimeOfTail: always
             // triggers an update.
             //
-            NSTimeInterval firstSampleExpirationTime = ((MWEyeSamplePlotElement *)eye_samples[0]).time + timeOfTail;
+            NSTimeInterval firstSampleExpirationTime = ((MWEyeSamplePlotElement *)[eye_samples objectAtIndex:0]).time + timeOfTail;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (firstSampleExpirationTime - currentTime) * NSEC_PER_SEC),
                            serialQueue,
                            ^{
                                NSTimeInterval cutoffTime = [NSDate timeIntervalSinceReferenceDate] - timeOfTail;
-                               if (([eye_samples count] > 0) && ([(MWEyeSamplePlotElement *)eye_samples[0] time] < cutoffTime)) {
+                               if (([eye_samples count] > 0) && ([(MWEyeSamplePlotElement *)[eye_samples objectAtIndex:0] time] < cutoffTime)) {
                                    [self triggerUpdate];
                                }
                            });
@@ -249,7 +249,7 @@
 
 - (void)setWidth:(float)width_in {
     // This method should never be called from a non-main thread
-    NSAssert([NSThread isMainThread], @"%s called on non-main thread", __func__);
+    NSAssert1([NSThread isMainThread], @"%s called on non-main thread", __func__);
     
     if (width_in != width) {
         width = width_in;
@@ -438,7 +438,7 @@
 				int i;
 				
 				for(i = 0; i < [cal_samples count]; i++) {
-					MWStimulusPlotElement *existing_stm = cal_samples[i];
+					MWStimulusPlotElement *existing_stm = [cal_samples objectAtIndex:i];
 					if ([[existing_stm getName] isEqualToString: stm_name]) {
 						
 						[existing_stm setOnOff:YES];
@@ -447,7 +447,7 @@
 						[existing_stm setSizeX:0];
 						[existing_stm setSizeY:0];
 						
-						cal_samples[i] = existing_stm;
+                        [cal_samples replaceObjectAtIndex:i withObject:existing_stm];
 						Item_exist = YES;
 					}
 				}
