@@ -27,7 +27,9 @@ Copy right 2006 MIT. All rights reserved.
 	float gridStepX;
 	float gridStepY;
 	bool cartesianGrid;
-	
+    
+    NSRect displayBounds;
+    
 	NSMutableArray *eye_samples;
 	NSMutableArray *stm_samples;
 	NSMutableArray *cal_samples;
@@ -44,6 +46,7 @@ Copy right 2006 MIT. All rights reserved.
 @property(nonatomic, weak) IBOutlet NSSlider *scaleSlider;
 @property(nonatomic, weak) IBOutlet NSTextField *scaleLabel;
 
+- (void)setDisplayBounds:(NSRect)bounds;
 - (void)setWidth:(float)width;
 - (void)addEyeHEvent:(MWCocoaEvent *)event;
 - (void)addEyeVEvent:(MWCocoaEvent *)event;

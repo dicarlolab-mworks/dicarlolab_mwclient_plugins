@@ -122,6 +122,16 @@
             [grid stroke];
         }
         
+        // Display outline
+        {
+            NSBezierPath *outline = [NSBezierPath bezierPathWithRect:displayBounds];
+            [outline transformUsingAffineTransform:degreesToPoints];
+            
+            [[NSColor blackColor] set];
+            [outline setLineWidth:1];
+            [outline stroke];
+        }
+        
         NSTimeInterval currentTime = [NSDate timeIntervalSinceReferenceDate];
         NSTimeInterval cutoffTime = currentTime - timeOfTail;
         NSUInteger firstValidIndex = [eye_samples indexOfObjectPassingTest:^BOOL (id obj, NSUInteger idx, BOOL *stop) {
@@ -219,24 +229,6 @@
     frameCenterDegrees.x -= displacementDegrees.width;
     frameCenterDegrees.y -= displacementDegrees.height;
     
-    //
-    // TODO: Need to think about this more
-    //
-    // Prevent dragging beyond field bounds
-    /*
-    {
-        NSSize size = [pointsToDegrees transformSize:[self bounds].size];
-        
-        CGFloat halfWidth = size.width / 2;
-        frameCenterDegrees.x = fmaxf(frameCenterDegrees.x, -MAX_ANGLE / 2 + halfWidth);
-        frameCenterDegrees.x = fminf(frameCenterDegrees.x, +MAX_ANGLE / 2 - halfWidth);
-        
-        CGFloat halfHeight = size.height / 2;
-        frameCenterDegrees.y = fmaxf(frameCenterDegrees.y, -MAX_ANGLE / 2 + halfHeight);
-        frameCenterDegrees.y = fminf(frameCenterDegrees.y, +MAX_ANGLE / 2 - halfHeight);
-    }
-     */
-    
     lastDragLocation = dragLocation;
     [self setNeedsDisplay:YES];
 }
@@ -244,6 +236,14 @@
 
 - (void)mouseUp:(NSEvent *)event {
     [NSCursor pop];
+}
+
+
+- (void)setDisplayBounds:(NSRect)bounds {
+	dispatch_async(serialQueue, ^{
+		displayBounds = bounds;
+        [self triggerUpdate];
+	});
 }
 
 

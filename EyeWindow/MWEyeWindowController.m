@@ -6,6 +6,7 @@
 #import "MWorksCore/GenericData.h"
 #import "MWorksCore/VariableProperties.h"
 #import "MWorksCore/StandardVariables.h"
+#import "MWorksCore/StimulusDisplay.h"
 
 
 #define	EYE_WINDOW_CALLBACK_KEY @"MWEyeWindowController callback key"
@@ -106,6 +107,16 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 	[plotView addEyeHEvent:event];		
 }
 
+- (void)serviceMainScreenInfoEvent:(MWCocoaEvent *)event {
+    mw::Datum *mainScreenInfo = [event data];
+    
+    GLdouble left, right, bottom, top;
+    mw::StimulusDisplay::getDisplayBounds(*mainScreenInfo, left, right, bottom, top);
+    
+    NSRect bounds = NSMakeRect(left, bottom, right-left, top-bottom);
+    [plotView setDisplayBounds:bounds];
+}
+
 - (void)serviceVEvent:(MWCocoaEvent *)event {
 	[plotView addEyeVEvent:event];		
 }
@@ -142,6 +153,7 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 *                           Private Methods
 *******************************************************************/
 - (void)cacheCodes {
+    int mainScreenInfoCodecCode = -1;
 	int hCodecCode = -1;
 	int vCodecCode = -1;
 	int stimDisplayUpdateCodecCode = -1;
@@ -149,6 +161,7 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 	int eyeStateCodecCode = -1;
 	
 	if(delegate != nil) {
+        mainScreenInfoCodecCode = [[delegate codeForTag:@MAIN_SCREEN_INFO_TAGNAME] intValue];
 		hCodecCode = [[delegate codeForTag:EYE_H] intValue];
 		vCodecCode = [[delegate codeForTag:EYE_V] intValue];
 		stimDisplayUpdateCodecCode = [[delegate codeForTag:@STIMULUS_DISPLAY_UPDATE_TAGNAME] intValue];
@@ -156,11 +169,18 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 		eyeStateCodecCode = [[delegate codeForTag:EYE_STATE] intValue];
 		
 		[delegate unregisterCallbacksWithKey:[EYE_WINDOW_CALLBACK_KEY UTF8String]];
+        
 		[delegate registerEventCallbackWithReceiver:self 
                                            selector:@selector(codecReceived:)
                                         callbackKey:[EYE_WINDOW_CALLBACK_KEY UTF8String]
 									forVariableCode:RESERVED_CODEC_CODE
                                        onMainThread:YES];
+		
+		[delegate registerEventCallbackWithReceiver:self
+                                           selector:@selector(serviceMainScreenInfoEvent:)
+                                        callbackKey:[EYE_WINDOW_CALLBACK_KEY UTF8String]
+									forVariableCode:mainScreenInfoCodecCode
+                                       onMainThread:NO];
 		
 		[delegate registerEventCallbackWithReceiver:self 
                                            selector:@selector(serviceHEvent:)
