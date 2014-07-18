@@ -17,9 +17,10 @@ Copy right 2006 MIT. All rights reserved.
 */
 
 #import <Cocoa/Cocoa.h>
-#import "MWEyeSamplePlotElement.h"
 #import "MWorksCocoa/MWCocoaEvent.h"
 #import "MWorksCore/GenericData.h"
+
+#import "MWTimePlotView.h"
 
 @interface MWPlotView : NSView
 {
@@ -45,6 +46,7 @@ Copy right 2006 MIT. All rights reserved.
 
 @property(nonatomic, weak) IBOutlet NSSlider *scaleSlider;
 @property(nonatomic, weak) IBOutlet NSTextField *scaleLabel;
+@property(nonatomic, weak) IBOutlet MWTimePlotView *timePlot;
 
 - (void)setDisplayBounds:(NSRect)bounds;
 - (void)setWidth:(float)width;

@@ -1,5 +1,6 @@
 //#import "MWorksCore/InterfaceSetting.h"
 #import "MWPlotView.h"
+#import "MWEyeSamplePlotElement.h"
 #import "MWStimulusPlotElement.h"
 #import "MWorksCore/StandardVariables.h"
 
@@ -191,6 +192,11 @@
                            });
 		}
 		
+        // Update the time plot panel
+        self.timePlot.samples = [eye_samples copy];
+        self.timePlot.positionBounds = visible;
+        self.timePlot.timeInterval = timeOfTail;
+        [self.timePlot setNeedsDisplay:YES];
 		
 		//======================= Draws stimulus ==================================
 		// Goes through the NSMutable array 'stm_samples' to display each item in 

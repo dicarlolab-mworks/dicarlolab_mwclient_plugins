@@ -45,6 +45,7 @@
 		E15D0B3416C2C98F00F331B1 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E15D0B3316C2C98F00F331B1 /* AppKit.framework */; };
 		E15D0B3616C2C99400F331B1 /* MWorksCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E15D0B3516C2C99400F331B1 /* MWorksCore.framework */; };
 		E15D0B3A16C2C9A400F331B1 /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E15D0B3916C2C9A400F331B1 /* libboost_system.a */; };
+		E179DADC19783108001EE4CF /* MWTimePlotView.m in Sources */ = {isa = PBXBuildFile; fileRef = E179DADB19783108001EE4CF /* MWTimePlotView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +98,8 @@
 		E15D0B3316C2C98F00F331B1 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		E15D0B3516C2C99400F331B1 /* MWorksCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MWorksCore.framework; path = /Library/Frameworks/MWorksCore.framework; sourceTree = "<absolute>"; };
 		E15D0B3916C2C9A400F331B1 /* libboost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_system.a; path = "/Library/Application Support/MWorks/Developer/lib/libboost_system.a"; sourceTree = "<absolute>"; };
+		E179DADA19783108001EE4CF /* MWTimePlotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWTimePlotView.h; sourceTree = "<group>"; };
+		E179DADB19783108001EE4CF /* MWTimePlotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWTimePlotView.m; sourceTree = "<group>"; };
 		E1895AC7116FD27F00D8CBE0 /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Development.xcconfig; path = "/Library/Application Support/MWorks/Developer/Xcode/Development.xcconfig"; sourceTree = "<absolute>"; };
 		E1895AC8116FD27F00D8CBE0 /* WARNING.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = WARNING.txt; path = "/Library/Application Support/MWorks/Developer/Xcode/WARNING.txt"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
@@ -156,6 +159,8 @@
 				B283771A0A8A951400358169 /* MWStimulusPlotElement.m */,
 				5C8E4A6B098FA6FF00EB44CA /* MWPlotView.h */,
 				5C8E4A6C098FA6FF00EB44CA /* MWPlotView.m */,
+				E179DADA19783108001EE4CF /* MWTimePlotView.h */,
+				E179DADB19783108001EE4CF /* MWTimePlotView.m */,
 				5C8E4A79098FB02400EB44CA /* MWEyeWindowController.h */,
 				5C8E4A7A098FB02400EB44CA /* MWEyeWindowController.m */,
 				5CF28588099402F4000C55A3 /* MWEyeSamplePlotElement.h */,
@@ -261,6 +266,7 @@
 			files = (
 				5C8E4A6D098FA6FF00EB44CA /* MWPlotView.m in Sources */,
 				5C8E4A7B098FB02400EB44CA /* MWEyeWindowController.m in Sources */,
+				E179DADC19783108001EE4CF /* MWTimePlotView.m in Sources */,
 				5CF2858B099402F4000C55A3 /* MWEyeSamplePlotElement.m in Sources */,
 				B283771B0A8A951400358169 /* MWStimulusPlotElement.m in Sources */,
 				68D292A10AF8E8AE00E9A885 /* MWEyeWindowOptionController.m in Sources */,
