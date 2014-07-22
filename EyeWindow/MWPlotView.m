@@ -74,6 +74,60 @@
 }
 
 
+- (void)viewWillDraw {
+	dispatch_sync(serialQueue, ^{
+        NSRect bounds = [self bounds];
+        NSAffineTransform *pointsToDegrees = [self pointsToDegrees];
+		
+		NSRect visible;
+        visible.origin = [pointsToDegrees transformPoint:bounds.origin];
+        visible.size = [pointsToDegrees transformSize:bounds.size];
+        
+        NSTimeInterval currentTime = [NSDate timeIntervalSinceReferenceDate];
+        NSTimeInterval cutoffTime = currentTime - timeOfTail;
+        NSUInteger firstValidIndex = [eye_samples indexOfObjectPassingTest:^BOOL (id obj, NSUInteger idx, BOOL *stop) {
+            MWEyeSamplePlotElement *sample = obj;
+            return (sample.time >= cutoffTime);
+        }];
+        
+        if (firstValidIndex != NSNotFound) {
+            [eye_samples removeObjectsInRange:NSMakeRange(0, firstValidIndex)];
+        } else {
+            // All samples have expired
+            [eye_samples removeAllObjects];
+        }
+        
+		if ([eye_samples count]) {
+            //
+            // Schedule the next check for expired samples to occur at the first sample's expiration time.
+            // We don't need to worry about timeOfTail getting smaller, because setTimeOfTail: always
+            // triggers an update.
+            //
+            NSTimeInterval firstSampleExpirationTime = ((MWEyeSamplePlotElement *)[eye_samples objectAtIndex:0]).time + timeOfTail;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (firstSampleExpirationTime - currentTime) * NSEC_PER_SEC),
+                           serialQueue,
+                           ^{
+                               NSTimeInterval cutoffTime = [NSDate timeIntervalSinceReferenceDate] - timeOfTail;
+                               if (([eye_samples count] > 0) && ([(MWEyeSamplePlotElement *)[eye_samples objectAtIndex:0] time] < cutoffTime)) {
+                                   [self triggerUpdate];
+                               }
+                           });
+		}
+		
+        // Update the time plot panel
+        self.timePlot.samples = [eye_samples copy];
+        self.timePlot.positionBounds = visible;
+        self.timePlot.timeInterval = timeOfTail;
+        
+        updatePending = NO;
+	});
+    
+    [self.timePlot setNeedsDisplay:YES];
+    
+    [super viewWillDraw];
+}
+
+
 - (void)drawRect:(NSRect)rect {
 	dispatch_sync(serialQueue, ^{
         [[NSGraphicsContext currentContext] setShouldAntialias:NO];
@@ -132,20 +186,6 @@
             [outline setLineWidth:1];
             [outline stroke];
         }
-        
-        NSTimeInterval currentTime = [NSDate timeIntervalSinceReferenceDate];
-        NSTimeInterval cutoffTime = currentTime - timeOfTail;
-        NSUInteger firstValidIndex = [eye_samples indexOfObjectPassingTest:^BOOL (id obj, NSUInteger idx, BOOL *stop) {
-            MWEyeSamplePlotElement *sample = obj;
-            return (sample.time >= cutoffTime);
-        }];
-        
-        if (firstValidIndex != NSNotFound) {
-            [eye_samples removeObjectsInRange:NSMakeRange(0, firstValidIndex)];
-        } else {
-            // All samples have expired
-            [eye_samples removeAllObjects];
-        }
 
 		if([eye_samples count]) {
 			MWEyeSamplePlotElement *last_sample = [eye_samples objectAtIndex:0];
@@ -175,28 +215,7 @@
                 [[NSColor blueColor] set];
                 [saccadePath stroke];
             }
-            
-            //
-            // Schedule the next check for expired samples to occur at the first sample's expiration time.
-            // We don't need to worry about timeOfTail getting smaller, because setTimeOfTail: always
-            // triggers an update.
-            //
-            NSTimeInterval firstSampleExpirationTime = ((MWEyeSamplePlotElement *)[eye_samples objectAtIndex:0]).time + timeOfTail;
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (firstSampleExpirationTime - currentTime) * NSEC_PER_SEC),
-                           serialQueue,
-                           ^{
-                               NSTimeInterval cutoffTime = [NSDate timeIntervalSinceReferenceDate] - timeOfTail;
-                               if (([eye_samples count] > 0) && ([(MWEyeSamplePlotElement *)[eye_samples objectAtIndex:0] time] < cutoffTime)) {
-                                   [self triggerUpdate];
-                               }
-                           });
 		}
-		
-        // Update the time plot panel
-        self.timePlot.samples = [eye_samples copy];
-        self.timePlot.positionBounds = visible;
-        self.timePlot.timeInterval = timeOfTail;
-        [self.timePlot setNeedsDisplay:YES];
 		
 		//======================= Draws stimulus ==================================
 		// Goes through the NSMutable array 'stm_samples' to display each item in 
@@ -207,8 +226,6 @@
 		for (MWStimulusPlotElement *cal in cal_samples) {
 			[cal stroke:visible degreesToPoints:degreesToPoints];
 		}
-        
-        updatePending = NO;
 	});
 }
 
