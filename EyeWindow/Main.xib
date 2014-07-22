@@ -88,9 +88,41 @@
                                         <rect key="frame" x="20" y="0.0" width="355" height="450"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <subviews>
-                                            <customView fixedFrame="YES" id="JhH-KX-4pG" customClass="MWTimePlotView">
+                                            <customView id="JhH-KX-4pG" customClass="MWTimePlotView">
                                                 <rect key="frame" x="0.0" y="0.0" width="355" height="219"/>
                                                 <autoresizingMask key="autoresizingMask"/>
+                                                <subviews>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mcg-Gd-BuD">
+                                                        <rect key="frame" x="324" y="0.0" width="13" height="17"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="9" id="8K9-Gb-HSJ"/>
+                                                            <constraint firstAttribute="height" constant="17" id="TrY-2K-ley"/>
+                                                        </constraints>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="X" id="mHh-82-8D7">
+                                                            <font key="font" metaFont="smallSystem"/>
+                                                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Seu-qf-Yxr">
+                                                        <rect key="frame" x="338" y="0.0" width="13" height="17"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Y" id="A7r-MW-l5b">
+                                                            <font key="font" metaFont="smallSystem"/>
+                                                            <color key="textColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="Seu-qf-Yxr" firstAttribute="baseline" secondItem="Mcg-Gd-BuD" secondAttribute="baseline" id="28S-3r-ekY"/>
+                                                    <constraint firstItem="Seu-qf-Yxr" firstAttribute="top" secondItem="Mcg-Gd-BuD" secondAttribute="top" id="8Be-4E-fjt"/>
+                                                    <constraint firstItem="Seu-qf-Yxr" firstAttribute="leading" secondItem="Mcg-Gd-BuD" secondAttribute="trailing" constant="5" id="H3t-x5-2yK"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Mcg-Gd-BuD" secondAttribute="trailing" constant="20" symbolic="YES" id="gdf-Gn-i7U"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Seu-qf-Yxr" secondAttribute="bottom" id="jHq-wr-pHO"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Seu-qf-Yxr" secondAttribute="trailing" constant="6" id="sxa-ev-CfD"/>
+                                                </constraints>
                                             </customView>
                                             <customView id="5Zf-65-wdg">
                                                 <rect key="frame" x="0.0" y="220" width="355" height="230"/>
