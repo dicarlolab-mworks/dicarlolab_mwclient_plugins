@@ -43,7 +43,7 @@
 			self.duration = 0;
 		}
 		
-		[delegate setValue:[NSNumber numberWithFloat:self.duration*1000] 
+		[(NSObject *)delegate setValue:[NSNumber numberWithFloat:self.duration*1000]
 				forKeyPath:[@"variables." stringByAppendingString:self.rewardVarName]];
 	}
 }
