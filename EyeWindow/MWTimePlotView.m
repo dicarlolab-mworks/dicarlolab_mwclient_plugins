@@ -80,6 +80,11 @@
     
     [[NSColor greenColor] set];
     [yPath stroke];
+    
+    // Asychronously trigger the next update
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self setNeedsDisplay:YES];
+    });
 }
 
 
