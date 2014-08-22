@@ -25,14 +25,6 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 @implementation MWEyeWindowController
 
 
-- (id) init {
-	self = [super init];
-	if (self != nil) {
-		OptionWindow = [[MWEyeWindowOptionController alloc] init];
-	}
-	return self;
-}
-
 - (void)awakeFromNib {
 	[[NSNotificationCenter defaultCenter] addObserver:self 
 											 selector:@selector(updateEyeVariableNames)
@@ -78,10 +70,6 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 
 - (IBAction)reset:(id)sender {
 	[plotView reset];
-}
-
-- (IBAction)openOptionWin:(id)sender {
-	[OptionWindow openSheet];
 }
 
 

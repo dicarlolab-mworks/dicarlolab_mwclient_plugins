@@ -16,32 +16,30 @@
 
 @implementation MWEyeWindowOptionController
 
-- (id)init{
-    self = [super initWithWindowNibName:@"OptionWindow"];
-    if(self) {
-        [self window];
+
+- (instancetype)init {
+    self = [super init];
+    
+    if (self) {
+        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+        
+        time_of_tail = [ud floatForKey:MW_EYE_WINDOW_TIME_OF_TAIL];
+        v = [[ud stringForKey:MW_EYE_WINDOW_V_NAME] copy];
+        h = [[ud stringForKey:MW_EYE_WINDOW_H_NAME] copy];
+        eye_state = [[ud stringForKey:MW_EYE_WINDOW_EYE_STATE_NAME] copy];
+        
+        if(h == nil) {
+            [self setH:@""];
+        }
+        if(v == nil) {
+            [self setV:@""];
+        }
+        if(eye_state == nil) {
+            [self setEyeState:@""];
+        }
     }
+    
     return self;
-}
-
-
-- (void)awakeFromNib {
-	NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-	
-	[self setTimeOfTail:[ud floatForKey:MW_EYE_WINDOW_TIME_OF_TAIL]];
-	[self setV:[ud stringForKey:MW_EYE_WINDOW_V_NAME]];
-	[self setH:[ud stringForKey:MW_EYE_WINDOW_H_NAME]];
-	[self setEyeState:[ud stringForKey:MW_EYE_WINDOW_EYE_STATE_NAME]];
-	
-	if(h == nil) {
-		[self setH:@""];
-	}
-	if(v == nil) {
-		[self setV:@""];
-	}
-	if(eye_state == nil) {
-		[self setEyeState:@""];
-	}
 }	
 
 - (NSTimeInterval)timeOfTail {
@@ -49,6 +47,7 @@
 }
 - (void)setTimeOfTail:(NSTimeInterval)new_time_of_tail {
 	time_of_tail = new_time_of_tail;
+    [self updateVariables];
 }
 
 - (NSString *)h {
@@ -56,6 +55,7 @@
 }
 - (void)setH:(NSString *)_h {
 	h = [_h copy];
+    [self updateVariables];
 }
 
 - (NSString *)v {
@@ -63,6 +63,7 @@
 }
 - (void)setV:(NSString *)_v {
 	v = [_v copy];
+    [self updateVariables];
 }
 
 - (NSString *)eyeState {
@@ -71,11 +72,11 @@
 
 - (void)setEyeState:(NSString *)_eye_state {
 	eye_state = [_eye_state copy];
+    [self updateVariables];
 }
 
-- (IBAction)updateVariables:(id)sender {
-	[self closeSheet];
-    [[NSNotificationCenter defaultCenter] 
+- (void)updateVariables {
+    [[NSNotificationCenter defaultCenter]
 		postNotificationName:MWEyeWindowVariableUpdateNotification 
 		object:nil userInfo:nil];
 
@@ -84,16 +85,13 @@
 	[ud setObject:[self h] forKey:MW_EYE_WINDOW_H_NAME];
 	[ud setObject:[self v] forKey:MW_EYE_WINDOW_V_NAME];
 	[ud setFloat:[self timeOfTail] forKey:MW_EYE_WINDOW_TIME_OF_TAIL];
-	[ud synchronize];
 }
 
 
-- (void)openSheet{
-	[NSApp beginSheet:[self window] modalForWindow:[NSApp mainWindow]
-                         modalDelegate:nil didEndSelector:nil contextInfo:nil];
-}
-
-
+//
+// TODO: Force-end editing when options drawer closes
+//
+/*
 - (void)closeSheet {
     // Finish editing in all fields
     if (![[self window] makeFirstResponder:[self window]]) {
@@ -102,6 +100,7 @@
     [[self window] orderOut:self];
     [NSApp endSheet:[self window]];
 }
+ */
 
 
 

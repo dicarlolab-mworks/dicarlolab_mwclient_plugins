@@ -10,7 +10,7 @@
 #import "MWorksCore/GenericData.h"
 
 
-@interface MWEyeWindowOptionController : NSWindowController {
+@interface MWEyeWindowOptionController : NSObject {
 	NSString * h;
 	NSString * v;
 	NSString * eye_state;
@@ -19,10 +19,7 @@
 }
 
 
-- (id)init;
-- (IBAction)updateVariables:(id)sender;
-- (void)openSheet;
-- (void)closeSheet;
+- (void)updateVariables;
 
 - (NSTimeInterval)timeOfTail;
 - (void)setTimeOfTail:(NSTimeInterval)new_time_of_tail;

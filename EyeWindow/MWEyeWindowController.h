@@ -28,7 +28,7 @@ extern NSString  * MWEyeWindowVariableUpdateNotification;
 	IBOutlet NSSlider *scaleSlider;
 	IBOutlet id<MWClientProtocol> __unsafe_unretained delegate;
 
-	MWEyeWindowOptionController * OptionWindow;
+	IBOutlet MWEyeWindowOptionController *OptionWindow;
 	
 	// Tag names for the eye data and stimulus announce, use this to find codec number
 	NSString *EYE_H;
@@ -44,7 +44,6 @@ extern NSString  * MWEyeWindowVariableUpdateNotification;
  * @param sender
  */
 - (IBAction)acceptWidth:(id)sender;
-- (IBAction)openOptionWin:(id)sender;
 
 /*!
  * @function reset:

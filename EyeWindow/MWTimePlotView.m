@@ -75,10 +75,10 @@
     [xPath transformUsingAffineTransform:transform];
     [yPath transformUsingAffineTransform:transform];
     
-    [[NSColor redColor] set];
+    [[NSColor blackColor] set];
     [xPath stroke];
     
-    [[NSColor greenColor] set];
+    [[NSColor orangeColor] set];
     [yPath stroke];
     
     // Asychronously trigger the next update

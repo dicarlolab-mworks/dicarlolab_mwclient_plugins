@@ -38,7 +38,6 @@
 		5C8E4A7B098FB02400EB44CA /* MWEyeWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C8E4A7A098FB02400EB44CA /* MWEyeWindowController.m */; };
 		5CF2858B099402F4000C55A3 /* MWEyeSamplePlotElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CF28589099402F4000C55A3 /* MWEyeSamplePlotElement.m */; };
 		68D292A10AF8E8AE00E9A885 /* MWEyeWindowOptionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D292A00AF8E8AE00E9A885 /* MWEyeWindowOptionController.m */; };
-		68D292E20AF8EB8900E9A885 /* OptionWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68D292E10AF8EB8900E9A885 /* OptionWindow.xib */; };
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		B283771B0A8A951400358169 /* MWStimulusPlotElement.m in Sources */ = {isa = PBXBuildFile; fileRef = B283771A0A8A951400358169 /* MWStimulusPlotElement.m */; };
 		E12D993116BC3494004FEF79 /* MWorksEyeWindow.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 686E22AF0AC84B19003EFDDA /* MWorksEyeWindow.bundle */; };
@@ -91,7 +90,6 @@
 		686E22AF0AC84B19003EFDDA /* MWorksEyeWindow.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MWorksEyeWindow.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		68D2929F0AF8E8AE00E9A885 /* MWEyeWindowOptionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWEyeWindowOptionController.h; sourceTree = "<group>"; };
 		68D292A00AF8E8AE00E9A885 /* MWEyeWindowOptionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWEyeWindowOptionController.m; sourceTree = "<group>"; };
-		68D292E10AF8EB8900E9A885 /* OptionWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OptionWindow.xib; sourceTree = "<group>"; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B28377190A8A951400358169 /* MWStimulusPlotElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWStimulusPlotElement.h; sourceTree = "<group>"; };
 		B283771A0A8A951400358169 /* MWStimulusPlotElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWStimulusPlotElement.m; sourceTree = "<group>"; };
@@ -166,7 +164,6 @@
 				5CF28588099402F4000C55A3 /* MWEyeSamplePlotElement.h */,
 				5CF28589099402F4000C55A3 /* MWEyeSamplePlotElement.m */,
 				5C8E4A68098FA2A600EB44CA /* Main.xib */,
-				68D292E10AF8EB8900E9A885 /* OptionWindow.xib */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -253,7 +250,6 @@
 			files = (
 				8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */,
 				5C8E4A69098FA2A600EB44CA /* Main.xib in Resources */,
-				68D292E20AF8EB8900E9A885 /* OptionWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

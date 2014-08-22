@@ -121,6 +121,9 @@
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
+                        <connections>
+                            <binding destination="kRp-MO-iV1" name="value" keyPath="selection.timeOfTail" id="qS7-Bz-HVK"/>
+                        </connections>
                     </textField>
                     <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0YS-Fj-V2O">
                         <rect key="frame" x="72" y="17" width="19" height="27"/>
@@ -157,6 +160,7 @@
         </window>
         <customObject id="102" userLabel="Eye Window Controller" customClass="MWEyeWindowController">
             <connections>
+                <outlet property="OptionWindow" destination="SLY-cR-FWA" id="b33-Cd-vHN"/>
                 <outlet property="delegate" destination="-2" id="111"/>
                 <outlet property="plotView" destination="ZSC-vl-U1d" id="9KD-lF-Zb2"/>
                 <outlet property="scaleSlider" destination="OpJ-Sn-JNr" id="GNm-ub-dVe"/>
@@ -182,6 +186,9 @@
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <connections>
+                                    <binding destination="kRp-MO-iV1" name="value" keyPath="selection.h" id="xPA-kz-hJZ"/>
+                                </connections>
                             </textField>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MiI-fW-Zaq">
                                 <rect key="frame" x="82" y="36" width="126" height="22"/>
@@ -191,6 +198,9 @@
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <connections>
+                                    <binding destination="kRp-MO-iV1" name="value" keyPath="selection.v" id="ZZb-86-72j"/>
+                                </connections>
                             </textField>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gXE-Ij-rNd">
                                 <rect key="frame" x="82" y="14" width="126" height="22"/>
@@ -200,6 +210,9 @@
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <connections>
+                                    <binding destination="kRp-MO-iV1" name="value" keyPath="selection.eyeState" id="WiU-dz-ce8"/>
+                                </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cMo-WS-be9">
                                 <rect key="frame" x="59" y="61" width="17" height="17"/>
@@ -439,5 +452,11 @@
                 <outlet property="parentWindow" destination="5" id="d6L-88-YZd"/>
             </connections>
         </drawer>
+        <customObject id="SLY-cR-FWA" customClass="MWEyeWindowOptionController"/>
+        <objectController objectClassName="MWEyeWindowOptionController" id="kRp-MO-iV1">
+            <connections>
+                <outlet property="content" destination="SLY-cR-FWA" id="WHT-si-3zO"/>
+            </connections>
+        </objectController>
     </objects>
 </document>
