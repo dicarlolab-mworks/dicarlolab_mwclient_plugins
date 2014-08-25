@@ -116,7 +116,10 @@
                             <constraint firstAttribute="width" constant="47" id="5EU-Zo-tf8"/>
                         </constraints>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" placeholderString="" drawsBackground="YES" id="hJO-ay-DCA">
-                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" id="gKM-w8-4m0"/>
+                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" id="gKM-w8-4m0">
+                                <real key="minimum" value="0.0"/>
+                                <real key="maximum" value="1000"/>
+                            </numberFormatter>
                             <font key="font" metaFont="smallSystem"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -128,7 +131,10 @@
                     <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0YS-Fj-V2O">
                         <rect key="frame" x="72" y="17" width="19" height="27"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <stepperCell key="cell" continuous="YES" alignment="left" maxValue="100" id="Hcw-X6-RgB"/>
+                        <stepperCell key="cell" continuous="YES" alignment="left" maxValue="1000" id="Hcw-X6-RgB"/>
+                        <connections>
+                            <binding destination="kRp-MO-iV1" name="value" keyPath="selection.timeOfTail" id="Dse-2F-dg0"/>
+                        </connections>
                     </stepper>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gjq-da-XhT">
                         <rect key="frame" x="94" y="23" width="47" height="14"/>
