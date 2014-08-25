@@ -7,30 +7,13 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "MWorksCore/GenericData.h"
 
 
-@interface MWEyeWindowOptionController : NSObject {
-	NSString * h;
-	NSString * v;
-	NSString * eye_state;
-	
-	NSTimeInterval time_of_tail;
-}
+@interface MWEyeWindowOptionController : NSObject
 
-
-- (void)updateVariables;
-
-- (NSTimeInterval)timeOfTail;
-- (void)setTimeOfTail:(NSTimeInterval)new_time_of_tail;
-
-- (NSString *)v;
-- (void)setV:(NSString *)_v;
-
-- (NSString *)h;
-- (void)setH:(NSString *)_h;
-
-- (NSString *)eyeState;
-- (void)setEyeState:(NSString *)_eye_state;
+@property(nonatomic, copy) NSString *h;
+@property(nonatomic, copy) NSString *v;
+@property(nonatomic, copy) NSString *eyeState;
+@property(nonatomic) NSTimeInterval timeOfTail;
 
 @end

@@ -14,6 +14,7 @@
 #define MW_EYE_WINDOW_V_NAME @"MWorksClient - Eye Window - v"
 #define MW_EYE_WINDOW_EYE_STATE_NAME @"MWorksClient - Eye Window - eye_state"
 
+
 @implementation MWEyeWindowOptionController
 
 
@@ -23,18 +24,18 @@
     if (self) {
         NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
         
-        time_of_tail = [ud floatForKey:MW_EYE_WINDOW_TIME_OF_TAIL];
-        v = [[ud stringForKey:MW_EYE_WINDOW_V_NAME] copy];
-        h = [[ud stringForKey:MW_EYE_WINDOW_H_NAME] copy];
-        eye_state = [[ud stringForKey:MW_EYE_WINDOW_EYE_STATE_NAME] copy];
+        _timeOfTail = [ud floatForKey:MW_EYE_WINDOW_TIME_OF_TAIL];
+        _v = [[ud stringForKey:MW_EYE_WINDOW_V_NAME] copy];
+        _h = [[ud stringForKey:MW_EYE_WINDOW_H_NAME] copy];
+        _eyeState = [[ud stringForKey:MW_EYE_WINDOW_EYE_STATE_NAME] copy];
         
-        if(h == nil) {
+        if (_h == nil) {
             [self setH:@""];
         }
-        if(v == nil) {
+        if (_v == nil) {
             [self setV:@""];
         }
-        if(eye_state == nil) {
+        if (_eyeState == nil) {
             [self setEyeState:@""];
         }
     }
@@ -42,38 +43,30 @@
     return self;
 }	
 
-- (NSTimeInterval)timeOfTail {
-	return time_of_tail;
-}
-- (void)setTimeOfTail:(NSTimeInterval)new_time_of_tail {
-	time_of_tail = new_time_of_tail;
+
+- (void)setH:(NSString *)h {
+	_h = [h copy];
     [self updateVariables];
 }
 
-- (NSString *)h {
-	return h;
-}
-- (void)setH:(NSString *)_h {
-	h = [_h copy];
+
+- (void)setV:(NSString *)v {
+	_v = [v copy];
     [self updateVariables];
 }
 
-- (NSString *)v {
-	return v;	
-}
-- (void)setV:(NSString *)_v {
-	v = [_v copy];
+
+- (void)setEyeState:(NSString *)eyeState {
+	_eyeState = [eyeState copy];
     [self updateVariables];
 }
 
-- (NSString *)eyeState {
-	return eye_state;
-}
 
-- (void)setEyeState:(NSString *)_eye_state {
-	eye_state = [_eye_state copy];
+- (void)setTimeOfTail:(NSTimeInterval)timeOfTail {
+	_timeOfTail = timeOfTail;
     [self updateVariables];
 }
+
 
 - (void)updateVariables {
     [[NSNotificationCenter defaultCenter]
@@ -101,7 +94,6 @@
     [NSApp endSheet:[self window]];
 }
  */
-
 
 
 @end
