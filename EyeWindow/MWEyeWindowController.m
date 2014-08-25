@@ -31,7 +31,7 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 												 name:MWEyeWindowVariableUpdateNotification 
 											   object:nil];
 	
-	[plotView setTimeOfTail:[OptionWindow timeOfTail]];
+	[plotView setTimeOfTail:[[OptionWindow timeOfTail] floatValue]];
 	EYE_H = [[NSString alloc] initWithString:[OptionWindow h]];
 	EYE_V = [[NSString alloc] initWithString:[OptionWindow v]];
 	EYE_STATE = [[NSString alloc] initWithString:[OptionWindow eyeState]];
@@ -75,7 +75,7 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 
 
 - (void)updateEyeVariableNames {
-	[plotView setTimeOfTail:[OptionWindow timeOfTail]];
+	[plotView setTimeOfTail:[[OptionWindow timeOfTail] floatValue]];
 	EYE_H = [[NSString alloc] initWithString:[OptionWindow h]];
 	EYE_V = [[NSString alloc] initWithString:[OptionWindow v]];
 	EYE_STATE = [[NSString alloc] initWithString:[OptionWindow eyeState]];
