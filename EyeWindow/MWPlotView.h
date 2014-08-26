@@ -32,6 +32,7 @@ Copy right 2006 MIT. All rights reserved.
     NSRect displayBounds;
     
 	NSMutableArray *eye_samples;
+	NSMutableArray *aux_samples;
 	NSMutableArray *stm_samples;
 	NSMutableArray *cal_samples;
 	
@@ -52,6 +53,8 @@ Copy right 2006 MIT. All rights reserved.
 - (void)setWidth:(float)width;
 - (void)addEyeHEvent:(MWCocoaEvent *)event;
 - (void)addEyeVEvent:(MWCocoaEvent *)event;
+- (void)addAuxHEvent:(MWCocoaEvent *)event;
+- (void)addAuxVEvent:(MWCocoaEvent *)event;
 - (void)addEyeStateEvent:(MWCocoaEvent *)event;
 - (void)acceptStmAnnounce:(mw::Datum *)stm_announce 
 					 Time:(MWorksTime)event_time;

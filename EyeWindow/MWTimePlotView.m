@@ -17,9 +17,37 @@
 - (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code here.
+        _eyeSamples = [NSArray array];
+        _auxSamples = [NSArray array];
     }
     return self;
+}
+
+
+static void plotSamples(NSArray *samples, NSAffineTransform *transform, NSColor *xColor, NSColor *yColor) {
+    if ([samples count]) {
+        NSBezierPath *xPath = [NSBezierPath bezierPath];
+        NSBezierPath *yPath = [NSBezierPath bezierPath];
+        
+        MWEyeSamplePlotElement *sample = [samples objectAtIndex:0];
+        [xPath moveToPoint:NSMakePoint(sample.time, sample.position.x)];
+        [yPath moveToPoint:NSMakePoint(sample.time, sample.position.y)];
+        
+        for (NSUInteger i = 1; i < [samples count]; i++) {
+            sample = [samples objectAtIndex:i];
+            [xPath lineToPoint:NSMakePoint(sample.time, sample.position.x)];
+            [yPath lineToPoint:NSMakePoint(sample.time, sample.position.y)];
+        }
+        
+        [xPath transformUsingAffineTransform:transform];
+        [yPath transformUsingAffineTransform:transform];
+        
+        [xColor set];
+        [xPath stroke];
+        
+        [yColor set];
+        [yPath stroke];
+    }
 }
 
 
@@ -38,7 +66,7 @@
         NSFrameRect(bounds);
     }
     
-    if ([self.samples count] == 0) {
+    if (![self.eyeSamples count] && ![self.auxSamples count]) {
         return;
     }
     
@@ -54,32 +82,16 @@
         maxPosition = NSMaxY(self.positionBounds);
     }
     
-    NSBezierPath *xPath = [NSBezierPath bezierPath];
-    NSBezierPath *yPath = [NSBezierPath bezierPath];
-    
-    MWEyeSamplePlotElement *sample = [self.samples objectAtIndex:0];
-    [xPath moveToPoint:NSMakePoint(sample.time, sample.position.x)];
-    [yPath moveToPoint:NSMakePoint(sample.time, sample.position.y)];
-    
-    for (NSUInteger i = 1; i < [self.samples count]; i++) {
-        sample = [self.samples objectAtIndex:i];
-        [xPath lineToPoint:NSMakePoint(sample.time, sample.position.x)];
-        [yPath lineToPoint:NSMakePoint(sample.time, sample.position.y)];
-    }
-    
     NSAffineTransform *transform = [NSAffineTransform transform];
     [transform scaleXBy:(NSWidth(bounds) / (maxTime - minTime))
                     yBy:(NSHeight(bounds) / (maxPosition - minPosition))];
     [transform translateXBy:-minTime yBy:-minPosition];
     
-    [xPath transformUsingAffineTransform:transform];
-    [yPath transformUsingAffineTransform:transform];
+    // Eye samples
+    plotSamples(self.eyeSamples, transform, [NSColor blackColor], [NSColor orangeColor]);
     
-    [[NSColor blackColor] set];
-    [xPath stroke];
-    
-    [[NSColor orangeColor] set];
-    [yPath stroke];
+    // Aux samples
+    plotSamples(self.auxSamples, transform, [NSColor cyanColor], [NSColor magentaColor]);
     
     // Asychronously trigger the next update
     dispatch_async(dispatch_get_main_queue(), ^{

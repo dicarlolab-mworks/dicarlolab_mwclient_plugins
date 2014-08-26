@@ -35,6 +35,8 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 	EYE_H = [[NSString alloc] initWithString:[OptionWindow h]];
 	EYE_V = [[NSString alloc] initWithString:[OptionWindow v]];
 	EYE_STATE = [[NSString alloc] initWithString:[OptionWindow eyeState]];
+	AUX_H = [[NSString alloc] initWithString:[OptionWindow auxH]];
+	AUX_V = [[NSString alloc] initWithString:[OptionWindow auxV]];
 }
 
 
@@ -79,6 +81,8 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 	EYE_H = [[NSString alloc] initWithString:[OptionWindow h]];
 	EYE_V = [[NSString alloc] initWithString:[OptionWindow v]];
 	EYE_STATE = [[NSString alloc] initWithString:[OptionWindow eyeState]];
+	AUX_H = [[NSString alloc] initWithString:[OptionWindow auxH]];
+	AUX_V = [[NSString alloc] initWithString:[OptionWindow auxV]];
 	[self cacheCodes];
 }
 
@@ -137,6 +141,17 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 	[plotView addEyeStateEvent:event];
 }
 
+
+- (void)serviceAuxHEvent:(MWCocoaEvent *)event {
+	[plotView addAuxHEvent:event];
+}
+
+
+- (void)serviceAuxVEvent:(MWCocoaEvent *)event {
+	[plotView addAuxVEvent:event];
+}
+
+
 /*******************************************************************
 *                           Private Methods
 *******************************************************************/
@@ -147,6 +162,8 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 	int stimDisplayUpdateCodecCode = -1;
 	int calAnnounceCodecCode = -1;
 	int eyeStateCodecCode = -1;
+	int auxHCodecCode = -1;
+	int auxVCodecCode = -1;
 	
 	if(delegate != nil) {
         mainScreenInfoCodecCode = [[delegate codeForTag:@MAIN_SCREEN_INFO_TAGNAME] intValue];
@@ -155,6 +172,8 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 		stimDisplayUpdateCodecCode = [[delegate codeForTag:@STIMULUS_DISPLAY_UPDATE_TAGNAME] intValue];
 		calAnnounceCodecCode = [[delegate codeForTag:@ANNOUNCE_CALIBRATOR_TAGNAME] intValue];
 		eyeStateCodecCode = [[delegate codeForTag:EYE_STATE] intValue];
+		auxHCodecCode = [[delegate codeForTag:AUX_H] intValue];
+		auxVCodecCode = [[delegate codeForTag:AUX_V] intValue];
 		
 		[delegate unregisterCallbacksWithKey:[EYE_WINDOW_CALLBACK_KEY UTF8String]];
         
@@ -199,12 +218,27 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
                                         callbackKey:[EYE_WINDOW_CALLBACK_KEY UTF8String]
 									forVariableCode:eyeStateCodecCode
                                        onMainThread:NO];
+		
+		[delegate registerEventCallbackWithReceiver:self
+                                           selector:@selector(serviceAuxHEvent:)
+                                        callbackKey:[EYE_WINDOW_CALLBACK_KEY UTF8String]
+									forVariableCode:auxHCodecCode
+                                       onMainThread:NO];
+		
+		[delegate registerEventCallbackWithReceiver:self
+                                           selector:@selector(serviceAuxVEvent:)
+                                        callbackKey:[EYE_WINDOW_CALLBACK_KEY UTF8String]
+									forVariableCode:auxVCodecCode
+                                       onMainThread:NO];
 	}
 	if(hCodecCode == -1 || 
 	   vCodecCode == -1 || 
 	   calAnnounceCodecCode == -1 || 
 	   eyeStateCodecCode == -1 || 
-	   stimDisplayUpdateCodecCode == -1) {
+	   stimDisplayUpdateCodecCode == -1 ||
+       auxHCodecCode == -1 ||
+       auxVCodecCode == -1)
+    {
 		NSString *warningMessage = @"Eye window can't find the following variables: ";
 		if(hCodecCode == -1) {
 			warningMessage = [warningMessage stringByAppendingString:EYE_H];
@@ -224,6 +258,14 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 		}
 		if(eyeStateCodecCode == -1) {
 			warningMessage = [warningMessage stringByAppendingString:EYE_STATE];
+			warningMessage = [warningMessage stringByAppendingString:@", "];
+		}
+		if(auxHCodecCode == -1) {
+			warningMessage = [warningMessage stringByAppendingString:AUX_H];
+			warningMessage = [warningMessage stringByAppendingString:@", "];
+		}
+		if(auxVCodecCode == -1) {
+			warningMessage = [warningMessage stringByAppendingString:AUX_V];
 			warningMessage = [warningMessage stringByAppendingString:@", "];
 		}
 		

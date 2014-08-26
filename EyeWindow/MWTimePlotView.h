@@ -11,7 +11,8 @@
 
 @interface MWTimePlotView : NSView
 
-@property(nonatomic, copy) NSArray *samples;
+@property(nonatomic, copy) NSArray *eyeSamples;
+@property(nonatomic, copy) NSArray *auxSamples;
 @property(nonatomic) NSRect positionBounds;
 @property(nonatomic) NSTimeInterval timeInterval;
 

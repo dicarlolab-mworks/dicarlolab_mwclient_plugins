@@ -34,6 +34,9 @@ extern NSString  * MWEyeWindowVariableUpdateNotification;
 	NSString *EYE_H;
 	NSString *EYE_V;
 	NSString *EYE_STATE;
+    
+	NSString *AUX_H;
+	NSString *AUX_V;
 }
 
 @property (nonatomic, unsafe_unretained, readwrite) id delegate;

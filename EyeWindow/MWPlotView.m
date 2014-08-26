@@ -17,6 +17,9 @@
 @property(nonatomic, strong) MWCocoaEvent *currentEyeH;
 @property(nonatomic, strong) MWCocoaEvent *currentEyeV;
 
+@property(nonatomic, strong) MWCocoaEvent *currentAuxH;
+@property(nonatomic, strong) MWCocoaEvent *currentAuxV;
+
 @end
 
 
@@ -43,6 +46,7 @@
         cartesianGrid = YES;
         
         eye_samples = [[NSMutableArray alloc] init];
+        aux_samples = [[NSMutableArray alloc] init];
         stm_samples = [[NSMutableArray alloc] init];
         cal_samples = [[NSMutableArray alloc] init];
         
@@ -74,6 +78,21 @@
 }
 
 
+static void removeExpiredSamples(NSMutableArray *samples, NSTimeInterval cutoffTime) {
+    NSUInteger firstValidIndex = [samples indexOfObjectPassingTest:^BOOL (id obj, NSUInteger idx, BOOL *stop) {
+        MWEyeSamplePlotElement *sample = obj;
+        return (sample.time >= cutoffTime);
+    }];
+    
+    if (firstValidIndex != NSNotFound) {
+        [samples removeObjectsInRange:NSMakeRange(0, firstValidIndex)];
+    } else {
+        // All samples have expired
+        [samples removeAllObjects];
+    }
+}
+
+
 - (void)viewWillDraw {
 	dispatch_sync(serialQueue, ^{
         NSRect bounds = [self bounds];
@@ -85,18 +104,12 @@
         
         NSTimeInterval currentTime = [NSDate timeIntervalSinceReferenceDate];
         NSTimeInterval cutoffTime = currentTime - timeOfTail;
-        NSUInteger firstValidIndex = [eye_samples indexOfObjectPassingTest:^BOOL (id obj, NSUInteger idx, BOOL *stop) {
-            MWEyeSamplePlotElement *sample = obj;
-            return (sample.time >= cutoffTime);
-        }];
         
-        if (firstValidIndex != NSNotFound) {
-            [eye_samples removeObjectsInRange:NSMakeRange(0, firstValidIndex)];
-        } else {
-            // All samples have expired
-            [eye_samples removeAllObjects];
-        }
+        removeExpiredSamples(eye_samples, cutoffTime);
+        removeExpiredSamples(aux_samples, cutoffTime);
         
+        // TODO: Can we just remove this?
+        /*
 		if ([eye_samples count]) {
             //
             // Schedule the next check for expired samples to occur at the first sample's expiration time.
@@ -113,9 +126,11 @@
                                }
                            });
 		}
+         */
 		
         // Update the time plot panel
-        self.timePlot.samples = [eye_samples copy];
+        self.timePlot.eyeSamples = [eye_samples copy];
+        self.timePlot.auxSamples = [aux_samples copy];
         self.timePlot.positionBounds = visible;
         self.timePlot.timeInterval = timeOfTail;
         
@@ -216,6 +231,23 @@
                 [saccadePath stroke];
             }
 		}
+        
+		if ([aux_samples count]) {
+            NSBezierPath *path = [NSBezierPath bezierPath];
+            
+            {
+                MWEyeSamplePlotElement *firstSample = [aux_samples objectAtIndex:0];
+                [path moveToPoint:[degreesToPoints transformPoint:firstSample.position]];
+            }
+			
+			for (int i = 1; i < [aux_samples count]-1; i++) {
+				MWEyeSamplePlotElement *sample = [aux_samples objectAtIndex:i];
+                [path lineToPoint:[degreesToPoints transformPoint:sample.position]];
+			}
+            
+            [[NSColor cyanColor] set];
+            [path stroke];
+		}
 		
 		//======================= Draws stimulus ==================================
 		// Goes through the NSMutable array 'stm_samples' to display each item in 
@@ -226,6 +258,10 @@
 		for (MWStimulusPlotElement *cal in cal_samples) {
 			[cal stroke:visible degreesToPoints:degreesToPoints];
 		}
+        
+        if ([eye_samples count] || [aux_samples count]) {
+            [self triggerUpdate];
+        }
 	});
 }
 
@@ -358,6 +394,66 @@
 			}
 		}
 	});
+}
+
+
+- (void)addAuxHEvent:(MWCocoaEvent *)event {
+	dispatch_async(serialQueue, ^{
+        if (!self.currentAuxH || ([event time] > [self.currentAuxH time])) {
+            [self syncAuxHEvent:event withAuxVEvent:self.currentAuxV];
+        }
+	});
+}
+
+
+- (void)addAuxVEvent:(MWCocoaEvent *)event {
+	dispatch_async(serialQueue, ^{
+        if (!self.currentAuxV || ([event time] > [self.currentAuxV time])) {
+            [self syncAuxHEvent:self.currentAuxH withAuxVEvent:event];
+        }
+	});
+}
+
+
+- (void)syncAuxHEvent:(MWCocoaEvent *)auxH withAuxVEvent:(MWCocoaEvent *)auxV {
+    MWorksTime auxHTime;
+    MWorksTime auxVTime;
+    BOOL synced = NO;
+    
+    if (auxH && auxV) {
+        auxHTime = [auxH time];
+        auxVTime = [auxV time];
+        MWorksTime t_diff = auxHTime - auxVTime;
+        // TODO: Figure this out!
+        if (abs(t_diff) <= 500000) {
+            synced = YES;
+        } else {
+            if (t_diff > 0) {
+                auxV = nil;
+            } else {
+                auxH = nil;
+            }
+        }
+    }
+    
+    self.currentAuxH = auxH;
+    self.currentAuxV = auxV;
+    
+    if (synced) {
+        //
+        // We have a synced auxH/auxV pair, so add a plot element for it
+        //
+        
+        MWEyeSamplePlotElement *sample = nil;
+        sample = [[MWEyeSamplePlotElement alloc] initWithTime:[NSDate timeIntervalSinceReferenceDate]
+                                                     position:NSMakePoint([self.currentAuxH data]->getFloat(),
+                                                                          [self.currentAuxV data]->getFloat())];
+        [aux_samples addObject:sample];
+        
+        self.currentAuxH = nil;
+        self.currentAuxV = nil;
+        [self triggerUpdate];
+    }
 }
 
 
@@ -508,6 +604,7 @@
     
 	dispatch_async(serialQueue, ^{
 		[eye_samples removeAllObjects];
+		[aux_samples removeAllObjects];
         [self triggerUpdate];
 	});
 }

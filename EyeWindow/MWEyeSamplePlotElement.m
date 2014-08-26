@@ -12,7 +12,12 @@
 @implementation MWEyeSamplePlotElement
 
 
-- (id)initWithTime:(NSTimeInterval)time position:(NSPoint)position saccading:(BOOL)saccading {
+- (instancetype)initWithTime:(NSTimeInterval)time position:(NSPoint)position {
+    return [self initWithTime:time position:position saccading:NO];
+}
+
+
+- (instancetype)initWithTime:(NSTimeInterval)time position:(NSPoint)position saccading:(BOOL)saccading {
     self = [super init];
     if (self) {
 		_position = position;

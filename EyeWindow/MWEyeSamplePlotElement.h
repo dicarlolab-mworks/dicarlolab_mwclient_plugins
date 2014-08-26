@@ -15,6 +15,7 @@
 @property(readonly) NSTimeInterval time;
 @property(readonly, getter=isSaccading) BOOL saccading;
 
-- (id)initWithTime:(NSTimeInterval)time position:(NSPoint)position saccading:(BOOL)saccading;
+- (instancetype)initWithTime:(NSTimeInterval)time position:(NSPoint)position;
+- (instancetype)initWithTime:(NSTimeInterval)time position:(NSPoint)position saccading:(BOOL)saccading;
 
 @end
