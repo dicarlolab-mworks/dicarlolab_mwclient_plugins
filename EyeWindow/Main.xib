@@ -166,8 +166,8 @@
         </window>
         <customObject id="102" userLabel="Eye Window Controller" customClass="MWEyeWindowController">
             <connections>
-                <outlet property="OptionWindow" destination="SLY-cR-FWA" id="b33-Cd-vHN"/>
                 <outlet property="delegate" destination="-2" id="111"/>
+                <outlet property="options" destination="SLY-cR-FWA" id="GUO-Or-Maq"/>
                 <outlet property="plotView" destination="ZSC-vl-U1d" id="9KD-lF-Zb2"/>
                 <outlet property="scaleSlider" destination="OpJ-Sn-JNr" id="GNm-ub-dVe"/>
                 <outlet property="window" destination="5" id="112"/>

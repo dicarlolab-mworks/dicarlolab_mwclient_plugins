@@ -12,15 +12,6 @@
 #define	EYE_WINDOW_CALLBACK_KEY @"MWEyeWindowController callback key"
 NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNotification";
 
-@interface MWEyeWindowController(PrivateMethods)
-- (void)cacheCodes;
-- (void)serviceHEvent:(MWCocoaEvent *)event;
-- (void)serviceVEvent:(MWCocoaEvent *)event;
-- (void)serviceStmEvent:(MWCocoaEvent *)event;
-- (void)serviceCalEvent:(MWCocoaEvent *)event;
-- (void)serviceStateEvent:(MWCocoaEvent *)event;
-- (void)codecReceived:(MWCocoaEvent *)codec_event;
-@end
 
 @implementation MWEyeWindowController
 
@@ -31,12 +22,7 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 												 name:MWEyeWindowVariableUpdateNotification 
 											   object:nil];
 	
-	[plotView setTimeOfTail:[[OptionWindow timeOfTail] floatValue]];
-	EYE_H = [[NSString alloc] initWithString:[OptionWindow h]];
-	EYE_V = [[NSString alloc] initWithString:[OptionWindow v]];
-	EYE_STATE = [[NSString alloc] initWithString:[OptionWindow eyeState]];
-	AUX_H = [[NSString alloc] initWithString:[OptionWindow auxH]];
-	AUX_V = [[NSString alloc] initWithString:[OptionWindow auxV]];
+	[plotView setTimeOfTail:[options.timeOfTail floatValue]];
 }
 
 
@@ -77,12 +63,7 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 
 
 - (void)updateEyeVariableNames {
-	[plotView setTimeOfTail:[[OptionWindow timeOfTail] floatValue]];
-	EYE_H = [[NSString alloc] initWithString:[OptionWindow h]];
-	EYE_V = [[NSString alloc] initWithString:[OptionWindow v]];
-	EYE_STATE = [[NSString alloc] initWithString:[OptionWindow eyeState]];
-	AUX_H = [[NSString alloc] initWithString:[OptionWindow auxH]];
-	AUX_V = [[NSString alloc] initWithString:[OptionWindow auxV]];
+	[plotView setTimeOfTail:[options.timeOfTail floatValue]];
 	[self cacheCodes];
 }
 
@@ -167,13 +148,13 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 	
 	if(delegate != nil) {
         mainScreenInfoCodecCode = [[delegate codeForTag:@MAIN_SCREEN_INFO_TAGNAME] intValue];
-		hCodecCode = [[delegate codeForTag:EYE_H] intValue];
-		vCodecCode = [[delegate codeForTag:EYE_V] intValue];
+		hCodecCode = [[delegate codeForTag:options.h] intValue];
+		vCodecCode = [[delegate codeForTag:options.v] intValue];
 		stimDisplayUpdateCodecCode = [[delegate codeForTag:@STIMULUS_DISPLAY_UPDATE_TAGNAME] intValue];
 		calAnnounceCodecCode = [[delegate codeForTag:@ANNOUNCE_CALIBRATOR_TAGNAME] intValue];
-		eyeStateCodecCode = [[delegate codeForTag:EYE_STATE] intValue];
-		auxHCodecCode = [[delegate codeForTag:AUX_H] intValue];
-		auxVCodecCode = [[delegate codeForTag:AUX_V] intValue];
+		eyeStateCodecCode = [[delegate codeForTag:options.eyeState] intValue];
+		auxHCodecCode = [[delegate codeForTag:options.auxH] intValue];
+		auxVCodecCode = [[delegate codeForTag:options.auxV] intValue];
 		
 		[delegate unregisterCallbacksWithKey:[EYE_WINDOW_CALLBACK_KEY UTF8String]];
         
@@ -241,11 +222,11 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
     {
 		NSString *warningMessage = @"Eye window can't find the following variables: ";
 		if(hCodecCode == -1) {
-			warningMessage = [warningMessage stringByAppendingString:EYE_H];
+			warningMessage = [warningMessage stringByAppendingString:options.h];
 			warningMessage = [warningMessage stringByAppendingString:@", "];
 		}
 		if(vCodecCode == -1) {
-			warningMessage = [warningMessage stringByAppendingString:EYE_V];
+			warningMessage = [warningMessage stringByAppendingString:options.v];
 			warningMessage = [warningMessage stringByAppendingString:@", "];
 		}
 		if(stimDisplayUpdateCodecCode == -1) {
@@ -257,15 +238,15 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 			warningMessage = [warningMessage stringByAppendingString:@", "];
 		}
 		if(eyeStateCodecCode == -1) {
-			warningMessage = [warningMessage stringByAppendingString:EYE_STATE];
+			warningMessage = [warningMessage stringByAppendingString:options.eyeState];
 			warningMessage = [warningMessage stringByAppendingString:@", "];
 		}
 		if(auxHCodecCode == -1) {
-			warningMessage = [warningMessage stringByAppendingString:AUX_H];
+			warningMessage = [warningMessage stringByAppendingString:options.auxH];
 			warningMessage = [warningMessage stringByAppendingString:@", "];
 		}
 		if(auxVCodecCode == -1) {
-			warningMessage = [warningMessage stringByAppendingString:AUX_V];
+			warningMessage = [warningMessage stringByAppendingString:options.auxV];
 			warningMessage = [warningMessage stringByAppendingString:@", "];
 		}
 		
