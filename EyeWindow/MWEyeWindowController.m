@@ -133,6 +133,16 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 }
 
 
+- (void)serviceAEvent:(MWCocoaEvent *)event {
+    [timePlotView addAEvent:event];
+}
+
+
+- (void)serviceBEvent:(MWCocoaEvent *)event {
+    [timePlotView addBEvent:event];
+}
+
+
 /*******************************************************************
 *                           Private Methods
 *******************************************************************/
@@ -145,6 +155,8 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 	int eyeStateCodecCode = -1;
 	int auxHCodecCode = -1;
 	int auxVCodecCode = -1;
+	int aCodecCode = -1;
+	int bCodecCode = -1;
 	
 	if(delegate != nil) {
         mainScreenInfoCodecCode = [[delegate codeForTag:@MAIN_SCREEN_INFO_TAGNAME] intValue];
@@ -155,6 +167,8 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 		eyeStateCodecCode = [[delegate codeForTag:options.eyeState] intValue];
 		auxHCodecCode = [[delegate codeForTag:options.auxH] intValue];
 		auxVCodecCode = [[delegate codeForTag:options.auxV] intValue];
+		aCodecCode = [[delegate codeForTag:options.a] intValue];
+		bCodecCode = [[delegate codeForTag:options.b] intValue];
 		
 		[delegate unregisterCallbacksWithKey:[EYE_WINDOW_CALLBACK_KEY UTF8String]];
         
@@ -211,6 +225,18 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
                                         callbackKey:[EYE_WINDOW_CALLBACK_KEY UTF8String]
 									forVariableCode:auxVCodecCode
                                        onMainThread:NO];
+		
+		[delegate registerEventCallbackWithReceiver:self
+                                           selector:@selector(serviceAEvent:)
+                                        callbackKey:[EYE_WINDOW_CALLBACK_KEY UTF8String]
+									forVariableCode:aCodecCode
+                                       onMainThread:NO];
+		
+		[delegate registerEventCallbackWithReceiver:self
+                                           selector:@selector(serviceBEvent:)
+                                        callbackKey:[EYE_WINDOW_CALLBACK_KEY UTF8String]
+									forVariableCode:bCodecCode
+                                       onMainThread:NO];
 	}
 	if(hCodecCode == -1 || 
 	   vCodecCode == -1 || 
@@ -218,7 +244,9 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 	   eyeStateCodecCode == -1 || 
 	   stimDisplayUpdateCodecCode == -1 ||
        auxHCodecCode == -1 ||
-       auxVCodecCode == -1)
+       auxVCodecCode == -1 ||
+       aCodecCode == -1 ||
+       bCodecCode == -1)
     {
 		NSString *warningMessage = @"Eye window can't find the following variables: ";
 		if(hCodecCode == -1) {
@@ -247,6 +275,14 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 		}
 		if(auxVCodecCode == -1) {
 			warningMessage = [warningMessage stringByAppendingString:options.auxV];
+			warningMessage = [warningMessage stringByAppendingString:@", "];
+		}
+		if(aCodecCode == -1) {
+			warningMessage = [warningMessage stringByAppendingString:options.a];
+			warningMessage = [warningMessage stringByAppendingString:@", "];
+		}
+		if(bCodecCode == -1) {
+			warningMessage = [warningMessage stringByAppendingString:options.b];
 			warningMessage = [warningMessage stringByAppendingString:@", "];
 		}
 		

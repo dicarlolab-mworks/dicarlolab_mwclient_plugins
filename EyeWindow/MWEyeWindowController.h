@@ -17,6 +17,7 @@ Copy right 2006 MIT. All rights reserved.
 #import "MWorksCocoa/MWWindowController.h"
 #import "MWorksCore/GenericData.h"
 #import "MWEyeWindowOptionController.h"
+#import "MWTimePlotView.h"
 #import "MWorksCocoa/MWClientProtocol.h"
 
 extern NSString  * MWEyeWindowVariableUpdateNotification;
@@ -25,6 +26,7 @@ extern NSString  * MWEyeWindowVariableUpdateNotification;
 
 @interface MWEyeWindowController : NSWindowController {
     IBOutlet MWPlotView *plotView;
+    IBOutlet MWTimePlotView *timePlotView;
 	IBOutlet NSSlider *scaleSlider;
 	IBOutlet id<MWClientProtocol> __unsafe_unretained delegate;
 

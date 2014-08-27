@@ -170,6 +170,7 @@
                 <outlet property="options" destination="SLY-cR-FWA" id="GUO-Or-Maq"/>
                 <outlet property="plotView" destination="ZSC-vl-U1d" id="9KD-lF-Zb2"/>
                 <outlet property="scaleSlider" destination="OpJ-Sn-JNr" id="GNm-ub-dVe"/>
+                <outlet property="timePlotView" destination="JhH-KX-4pG" id="g89-w1-MjE"/>
                 <outlet property="window" destination="5" id="112"/>
             </connections>
         </customObject>
