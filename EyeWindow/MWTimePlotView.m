@@ -90,15 +90,24 @@ static void plotSamples(NSArray *samples, NSAffineTransform *transform, NSColor 
 
 
 static NSPoint pointForDigitalSample(NSArray *samples,
-                              NSUInteger index,
-                              CGFloat minPosition,
-                              CGFloat maxPosition,
-                              CGFloat positionOffset)
+                                     NSUInteger index,
+                                     NSAffineTransform *transform,
+                                     CGFloat minPosition,
+                                     CGFloat maxPosition,
+                                     CGFloat positionOffsetInPoints)
 {
     DigitalSample sample;
     [(NSValue *)[samples objectAtIndex:index] getValue:&sample];
-    return NSMakePoint(sample.time,
-                       (sample.value != 0.0 ? maxPosition - positionOffset : minPosition + positionOffset));
+    BOOL signalHigh = (sample.value != 0.0);
+    
+    NSPoint point = [transform transformPoint:NSMakePoint(sample.time, (signalHigh ? maxPosition : minPosition))];
+    if (signalHigh) {
+        point.y -= positionOffsetInPoints;
+    } else {
+        point.y += positionOffsetInPoints;
+    }
+    
+    return point;
 }
 
 
@@ -107,7 +116,7 @@ static void plotDigitalSamples(NSMutableArray *samples,
                                NSTimeInterval maxTime,
                                CGFloat minPosition,
                                CGFloat maxPosition,
-                               CGFloat positionOffset,
+                               CGFloat positionOffsetInPoints,
                                NSAffineTransform *transform,
                                NSColor *color)
 {
@@ -135,24 +144,28 @@ static void plotDigitalSamples(NSMutableArray *samples,
     }
     
     NSBezierPath *path = [NSBezierPath bezierPath];
-    [path moveToPoint:pointForDigitalSample(samples, 0, minPosition, maxPosition, positionOffset)];
+    [path moveToPoint:pointForDigitalSample(samples, 0, transform, minPosition, maxPosition, positionOffsetInPoints)];
     
     NSPoint lastPoint;
     for (NSUInteger i = 1; i < [samples count]; i++) {
-        lastPoint = pointForDigitalSample(samples, i, minPosition, maxPosition, positionOffset);
-        [path lineToPoint:lastPoint];
+        NSPoint point = pointForDigitalSample(samples, i, transform, minPosition, maxPosition, positionOffsetInPoints);
+        [path lineToPoint:NSMakePoint(point.x, lastPoint.y)];
+        [path lineToPoint:point];
+        lastPoint = point;
     }
     
     lastPoint.x = maxTime;
     [path lineToPoint:lastPoint];
     
-    [path transformUsingAffineTransform:transform];
     [color set];
     [path stroke];
 }
 
 
 - (void)drawRect:(NSRect)dirtyRect {
+    [[NSGraphicsContext currentContext] setShouldAntialias:NO];
+    [NSBezierPath setDefaultLineWidth:0.0];  // Draw lines as thin as possible
+    
     NSRect bounds = [self bounds];
     
     // Background
@@ -200,10 +213,10 @@ static void plotDigitalSamples(NSMutableArray *samples,
         plotSamples(self.auxSamples, transform, [NSColor cyanColor], [NSColor magentaColor]);
         
         // Digital A samples
-        plotDigitalSamples(aSamples, minTime, maxTime, minPosition, maxPosition, 1.0, transform, [NSColor yellowColor]);
+        plotDigitalSamples(aSamples, minTime, maxTime, minPosition, maxPosition, 4.0, transform, [NSColor redColor]);
         
         // Digital B samples
-        plotDigitalSamples(bSamples, minTime, maxTime, minPosition, maxPosition, 2.0, transform, [NSColor brownColor]);
+        plotDigitalSamples(bSamples, minTime, maxTime, minPosition, maxPosition, 8.0, transform, [NSColor greenColor]);
     });
     
     // Asychronously trigger the next update
