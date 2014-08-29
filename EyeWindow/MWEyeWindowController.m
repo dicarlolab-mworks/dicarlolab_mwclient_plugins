@@ -58,6 +58,7 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 
 - (IBAction)reset:(id)sender {
 	[plotView reset];
+    [timePlotView reset];
 }
 
 

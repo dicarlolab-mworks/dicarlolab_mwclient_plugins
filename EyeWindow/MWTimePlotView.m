@@ -163,7 +163,7 @@ static void plotDigitalSamples(NSMutableArray *samples,
 
 
 - (void)drawRect:(NSRect)dirtyRect {
-    [[NSGraphicsContext currentContext] setShouldAntialias:NO];
+    [[NSGraphicsContext currentContext] setShouldAntialias:YES];
     [NSBezierPath setDefaultLineWidth:0.0];  // Draw lines as thin as possible
     
     NSRect bounds = [self bounds];
@@ -222,6 +222,14 @@ static void plotDigitalSamples(NSMutableArray *samples,
     // Asychronously trigger the next update
     dispatch_async(dispatch_get_main_queue(), ^{
         [self setNeedsDisplay:YES];
+    });
+}
+
+
+- (void)reset {
+    dispatch_async(serialQueue, ^{
+        [aSamples removeAllObjects];
+        [bSamples removeAllObjects];
     });
 }
 

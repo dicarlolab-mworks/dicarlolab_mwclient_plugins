@@ -21,4 +21,6 @@
 - (void)addAEvent:(MWCocoaEvent *)event;
 - (void)addBEvent:(MWCocoaEvent *)event;
 
+- (void)reset;
+
 @end
