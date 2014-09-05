@@ -120,6 +120,17 @@
             
             [path appendBezierPath:[self pathForCrossWithSize:NSMakeSize(0.3*size.width, 0.3*size.height)]];
             
+        } else if ([stm_type isEqualToString:@STIM_TYPE_CIRCULAR_FIXATION_POINT]) {
+            
+            [[NSColor greenColor] set];
+            
+            [path appendBezierPath:[NSBezierPath bezierPathWithOvalInRect:NSMakeRect(center.x-(size.width/2),
+                                                                                     center.y-(size.height/2),
+                                                                                     size.width,
+                                                                                     size.height)]];
+            
+            [path appendBezierPath:[self pathForCrossWithSize:NSMakeSize(0.3*size.width, 0.3*size.height)]];
+            
 		} else if ([stm_type isEqualToString:@"calibratorSample"]) {
             
             [[NSColor redColor] set];

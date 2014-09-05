@@ -15,6 +15,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+#define STIM_TYPE_CIRCULAR_FIXATION_POINT "circular_fixation_point"
+
 
 @interface MWStimulusPlotElement : NSObject {
 	

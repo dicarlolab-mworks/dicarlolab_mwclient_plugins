@@ -498,7 +498,7 @@ static void removeExpiredSamples(NSMutableArray *samples, NSTimeInterval cutoffT
                 width_y_data.isNumber() &&
                 rotation_data.isNumber())
             {
-                if (type_data == STIM_TYPE_POINT) {
+                if (type_data == STIM_TYPE_POINT || type_data == STIM_TYPE_CIRCULAR_FIXATION_POINT) {
                     // For fixation points, we want to display the trigger area, not the visible rectangle
                     width_x_data = width_y_data = stm_announce.getElement("width");
                 }
