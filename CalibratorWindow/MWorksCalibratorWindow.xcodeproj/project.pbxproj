@@ -36,7 +36,7 @@
 		0E1913D60AB73C0E00ECCD13 /* MWCalibratorRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E1913D50AB73C0E00ECCD13 /* MWCalibratorRecord.m */; };
 		0E5505030AADB81800987B47 /* MWCalibratorWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5505020AADB81800987B47 /* MWCalibratorWindowController.m */; };
 		0E6DAFF40DCC792300DA90B0 /* MWCalibratorWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6DAFF30DCC792300DA90B0 /* MWCalibratorWindow.m */; };
-		0EABD5AA0AADC5EF00DF111C /* Main.nib in Resources */ = {isa = PBXBuildFile; fileRef = 0EABD5A90AADC5EF00DF111C /* Main.nib */; };
+		0EABD5AA0AADC5EF00DF111C /* Main.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EABD5A90AADC5EF00DF111C /* Main.xib */; };
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		E12D992816BC3152004FEF79 /* CalibratorWindow.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 686092F80AC8950400978FC3 /* CalibratorWindow.bundle */; };
 		E15D0B2E16C2C8DC00F331B1 /* MWorksCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E15D0B2D16C2C8DC00F331B1 /* MWorksCore.framework */; };
@@ -83,7 +83,7 @@
 		0E5505020AADB81800987B47 /* MWCalibratorWindowController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = MWCalibratorWindowController.m; sourceTree = "<group>"; };
 		0E6DAFF20DCC792300DA90B0 /* MWCalibratorWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWCalibratorWindow.h; sourceTree = "<group>"; };
 		0E6DAFF30DCC792300DA90B0 /* MWCalibratorWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWCalibratorWindow.m; sourceTree = "<group>"; };
-		0EABD5A90AADC5EF00DF111C /* Main.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = Main.nib; sourceTree = "<group>"; };
+		0EABD5A90AADC5EF00DF111C /* Main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Main.xib; sourceTree = "<group>"; };
 		686092F80AC8950400978FC3 /* CalibratorWindow.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CalibratorWindow.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E15D0B2D16C2C8DC00F331B1 /* MWorksCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MWorksCore.framework; path = /Library/Frameworks/MWorksCore.framework; sourceTree = "<absolute>"; };
@@ -133,7 +133,7 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				0EABD5A90AADC5EF00DF111C /* Main.nib */,
+				0EABD5A90AADC5EF00DF111C /* Main.xib */,
 				8D5B49B7048680CD000E48DA /* Info.plist */,
 				089C167DFE841241C02AAC07 /* InfoPlist.strings */,
 			);
@@ -234,7 +234,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */,
-				0EABD5AA0AADC5EF00DF111C /* Main.nib in Resources */,
+				0EABD5AA0AADC5EF00DF111C /* Main.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
