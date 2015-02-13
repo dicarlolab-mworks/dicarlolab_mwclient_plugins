@@ -36,14 +36,6 @@
 	[self setHGain:DEFAULT_H_GAIN];
 }
 
-- (void)dealloc {
-	
-	[calibratorAnnounceCode release];
-	[crLock release];
-	[calibratorRecords release];
-	
-	[super dealloc];
-}
 
 @synthesize delegate;
 

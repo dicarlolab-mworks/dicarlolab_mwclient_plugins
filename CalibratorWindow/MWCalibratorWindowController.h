@@ -15,7 +15,7 @@ const int MIN_NUM_CALIBRATION_PARAMS = 3;
 #define DEFAULT_V_GAIN 1.0
 
 @interface MWCalibratorWindowController : NSWindowController {			
-	IBOutlet id<MWClientProtocol> delegate;
+	IBOutlet id<MWClientProtocol> __unsafe_unretained delegate;
 	
 	NSString *selected_calibrator_name;
 	float v_offset;
@@ -37,6 +37,6 @@ const int MIN_NUM_CALIBRATION_PARAMS = 3;
 // Accessors
 @property (readwrite, assign) float vOffset, hOffset, vGain, hGain;
 @property (readwrite, copy) NSString *selectedCalibratorName;
-@property (nonatomic, readwrite, assign) id delegate;
+@property (nonatomic, readwrite, unsafe_unretained) id delegate;
 
 @end

@@ -296,6 +296,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E1895A9C116FD00400D8CBE0 /* Development.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				MACH_O_TYPE = mh_bundle;
 			};
 			name = Development;
@@ -303,6 +304,7 @@
 		E1895AA6116FD07500D8CBE0 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MWorksCalibratorWindow_Prefix.pch;

@@ -28,13 +28,6 @@
 	return self;
 }
 
-- (void)dealloc {
-	[name dealloc];
-	[hParameters dealloc];
-	[vParameters dealloc];
-	
-	[super dealloc];
-}
 
 - (NSString *)getCalibratorName {
 	return name;

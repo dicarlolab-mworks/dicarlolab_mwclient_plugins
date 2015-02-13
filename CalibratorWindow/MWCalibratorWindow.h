@@ -10,9 +10,9 @@
 
 
 @interface MWCalibratorWindow : NSWindow {
-	IBOutlet id delegate;
+	IBOutlet id __unsafe_unretained delegate;
 }
 
-@property (nonatomic, readwrite, assign) id delegate;
+@property (nonatomic, readwrite, unsafe_unretained) id delegate;
 
 @end
