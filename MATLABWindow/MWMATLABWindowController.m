@@ -317,10 +317,17 @@
 	
 - (void)codecArrived:(MWCocoaEvent *)event {
 	[matlabLock lock];
+    
+    Datum *new_codec = [event data];
+    
+    if (*new_codec == *savedCodec) {
+        // Codec is unchanged.  No need to reset anything.
+        [matlabLock unlock];
+        return;
+    }
 	
 	// need to force it by capturing the pointer so it makes it a dictionary
 	delete savedCodec;
-	Datum *new_codec = [event data];
 	savedCodec = new Datum(*new_codec);
 	
 	NSArray *current_selected_variables = [NSArray array];
