@@ -71,43 +71,43 @@
 
 
 - (void)setH:(NSString *)h {
-	_h = [h copy];
+    _h = (h ? [h copy] : @"");
     [self updateVariables];
 }
 
 
 - (void)setV:(NSString *)v {
-	_v = [v copy];
+    _v = (v ? [v copy] : @"");
     [self updateVariables];
 }
 
 
 - (void)setEyeState:(NSString *)eyeState {
-	_eyeState = [eyeState copy];
+    _eyeState = (eyeState ? [eyeState copy] : @"");
     [self updateVariables];
 }
 
 
 - (void)setAuxH:(NSString *)auxH {
-    _auxH = [auxH copy];
+    _auxH = (auxH ? [auxH copy] : @"");
     [self updateVariables];
 }
 
 
 - (void)setAuxV:(NSString *)auxV {
-    _auxV = [auxV copy];
+    _auxV = (auxV ? [auxV copy] : @"");
     [self updateVariables];
 }
 
 
 - (void)setA:(NSString *)a {
-    _a = [a copy];
+    _a = (a ? [a copy] : @"");
     [self updateVariables];
 }
 
 
 - (void)setB:(NSString *)b {
-    _b = [b copy];
+    _b = (b ? [b copy] : @"");
     [self updateVariables];
 }
 
