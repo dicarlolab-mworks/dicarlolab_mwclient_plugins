@@ -350,7 +350,7 @@ static void removeExpiredSamples(NSMutableArray *samples, NSTimeInterval cutoffT
         eyeHTime = [eyeH time];
         eyeVTime = [eyeV time];
         MWorksTime t_diff = eyeHTime - eyeVTime;
-        if (abs(t_diff) <= EVENT_SYNC_TIME_US) {
+        if (std::abs(t_diff) <= EVENT_SYNC_TIME_US) {
             synced = YES;
         } else {
             if (t_diff > 0) {
@@ -425,7 +425,7 @@ static void removeExpiredSamples(NSMutableArray *samples, NSTimeInterval cutoffT
         auxVTime = [auxV time];
         MWorksTime t_diff = auxHTime - auxVTime;
         // TODO: Figure this out!
-        if (abs(t_diff) <= 500000) {
+        if (std::abs(t_diff) <= 500000) {
             synced = YES;
         } else {
             if (t_diff > 0) {
