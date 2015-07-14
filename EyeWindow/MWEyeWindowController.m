@@ -294,4 +294,91 @@ NSString * MWEyeWindowVariableUpdateNotification = @"MWEyeWindowVariableUpdateNo
 }	
 
 
+- (NSDictionary *)workspaceState {
+    NSMutableDictionary *workspaceState = [NSMutableDictionary dictionary];
+    
+    [workspaceState setObject:options.timeOfTail forKey:@"tailSeconds"];
+    [workspaceState setObject:options.h forKey:@"eyeX"];
+    [workspaceState setObject:options.v forKey:@"eyeY"];
+    [workspaceState setObject:options.eyeState forKey:@"saccade"];
+    [workspaceState setObject:options.auxH forKey:@"auxX"];
+    [workspaceState setObject:options.auxV forKey:@"auxY"];
+    [workspaceState setObject:options.a forKey:@"digA"];
+    [workspaceState setObject:options.b forKey:@"digB"];
+    
+    return workspaceState;
+}
+
+
+- (void)setWorkspaceState:(NSDictionary *)workspaceState {
+    NSNumber *newTimeOfTail = [workspaceState objectForKey:@"tailSeconds"];
+    if (newTimeOfTail && [newTimeOfTail isKindOfClass:[NSNumber class]]) {
+        options.timeOfTail = newTimeOfTail;
+    }
+    
+    NSString *newH = [workspaceState objectForKey:@"eyeX"];
+    if (newH && [newH isKindOfClass:[NSString class]]) {
+        options.h = newH;
+    }
+    
+    NSString *newV = [workspaceState objectForKey:@"eyeY"];
+    if (newV && [newV isKindOfClass:[NSString class]]) {
+        options.v = newV;
+    }
+    
+    NSString *newEyeState = [workspaceState objectForKey:@"saccade"];
+    if (newEyeState && [newEyeState isKindOfClass:[NSString class]]) {
+        options.eyeState = newEyeState;
+    }
+    
+    NSString *newAuxH = [workspaceState objectForKey:@"auxX"];
+    if (newAuxH && [newAuxH isKindOfClass:[NSString class]]) {
+        options.auxH = newAuxH;
+    }
+    
+    NSString *newAuxV = [workspaceState objectForKey:@"auxY"];
+    if (newAuxV && [newAuxV isKindOfClass:[NSString class]]) {
+        options.auxV = newAuxV;
+    }
+    
+    NSString *newA = [workspaceState objectForKey:@"digA"];
+    if (newA && [newA isKindOfClass:[NSString class]]) {
+        options.a = newA;
+    }
+    
+    NSString *newB = [workspaceState objectForKey:@"digB"];
+    if (newB && [newB isKindOfClass:[NSString class]]) {
+        options.b = newB;
+    }
+}
+
+
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

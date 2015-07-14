@@ -3,7 +3,7 @@
 #import "MWorksCocoa/MWClientProtocol.h"
 
 
-@interface MWRewardWindowController : NSWindowController {
+@interface MWRewardWindowController : NSWindowController <MWClientPluginWorkspaceState> {
 
 	NSString *reward_var_name;
 	float duration_ms;

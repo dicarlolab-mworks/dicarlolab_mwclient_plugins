@@ -24,7 +24,7 @@ extern NSString  * MWEyeWindowVariableUpdateNotification;
 
 @class MWPlotView;
 
-@interface MWEyeWindowController : NSWindowController {
+@interface MWEyeWindowController : NSWindowController <MWClientPluginWorkspaceState> {
     IBOutlet MWPlotView *plotView;
     IBOutlet MWTimePlotView *timePlotView;
 	IBOutlet NSSlider *scaleSlider;

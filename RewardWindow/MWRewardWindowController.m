@@ -48,4 +48,57 @@
 	}
 }
 
+
+- (NSDictionary *)workspaceState {
+    NSMutableDictionary *workspaceState = [NSMutableDictionary dictionary];
+    
+    if (self.rewardVarName) {
+        [workspaceState setObject:self.rewardVarName forKey:@"rewardVarName"];
+    }
+    [workspaceState setObject:[NSNumber numberWithFloat:self.duration] forKey:@"rewardDurationMS"];
+    
+    return workspaceState;
+}
+
+
+- (void)setWorkspaceState:(NSDictionary *)workspaceState {
+    NSString *newRewardVarName = [workspaceState objectForKey:@"rewardVarName"];
+    if (newRewardVarName && [newRewardVarName isKindOfClass:[NSString class]]) {
+        self.rewardVarName = newRewardVarName;
+    }
+    
+    NSNumber *newRewardDurationMS = [workspaceState objectForKey:@"rewardDurationMS"];
+    if (newRewardDurationMS && [newRewardDurationMS isKindOfClass:[NSNumber class]]) {
+        self.duration = newRewardDurationMS.floatValue;
+    }
+}
+
+
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
