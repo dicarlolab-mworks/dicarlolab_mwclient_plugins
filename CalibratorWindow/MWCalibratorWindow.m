@@ -28,20 +28,20 @@
 		if(([the_event modifierFlags] & NSControlKeyMask) == NSControlKeyMask) {
 			switch([the_event keyCode]) {
 				case ARROW_KEY_UP:
-					[delegate setVOffset:[delegate vOffset]+step];
-					[delegate updateCalibratorParams:self];
+					[controller setVOffset:[controller vOffset]+step];
+					[controller updateCalibratorParams:self];
 					break;				
 				case ARROW_KEY_DOWN:
-					[delegate setVOffset:[delegate vOffset]-step];
-					[delegate updateCalibratorParams:self];
+					[controller setVOffset:[controller vOffset]-step];
+					[controller updateCalibratorParams:self];
 					break;				
 				case ARROW_KEY_LEFT:
-					[delegate setHOffset:[delegate hOffset]-step];
-					[delegate updateCalibratorParams:self];
+					[controller setHOffset:[controller hOffset]-step];
+					[controller updateCalibratorParams:self];
 					break;				
 				case ARROW_KEY_RIGHT:
-					[delegate setHOffset:[delegate hOffset]+step];
-					[delegate updateCalibratorParams:self];
+					[controller setHOffset:[controller hOffset]+step];
+					[controller updateCalibratorParams:self];
 					break;
 				default:
 					break;
@@ -49,20 +49,20 @@
 		} else if(([the_event modifierFlags] & NSCommandKeyMask) == NSCommandKeyMask) {
 			switch([the_event keyCode]) {
 				case ARROW_KEY_UP:
-					[delegate setVGain:[delegate vGain]+step];
-					[delegate updateCalibratorParams:self];
+					[controller setVGain:[controller vGain]+step];
+					[controller updateCalibratorParams:self];
 					break;				
 				case ARROW_KEY_DOWN:
-					[delegate setVGain:[delegate vGain]-step];
-					[delegate updateCalibratorParams:self];
+					[controller setVGain:[controller vGain]-step];
+					[controller updateCalibratorParams:self];
 					break;				
 				case ARROW_KEY_LEFT:
-					[delegate setHGain:[delegate hGain]-step];
-					[delegate updateCalibratorParams:self];
+					[controller setHGain:[controller hGain]-step];
+					[controller updateCalibratorParams:self];
 					break;				
 				case ARROW_KEY_RIGHT:
-					[delegate setHGain:[delegate hGain]+step];
-					[delegate updateCalibratorParams:self];
+					[controller setHGain:[controller hGain]+step];
+					[controller updateCalibratorParams:self];
 					break;
 				default:
 					break;
@@ -73,23 +73,23 @@
 	[super sendEvent:the_event];
 }
 
-@synthesize delegate;
+@synthesize controller;
 
-- (void)setDelegate:(id)new_delegate {
-	if(![new_delegate respondsToSelector:@selector(updateCalibratorParams:)] ||
-	   ![new_delegate respondsToSelector:@selector(hOffset)] ||
-	   ![new_delegate respondsToSelector:@selector(hGain)] ||
-	   ![new_delegate respondsToSelector:@selector(vOffset)] ||
-	   ![new_delegate respondsToSelector:@selector(vGain)] ||
-	   ![new_delegate respondsToSelector:@selector(setHOffset:)] ||
-	   ![new_delegate respondsToSelector:@selector(setHGain:)] ||
-	   ![new_delegate respondsToSelector:@selector(setVOffset:)] ||
-	   ![new_delegate respondsToSelector:@selector(setVGain:)]) {
+- (void)setController:(id)new_controller {
+	if(![new_controller respondsToSelector:@selector(updateCalibratorParams:)] ||
+	   ![new_controller respondsToSelector:@selector(hOffset)] ||
+	   ![new_controller respondsToSelector:@selector(hGain)] ||
+	   ![new_controller respondsToSelector:@selector(vOffset)] ||
+	   ![new_controller respondsToSelector:@selector(vGain)] ||
+	   ![new_controller respondsToSelector:@selector(setHOffset:)] ||
+	   ![new_controller respondsToSelector:@selector(setHGain:)] ||
+	   ![new_controller respondsToSelector:@selector(setVOffset:)] ||
+	   ![new_controller respondsToSelector:@selector(setVGain:)]) {
 		[NSException raise:NSInternalInconsistencyException
-					format:@"delegate for MWCalibratorWindow doesn't reqpond to required methods"];
+					format:@"controller for MWCalibratorWindow doesn't reqpond to required methods"];
 	}
 	   
-	delegate = new_delegate;
+	controller = new_controller;
 }
 
 @end
