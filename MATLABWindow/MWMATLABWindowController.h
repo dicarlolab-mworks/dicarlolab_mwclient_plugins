@@ -28,7 +28,7 @@
 	BOOL collectingEvents;
 	BOOL scrollToBottom; // todo: this should really be implemented with accessors
 	
-	NSLock *matlabLock;
+	NSRecursiveLock *matlabLock;
 	IBOutlet MWVariableList *vl;
 	Datum *savedCodec;
 }

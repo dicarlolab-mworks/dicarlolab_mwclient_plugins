@@ -32,7 +32,7 @@
 -  (id) init {
 	self = [super init];
 	if (self != nil) {
-		matlabLock = [[NSLock alloc] init];
+		matlabLock = [[NSRecursiveLock alloc] init];
 		eventList = [[NSMutableArray alloc] init];
 		executionList = [[NSMutableArray alloc] init];
 		default_selected_variables = [[NSArray alloc] init];
