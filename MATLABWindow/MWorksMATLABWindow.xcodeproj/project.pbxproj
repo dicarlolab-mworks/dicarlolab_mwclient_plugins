@@ -262,7 +262,6 @@
 				8D5B49AF048680CD000E48DA /* Resources */,
 				8D5B49B1048680CD000E48DA /* Sources */,
 				8D5B49B3048680CD000E48DA /* Frameworks */,
-				E18DFB42110F6FEC00740231 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -315,22 +314,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		E18DFB42110F6FEC00740231 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/zsh;
-			shellScript = "# Replace @loader_path with @rpath so the linker will use the runtime search path to find the MATLAB shared libs\n\nexport FULL_NAME=${PRODUCT_NAME}.${WRAPPER_EXTENSION}\n\nfor libname in eng mx; do\n  install_name_tool -change \\\n    \"@loader_path/lib${libname}.dylib\" \\\n    \"@rpath/lib${libname}.dylib\" \\\n    \"${BUILT_PRODUCTS_DIR}/${FULL_NAME}/Contents/MacOS/${PRODUCT_NAME}\"\ndone";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8D5B49B1048680CD000E48DA /* Sources */ = {
@@ -409,7 +392,6 @@
 				MATLAB_DIR = /Applications/MATLAB;
 				MATLAB_SCRIPT_INSTALL_DIR = "$(MW_SCRIPTING_DIR)/Matlab";
 				OTHER_LDFLAGS = (
-					"-headerpad_max_install_names",
 					"-leng",
 					"-lmx",
 				);
