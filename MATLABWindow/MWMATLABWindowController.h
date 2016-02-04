@@ -10,7 +10,7 @@
 @interface MWMATLABWindowController : NSWindowController <MWClientPluginWorkspaceState> {
 
 	IBOutlet MATLABInterface *mi;
-	IBOutlet id<MWClientProtocol> delegate;
+	IBOutlet id<MWClientProtocol> __unsafe_unretained delegate;
     IBOutlet NSTextView *logTextView;
     IBOutlet NSButton *scrollToBottomButton;
 	
@@ -33,7 +33,7 @@
 	Datum *savedCodec;
 }
 
-@property (nonatomic, readwrite, assign) id delegate;
+@property (nonatomic, readwrite, unsafe_unretained) id delegate;
 @property (readwrite, copy) NSString *syncEventName;
 @property (readwrite, copy) NSString *numberToProcessString;
 @property (readwrite, copy) NSString *matlabFileName;

@@ -402,6 +402,7 @@
 		E1895B32116FD5B000D8CBE0 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				INFOPLIST_FILE = Info.plist;
 				PRODUCT_NAME = MWorksMATLABWindow;

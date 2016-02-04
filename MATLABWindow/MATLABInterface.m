@@ -52,15 +52,11 @@
 }
 
 - (void) dealloc {
-    [interfaceLock release];
-    [eventStructsQueue release];
-    [outputBuffer release];
 
 	if(retval) {
 		mxDestroyArray(retval);
 	}
 	
-	[super dealloc];
 }
 
 - (id)delegate {
@@ -74,14 +70,13 @@
 
 - (void)setMatlabFile:(NSString *)file {
 	[interfaceLock lock];
-	[matlabFile release];
 	matlabFile = [file copy];
 	[interfaceLock unlock];
 }
 
 - (NSString *)matlabFile {
 	[interfaceLock lock];
-	NSString *retstring = [[matlabFile copy] autorelease];
+	NSString *retstring = [matlabFile copy];
 	[interfaceLock unlock];
 	return retstring;
 }	

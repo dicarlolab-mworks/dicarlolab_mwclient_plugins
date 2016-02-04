@@ -291,6 +291,7 @@
 		E1895B53116FD7FB00D8CBE0 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				GCC_PREFIX_HEADER = MWorksRewardWindow_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;

@@ -26,7 +26,6 @@
 @synthesize rewardVarName = reward_var_name;
 
 - (void)setRewardVarName:(NSString *)new_reward_var_name {
-	[reward_var_name release];
 	reward_var_name = [new_reward_var_name copy];
 	[[NSUserDefaults standardUserDefaults] setObject:reward_var_name forKey:MW_REWARD_WINDOW_VAR_NAME];
 }

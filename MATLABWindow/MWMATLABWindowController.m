@@ -43,36 +43,20 @@
 }
 
 
-- (void)finalize {
-	delete savedCodec;
-	[executionList release];
-	[eventList release];
-	[matlabLock release];
-	[default_selected_variables release];
-	
-	[super finalize];
-}
 
 - (void)dealloc {
 	delete savedCodec;
-	[executionList release];
-	[eventList release];
-	[matlabLock release];
-	[default_selected_variables release];
 	
-	[super dealloc];
 }
 
 - (NSString *)matlabFileName {return [matlab_file_name lastPathComponent]; }
 - (void)setMatlabFileName:(NSString *)new_matlab_file {
-	[matlab_file_name release];
 	matlab_file_name = [new_matlab_file copy];	
 	[mi setMatlabFile:matlab_file_name];
 	
 }
 
 - (void) setLogTextContent:(NSString *)new_content {
-	[logTextContent autorelease];
 	logTextContent = [new_content copy];
 	
 	// set it in the UI
@@ -200,7 +184,6 @@
 - (NSString *)syncEventName { return sync_event_name; }
 - (void)setSyncEventName:(NSString *)new_sync_event_name {
 	@synchronized(vl) {
-		[sync_event_name release];
 		sync_event_name = [new_sync_event_name copy];
 		[vl setSyncEventName:sync_event_name];
 		[[NSUserDefaults standardUserDefaults] setObject:sync_event_name forKey:SYNC_EVENT_NAME];
@@ -366,7 +349,7 @@
 						}
 					}
 				}
-				[vl addVariable:[var autorelease]];		
+				[vl addVariable:var];		
 			}
 		}
 		
@@ -383,7 +366,6 @@
 
 // must be run on main thread
 - (void)updateDefaultSelectedVariables:(id)arg {
-	[default_selected_variables release];
 	default_selected_variables = [[NSArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:SELECTED_VAR_NAMES]];
 }
 
@@ -414,36 +396,35 @@
 }
 
 - (void)MATLABExecutionLoop:(id)obj {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	do { 
-		NSAutoreleasePool *pool2 = [[NSAutoreleasePool alloc] init];
-		[matlabLock lock];
-		self.numberToProcessString = [NSString stringWithFormat:@"Process %lu events", (unsigned long)[executionList count]];
-		[matlabLock unlock];
-		
-		
-		if(processing == NSOnState) {
-			NSArray *eventsToExecute = nil;
-			[matlabLock lock];
-			Datum codec(*savedCodec);
-			if([executionList count] > 0 && codec.isDictionary()) {
-				eventsToExecute = [[executionList objectAtIndex:0] retain];
-				[executionList removeObjectAtIndex:0];
+	@autoreleasepool {
+		do { 
+			@autoreleasepool {
+				[matlabLock lock];
+				self.numberToProcessString = [NSString stringWithFormat:@"Process %lu events", (unsigned long)[executionList count]];
+				[matlabLock unlock];
+				
+				
+				if(processing == NSOnState) {
+					NSArray *eventsToExecute = nil;
+					[matlabLock lock];
+					Datum codec(*savedCodec);
+					if([executionList count] > 0 && codec.isDictionary()) {
+						eventsToExecute = [executionList objectAtIndex:0];
+						[executionList removeObjectAtIndex:0];
+					}
+					[matlabLock unlock];
+					
+					if(eventsToExecute != nil && codec.isDictionary()) {
+						mxArray *dataStruct = [mi createDataStruct:eventsToExecute
+														 withCodec:&codec];
+						[mi runMatlabFile:dataStruct];
+						mxDestroyArray(dataStruct);
+					}
+				}
+				usleep(5000); // sleep to surrender the processor
 			}
-			[matlabLock unlock];
-			
-			if(eventsToExecute != nil && codec.isDictionary()) {
-				mxArray *dataStruct = [mi createDataStruct:eventsToExecute
-												 withCodec:&codec];
-				[mi runMatlabFile:dataStruct];
-				mxDestroyArray(dataStruct);
-				[eventsToExecute release];
-			}
-		}
-		usleep(5000); // sleep to surrender the processor
-		[pool2 release];
-	} while (1);
-	[pool release];
+		} while (1);
+	}
 }
 
 // this must be locked before being called

@@ -22,10 +22,6 @@
 	return self;
 }
 
-- (void)dealloc {
-	[current_vars release];
-	[super dealloc];
-}
 
 - (id)delegate {
 	return delegate;
