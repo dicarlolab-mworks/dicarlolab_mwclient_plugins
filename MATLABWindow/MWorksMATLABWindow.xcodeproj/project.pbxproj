@@ -392,6 +392,7 @@
 				MATLAB_DIR = /Applications/MATLAB;
 				MATLAB_SCRIPT_INSTALL_DIR = "$(MW_SCRIPTING_DIR)/Matlab";
 				OTHER_LDFLAGS = (
+					"$(inherited)",
 					"-leng",
 					"-lmx",
 				);

@@ -309,12 +309,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MWorksCalibratorWindow_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
-				OTHER_LDFLAGS = (
-					"-Xlinker",
-					"-U",
-					"-Xlinker",
-					_objc_readClassPair,
-				);
 				PRODUCT_NAME = CalibratorWindow;
 				WRAPPER_EXTENSION = bundle;
 			};
