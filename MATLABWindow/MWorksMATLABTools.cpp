@@ -233,15 +233,9 @@ mxArray *getCodec(ScarabDatum *codec){
 		"tagname",
 		"logging",  
 		"defaultvalue", 
-		"shortname", 
-		"longname",
-		"editable", 
-		"nvals", 
-		"domain", 
-		"viewable", 
 		"persistant",
-        "exclude_from_data_file"}; // more to come later?
-	int n_codec_fields = 12;
+        "exclude_from_data_file"};
+	int n_codec_fields = 6;
 	mwSize codec_size = n_codec_entries;
 	mxArray *codec_struct = mxCreateStructArray(1, 
 												&codec_size,
