@@ -324,9 +324,10 @@
 		[vl clear];
 		
 		// determine max code number of codec
+        auto scarabCodec = new_codec->toScarabDatum();
 		int max_key = -1;
 		for(int i=0; i< new_codec->getNElements(); ++i) {
-			max_key = MAX(new_codec->getScarabDatum()->data.dict->keys[i]->data.integer, max_key);
+			max_key = MAX(scarabCodec.get()->data.dict->keys[i]->data.integer, max_key);
 		}
 		
 		
@@ -334,7 +335,7 @@
 			Datum codec_entry(new_codec->getElement(Datum(M_INTEGER, i)));
 			
 			if(!codec_entry.isUndefined()) {
-				NSString *variableName = [NSString stringWithCString:codec_entry.getElement("tagname").getString() 
+				NSString *variableName = [NSString stringWithCString:codec_entry.getElement("tagname").getString().c_str()
 															encoding:NSASCIIStringEncoding];
 				MWVarEntry *var = [[MWVarEntry alloc] initWithName:variableName];
 				

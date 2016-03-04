@@ -86,7 +86,7 @@
 					if(cal_announce.getElement(CALIBRATOR_ACTION) == CALIBRATOR_ACTION_UPDATE_PARAMS) {
 						Datum calibratorNameElement(cal_announce.getElement(CALIBRATOR_NAME));
 						
-						NSString *calibratorName = [NSString stringWithCString:calibratorNameElement.getString()
+						NSString *calibratorName = [NSString stringWithCString:calibratorNameElement.getString().c_str()
 																	  encoding:NSASCIIStringEncoding];
 						
 						Datum hParams(cal_announce.getElement(CALIBRATOR_PARAMS_H));
@@ -277,7 +277,7 @@
 			
 			Datum hParams(M_LIST, [cr getNHParameters]);
 			
-			for(int i=0; i<hParams.getMaxElements(); ++i) {
+			for(int i=0; i<hParams.getNElements(); ++i) {
 				Datum param(M_FLOAT, [cr getHParameter:i]);
 				hParams.setElement(i,param);
 			}
@@ -286,7 +286,7 @@
 			
 			Datum vParams(M_LIST, [cr getNVParameters]);
 			
-			for(int i=0; i<vParams.getMaxElements(); ++i) {
+			for(int i=0; i<vParams.getNElements(); ++i) {
 				Datum param(M_FLOAT, [cr getVParameter:i]);
 				vParams.setElement(i,param);
 			}

@@ -100,7 +100,7 @@
 					withCodec:(Datum *)codec {
 	
 	[interfaceLock lock];
-	mxArray *codecStruct = getCodec(codec->getScarabDatum());
+	mxArray *codecStruct = getCodec(codec->toScarabDatum().get());
 	int nevents = [dataEventList count];
 	
 	mxArray *data_struct = [self createTopLevelDataStructure:STREAM];

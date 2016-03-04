@@ -503,8 +503,8 @@ static void removeExpiredSamples(NSMutableArray *samples, NSTimeInterval cutoffT
                     width_x_data = width_y_data = stm_announce.getElement("width");
                 }
                 
-                NSString* stm_type = @(type_data.getString());
-                NSString* stm_name = @(name_data.getString());
+                NSString* stm_type = @(type_data.getString().c_str());
+                NSString* stm_name = @(name_data.getString().c_str());
                 float stm_pos_x = pos_x_data.getFloat();
                 float stm_pos_y = pos_y_data.getFloat();
                 float stm_width_x = width_x_data.getFloat();
