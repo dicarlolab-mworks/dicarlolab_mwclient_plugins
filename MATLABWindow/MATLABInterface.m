@@ -1,5 +1,4 @@
 #import "MATLABInterface.h"
-#import "Scarab/scarab.h"
 #import "MWorksCocoa/MWCocoaEvent.h"
 #import "MWorksCore/GenericData.h"
 #import "MWorksCore/Event.h"

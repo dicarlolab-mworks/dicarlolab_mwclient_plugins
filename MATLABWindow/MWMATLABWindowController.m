@@ -324,12 +324,10 @@
 		[vl clear];
 		
 		// determine max code number of codec
-        auto scarabCodec = new_codec->toScarabDatum();
 		int max_key = -1;
-		for(int i=0; i< new_codec->getNElements(); ++i) {
-			max_key = MAX(scarabCodec.get()->data.dict->keys[i]->data.integer, max_key);
-		}
-		
+        for (auto &item : new_codec->getDict()) {
+            max_key = std::max(max_key, int(item.first));
+        }
 		
 		for(int i=0;i<=max_key;++i) {
 			Datum codec_entry(new_codec->getElement(Datum(M_INTEGER, i)));
