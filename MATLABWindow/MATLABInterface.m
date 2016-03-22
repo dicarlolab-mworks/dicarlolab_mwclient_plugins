@@ -3,6 +3,7 @@
 #import "MWorksCore/GenericData.h"
 #import "MWorksCore/Event.h"
 #import "MWorksCore/Utilities.h"
+#import "MWorksCore/ScarabServices.h"
 #import "engine.h"
 #import "matrix.h"
 #import "mat.h"
@@ -99,7 +100,7 @@
 					withCodec:(Datum *)codec {
 	
 	[interfaceLock lock];
-	mxArray *codecStruct = getCodec(codec->toScarabDatum().get());
+	mxArray *codecStruct = getCodec(datumToScarabDatum(*codec).get());
 	int nevents = [dataEventList count];
 	
 	mxArray *data_struct = [self createTopLevelDataStructure:STREAM];
@@ -132,23 +133,17 @@
 				  [event time], 
 				  data);
 		
-		ScarabDatum *datum = de.toScarabDatum();
-		
-		
+		auto datum = eventToScarabEventDatum(de);
 		
 		// All events should be scarab lists
-		if(datum->type != SCARAB_LIST){  
-			scarab_free_datum(datum);
+		if (datum.get()->type != SCARAB_LIST) {
 			break;
 		}
 		
 		// Convert and add to event list
-		insertDatumIntoEventList(events, nread, datum);
-		
+		insertDatumIntoEventList(events, nread, datum.get());
 		
 		nread++;
-		
-		scarab_free_datum(datum);
 	}
 	
 	[interfaceLock unlock];
