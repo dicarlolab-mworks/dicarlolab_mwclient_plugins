@@ -544,7 +544,7 @@ static void removeExpiredSamples(NSMutableArray *samples, NSTimeInterval cutoffT
 		
 		//Check calibrator action first
 		mw::Datum actionData = cal_announce.getElement(CALIBRATOR_ACTION);
-		mw::Datum cal_sample_HV = cal_announce.getElement(CALIBRATOR_SAMPLE_SAMPLED_HV);
+		mw::Datum cal_sample_HV = cal_announce.getElement(CALIBRATOR_SAMPLE_CALIBRATED_HV);
 		
 		if(actionData.isString() && cal_sample_HV.isList()) {
 			if (actionData == CALIBRATOR_ACTION_SAMPLE && cal_sample_HV.getNElements() == 2) {
