@@ -277,7 +277,7 @@
 			
 			Datum hParams(M_LIST, [cr getNHParameters]);
 			
-			for(int i=0; i<hParams.getNElements(); ++i) {
+			for(int i=0; i<[cr getNHParameters]; ++i) {
 				Datum param(M_FLOAT, [cr getHParameter:i]);
 				hParams.setElement(i,param);
 			}
@@ -286,7 +286,7 @@
 			
 			Datum vParams(M_LIST, [cr getNVParameters]);
 			
-			for(int i=0; i<vParams.getNElements(); ++i) {
+			for(int i=0; i<[cr getNVParameters]; ++i) {
 				Datum param(M_FLOAT, [cr getVParameter:i]);
 				vParams.setElement(i,param);
 			}
