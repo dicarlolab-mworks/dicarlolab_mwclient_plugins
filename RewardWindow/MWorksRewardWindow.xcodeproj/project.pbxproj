@@ -36,7 +36,6 @@
 		5C8E4A69098FA2A600EB44CA /* Main.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C8E4A68098FA2A600EB44CA /* Main.xib */; };
 		5C8E4A7B098FB02400EB44CA /* MWRewardWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C8E4A7A098FB02400EB44CA /* MWRewardWindowController.m */; };
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
-		DA1E8F1C099C393000CDAD82 /* MWorksRewardWindow.xml in Resources */ = {isa = PBXBuildFile; fileRef = DA1E8F1B099C393000CDAD82 /* MWorksRewardWindow.xml */; };
 		E12D994F16BC37F4004FEF79 /* MWorksRewardWindow.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 686E22920AC84A89003EFDDA /* MWorksRewardWindow.bundle */; };
 		E15D0B3C16C2CAA800F331B1 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E15D0B3B16C2CAA800F331B1 /* AppKit.framework */; };
 		E15D0B3E16C2CAAC00F331B1 /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E15D0B3D16C2CAAC00F331B1 /* libboost_system.a */; };
@@ -80,7 +79,6 @@
 		5C8E4A7A098FB02400EB44CA /* MWRewardWindowController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = MWRewardWindowController.m; sourceTree = "<group>"; };
 		686E22920AC84A89003EFDDA /* MWorksRewardWindow.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MWorksRewardWindow.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DA1E8F1B099C393000CDAD82 /* MWorksRewardWindow.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = MWorksRewardWindow.xml; sourceTree = "<group>"; };
 		E15D0B3B16C2CAA800F331B1 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		E15D0B3D16C2CAAC00F331B1 /* libboost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_system.a; path = "/Library/Application Support/MWorks/Developer/lib/libboost_system.a"; sourceTree = "<absolute>"; };
 		E1895B47116FD7A500D8CBE0 /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Development.xcconfig; path = "/Library/Application Support/MWorks/Developer/Xcode/Development.xcconfig"; sourceTree = "<absolute>"; };
@@ -109,7 +107,6 @@
 				089C167CFE841241C02AAC07 /* Resources */,
 				089C1671FE841209C02AAC07 /* Frameworks & Libraries */,
 				19C28FB8FE9D52D311CA2CBB /* Products */,
-				DA1E8F1B099C393000CDAD82 /* MWorksRewardWindow.xml */,
 			);
 			name = MonkeyWorksRewardWindow;
 			sourceTree = "<group>";
@@ -224,7 +221,6 @@
 			files = (
 				8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */,
 				5C8E4A69098FA2A600EB44CA /* Main.xib in Resources */,
-				DA1E8F1C099C393000CDAD82 /* MWorksRewardWindow.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
