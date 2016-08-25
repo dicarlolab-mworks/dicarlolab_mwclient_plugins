@@ -14,7 +14,6 @@ Copy right 2006 MIT. All rights reserved.
 
 */
 
-#import "MWorksCocoa/MWWindowController.h"
 #import "MWorksCore/GenericData.h"
 #import "MWEyeWindowOptionController.h"
 #import "MWTimePlotView.h"

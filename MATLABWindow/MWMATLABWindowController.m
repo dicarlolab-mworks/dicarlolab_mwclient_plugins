@@ -240,13 +240,6 @@
 	[matlabLock unlock];
 }
 
-// *******************************************************************
-// *                MWWindowController Methods
-// *******************************************************************
-- (NSString *)mWorksFrameAutosaveName {
-    return @"MWorksMATLABWindow";
-}
-
 #define MATLAB_DEBUG_OUTPUT_MAX_LENGTH 10000
 
 - (IBAction)changeScrollToBottom:(id)sender {
