@@ -84,6 +84,7 @@
 - (void)resetRetval {
 	[interfaceLock lock];
 	if(retval) {
+        [self runCleanupFile];
 		mxDestroyArray(retval);
 		retval = 0;
 	}
@@ -184,6 +185,33 @@
 	retval = engGetVariable(e, 
 							[ml_RETVAL cStringUsingEncoding:NSASCIIStringEncoding]);
 	[interfaceLock unlock];
+}
+
+- (void)runCleanupFile {
+    NSString *cleanupFile = [matlabFile.stringByDeletingPathExtension stringByAppendingString:@"_cleanup.m"];
+    if (![[[NSFileManager alloc] init] fileExistsAtPath:cleanupFile]) {
+        return;
+    }
+    NSString *cleanupFunction = cleanupFile.lastPathComponent.stringByDeletingPathExtension;
+    
+    Engine *e = [self getMATLABEngine];
+    
+    NSString *addpath_command = [NSString stringWithFormat:@"addpath('%@')", [cleanupFile stringByDeletingLastPathComponent]];
+    engEvalString(e, [addpath_command cStringUsingEncoding:NSASCIIStringEncoding]);
+    [self logMATLABOutput];
+    
+    engPutVariable(e,
+                   [ml_RETVAL cStringUsingEncoding:NSASCIIStringEncoding],
+                   retval);
+    NSString *cmd = [NSString stringWithFormat:@"%@(%@); ", cleanupFunction, ml_RETVAL];
+    
+    // make cmd return error output by wrapping in try; catch
+    engEvalString(e, "if ~exist('printErrorStack'), disp('printErrorStack.m not found, cannot display error output');end");
+    [self logMATLABOutput];
+    
+    NSString *catchCmd = [NSString stringWithFormat:@"try, %@, catch ex, printErrorStack(ex); end", cmd];
+    engEvalString(e, [catchCmd cStringUsingEncoding:NSASCIIStringEncoding]);
+    [self logMATLABOutput];
 }
 
 - (void)startMATLABEngine {
