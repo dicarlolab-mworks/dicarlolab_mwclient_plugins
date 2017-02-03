@@ -29,8 +29,6 @@
 - (mxArray *)createDataStruct:(NSArray *)dataEventList
 					  withCodec:(Datum *)codec;
 - (void)startMATLABEngine;
-- (void)setMatlabFile:(NSString *)file;
-
 - (void)logMATLABOutput;
 
 @end
