@@ -490,6 +490,16 @@ static void removeExpiredSamples(NSMutableArray *samples, NSTimeInterval cutoffT
             mw::Datum width_y_data = stm_announce.getElement(STIM_SIZEY);
             mw::Datum rotation_data = stm_announce.getElement(STIM_ROT);
             
+            mw::Datum fullscreen_data = stm_announce.getElement(STIM_FULLSCREEN);
+            if (fullscreen_data.isNumber() && fullscreen_data.getBool()) {
+                // For fullscreen stimuli, the bounding box is the entire display
+                pos_x_data.setFloat(0.0);
+                pos_y_data.setFloat(0.0);
+                width_x_data.setFloat(displayBounds.size.width);
+                width_y_data.setFloat(displayBounds.size.height);
+                rotation_data.setFloat(0.0);
+            }
+            
             if (type_data.isString() &&
                 name_data.isString() &&
                 pos_x_data.isNumber() &&
