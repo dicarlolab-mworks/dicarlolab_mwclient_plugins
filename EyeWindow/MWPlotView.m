@@ -38,6 +38,10 @@
 
 - (id)initWithFrame:(NSRect)frameRect {
     if ((self = [super initWithFrame:frameRect])) {
+        // This should be a layer-backed view, as the drawing performance of non-layer-backed views is
+        // terrible under macOS 10.13
+        self.wantsLayer = YES;
+        
         serialQueue = dispatch_queue_create(NULL, DISPATCH_QUEUE_SERIAL);
         
         width = MAX_ANGLE;
@@ -635,7 +639,16 @@ static void removeExpiredSamples(NSMutableArray *samples, NSTimeInterval cutoffT
 - (void)triggerUpdate {
     if (!updatePending) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self setNeedsDisplay:YES];
+            if (self.window.visible) {
+                // Window is still onscreen.  Trigger an update.
+                [self setNeedsDisplay:YES];
+            } else {
+                // Window is *not* onscreen.  Clear updatePending, so that subsequent calls to
+                // triggerUpdate will try again.
+                dispatch_sync(serialQueue, ^{
+                    updatePending = NO;
+                });
+            }
         });
         updatePending = YES;
     }

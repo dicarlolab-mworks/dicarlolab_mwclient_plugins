@@ -28,6 +28,10 @@ typedef struct {
 - (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        // This should be a layer-backed view, as the drawing performance of non-layer-backed views is
+        // terrible under macOS 10.13
+        self.wantsLayer = YES;
+        
         serialQueue = dispatch_queue_create(NULL, DISPATCH_QUEUE_SERIAL);
         
         _eyeSamples = [NSArray array];
@@ -219,10 +223,12 @@ static void plotDigitalSamples(NSMutableArray *samples,
         plotDigitalSamples(bSamples, minTime, maxTime, minPosition, maxPosition, 8.0, transform, [NSColor greenColor]);
     });
     
-    // Asychronously trigger the next update
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self setNeedsDisplay:YES];
-    });
+    // If our window is still onscreen, asynchronously trigger the next update
+    if (self.window.visible) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self setNeedsDisplay:YES];
+        });
+    }
 }
 
 
