@@ -10,7 +10,7 @@
 
 - (void)setDelegate:(id)new_delegate {
 	if(![new_delegate respondsToSelector:@selector(codeForTag:)] ||
-	   ![new_delegate respondsToSelector:@selector(setValue: forKey:)]) {
+	   ![new_delegate respondsToSelector:@selector(updateVariableWithCode:withData:)]) {
 		[NSException raise:NSInternalInconsistencyException
 					format:@"Delegate doesn't respond to required methods for MWRewardWindowController"];		
 	}
@@ -41,9 +41,16 @@
 		if(self.duration < 0) {
 			self.duration = 0;
 		}
-		
-		[(NSObject *)delegate setValue:[NSNumber numberWithFloat:self.duration*1000]
-				forKeyPath:[@"variables." stringByAppendingString:self.rewardVarName]];
+        
+        int rewardVarCode = [delegate codeForTag:self.rewardVarName].intValue;
+        if (rewardVarCode < 0) {
+            merror(mw::M_CLIENT_MESSAGE_DOMAIN,
+                   "Cannot send reward: Variable \"%s\" was not found",
+                   self.rewardVarName.UTF8String);
+        } else {
+            mw::Datum value(self.duration * 1000);
+            [delegate updateVariableWithCode:rewardVarCode withData:&value];
+        }
 	}
 }
 
