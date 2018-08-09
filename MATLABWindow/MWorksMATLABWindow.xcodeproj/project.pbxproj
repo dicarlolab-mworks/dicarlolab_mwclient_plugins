@@ -277,6 +277,17 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0410;
+				TargetAttributes = {
+					8D5B49AC048680CD000E48DA = {
+						ProvisioningStyle = Automatic;
+					};
+					E12D993216BC355C004FEF79 = {
+						ProvisioningStyle = Automatic;
+					};
+					E17B9EAB119CA6DD00EEBF5D = {
+						ProvisioningStyle = Automatic;
+					};
+				};
 			};
 			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "MWorksMATLABWindow" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -386,7 +397,7 @@
 				MATLAB_ARCH_i386 = maci;
 				MATLAB_ARCH_x86_64 = maci64;
 				MATLAB_DIR = /Applications/MATLAB;
-				MATLAB_SCRIPT_INSTALL_DIR = "$(MW_SCRIPTING_DIR)/Matlab";
+				MATLAB_SCRIPT_INSTALL_DIR = "$(MW_SCRIPTING_DIR)/MATLAB";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-leng",

@@ -15,7 +15,7 @@
 
 #define STREAM @"MWorks Stream"
 
-#define ml_ADD_MATLAB_PATH @"addpath('/Library/Application Support/MWorks/Scripting/Matlab')"
+#define ml_ADD_MATLAB_PATH @"addpath('/Library/Application Support/MWorks/Scripting/MATLAB')"
 
 #define ml_FILENAME "filename"
 #define ml_EVENT_CODEC "event_codec"
