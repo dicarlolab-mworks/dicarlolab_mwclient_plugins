@@ -18,14 +18,14 @@
 @implementation MWCalibratorWindow
 
 - (void)sendEvent:(NSEvent *)the_event {
-	if([the_event type] == NSKeyDown) {
+	if([the_event type] == NSEventTypeKeyDown) {
 		float step = 0.1;
 		
-		if(([the_event modifierFlags] & NSShiftKeyMask) == NSShiftKeyMask) {
+		if(([the_event modifierFlags] & NSEventModifierFlagShift) == NSEventModifierFlagShift) {
 			step = 1;
 		}
 		
-		if(([the_event modifierFlags] & NSControlKeyMask) == NSControlKeyMask) {
+		if(([the_event modifierFlags] & NSEventModifierFlagControl) == NSEventModifierFlagControl) {
 			switch([the_event keyCode]) {
 				case ARROW_KEY_UP:
 					[controller setVOffset:[controller vOffset]+step];
@@ -46,7 +46,7 @@
 				default:
 					break;
 			}
-		} else if(([the_event modifierFlags] & NSCommandKeyMask) == NSCommandKeyMask) {
+		} else if(([the_event modifierFlags] & NSEventModifierFlagCommand) == NSEventModifierFlagCommand) {
 			switch([the_event keyCode]) {
 				case ARROW_KEY_UP:
 					[controller setVGain:[controller vGain]+step];
