@@ -166,7 +166,16 @@
 	}
 }
 
+static void endEditingInWindow(NSWindow *window) {
+    // Finish editing in all fields
+    if (![window makeFirstResponder:window]) {
+        [window endEditingFor:nil];
+    }
+}
+
 - (IBAction)resetCalibratorParams:(id)sender {
+    endEditingInWindow(self.window);
+    
 	if(![self.selectedCalibratorName isEqualToString:DEFAULT_CALIBRATOR_DISPLAY])
 	{
 		if(delegate != nil) {
@@ -196,7 +205,8 @@
 }
 
 - (IBAction)updateCalibratorParams:(id)sender {
-	
+    endEditingInWindow(self.window);
+    
 	if(![self.selectedCalibratorName isEqualToString:DEFAULT_CALIBRATOR_DISPLAY])
 	{
 		[crLock lock];

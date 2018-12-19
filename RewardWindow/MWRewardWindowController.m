@@ -37,6 +37,11 @@
 }
 
 - (IBAction)sendReward:(id)sender {
+    // Finish editing in all fields
+    if (![self.window makeFirstResponder:self.window]) {
+        [self.window endEditingFor:nil];
+    }
+    
 	if(delegate != nil) {
 		if(self.duration < 0) {
 			self.duration = 0;
