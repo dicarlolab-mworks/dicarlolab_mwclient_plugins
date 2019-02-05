@@ -12,7 +12,7 @@
 
 #include <matrix.h>
 #include <Scarab/scarab.h>
-#include <dfindex/DataFileUtilities.h>
+#include <MWorksCore/DataFileUtilities.h>
 
 
 mxArray* getScarabDatum(ScarabDatum *datum);
@@ -26,9 +26,9 @@ class MATLABEventInfo {
     
 public:
     MATLABEventInfo(ScarabDatum *datum) :
-        code(getScarabDatum(DataFileUtilities::getScarabEventCodeDatum(datum))),
-        time(getScarabDatum(DataFileUtilities::getScarabEventTimeDatum(datum))),
-        data(getScarabDatum(DataFileUtilities::getScarabEventPayload(datum)))
+        code(getScarabDatum(mw::scarab::getScarabEventCodeDatum(datum))),
+        time(getScarabDatum(mw::scarab::getScarabEventTimeDatum(datum))),
+        data(getScarabDatum(mw::scarab::getScarabEventPayload(datum)))
     { }
     
     mxArray* getCode() const { return code; }
