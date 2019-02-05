@@ -6,6 +6,8 @@
 #import "MWMATLABWindowController.h"
 #import "MWVarEntry.h"
 
+#include <Scarab/scarab.h>
+
 
 @interface MWMATLABWindowController(Private)
 - (void)codecArrived:(MWCocoaEvent *)codec;
@@ -96,6 +98,10 @@
 }
 
 - (void)awakeFromNib {
+    if (scarab_init(0) != 0) {
+        NSLog(@"Scarab initialization failed");
+    }
+    
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
 	[self setProcessing:[defaults boolForKey:PROCESSING_DATA]];
