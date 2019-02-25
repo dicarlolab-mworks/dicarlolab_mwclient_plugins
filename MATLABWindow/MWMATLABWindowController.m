@@ -62,7 +62,8 @@
 	logTextContent = [new_content copy];
 	
 	// set it in the UI
-	[[[logTextView textStorage] mutableString] setString:logTextContent];
+    [[logTextView textStorage] setAttributedString:[[NSAttributedString alloc] initWithString:logTextContent
+                                                                                   attributes:@{ NSForegroundColorAttributeName: [NSColor textColor] }]];
 	
 };	
 @synthesize logTextContent;
@@ -276,15 +277,16 @@
 
 
 - (void) appendLogTextMain:(NSString *)logText {
-	//NSString *log = [logTextContent copy];
-	NSMutableString* tStr = [[self->logTextView textStorage] mutableString];
-	[tStr appendString:logText];
+    NSTextStorage *textStorage = logTextView.textStorage;
+    [textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:logText
+                                                                        attributes:@{ NSForegroundColorAttributeName: [NSColor textColor] }]];
+    
+    NSMutableString* tStr = textStorage.mutableString;
 	if ([tStr characterAtIndex:[tStr length]-1] != '\n') {
 		// append newline
 		[tStr appendString:@"\n"];
 	}
-			  
-			  
+    
 	// Trim the beginning of the string if it is too long
 	if ([tStr length] > MATLAB_DEBUG_OUTPUT_MAX_LENGTH) {
 		NSRange deleteRange = NSMakeRange(0, ([tStr length] - MATLAB_DEBUG_OUTPUT_MAX_LENGTH));
