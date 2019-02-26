@@ -174,13 +174,13 @@ static void plotDigitalSamples(NSMutableArray *samples,
     
     // Background
     {
-        [[NSColor whiteColor] set];
+        [[NSColor textBackgroundColor] set];
         NSRectFill(bounds);
     }
     
     // Border
     {
-        [[NSColor lightGrayColor] set];
+        [[NSColor grayColor] set];
         NSFrameRect(bounds);
     }
     
@@ -211,7 +211,7 @@ static void plotDigitalSamples(NSMutableArray *samples,
         [transform translateXBy:-minTime yBy:-minPosition];
         
         // Eye samples
-        plotSamples(self.eyeSamples, transform, [NSColor blackColor], [NSColor orangeColor]);
+        plotSamples(self.eyeSamples, transform, [NSColor textColor], [NSColor orangeColor]);
         
         // Aux samples
         plotSamples(self.auxSamples, transform, [NSColor cyanColor], [NSColor magentaColor]);

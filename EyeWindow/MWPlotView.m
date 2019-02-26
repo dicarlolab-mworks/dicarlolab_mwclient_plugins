@@ -164,13 +164,13 @@ static void removeExpiredSamples(NSMutableArray *samples, NSTimeInterval cutoffT
         
         // Background
         {
-            [[NSColor whiteColor] set];
+            [[NSColor textBackgroundColor] set];
             NSRectFill(bounds);
         }
         
         // Border
         {
-            [[NSColor lightGrayColor] set];
+            [[NSColor grayColor] set];
             NSFrameRect(bounds);
         }
         
@@ -192,7 +192,7 @@ static void removeExpiredSamples(NSMutableArray *samples, NSTimeInterval cutoffT
             
             [grid transformUsingAffineTransform:degreesToPoints];
             
-            [[NSColor lightGrayColor] set];
+            [[NSColor grayColor] set];
             [grid stroke];
         }
         
@@ -201,7 +201,7 @@ static void removeExpiredSamples(NSMutableArray *samples, NSTimeInterval cutoffT
             NSBezierPath *outline = [NSBezierPath bezierPathWithRect:displayBounds];
             [outline transformUsingAffineTransform:degreesToPoints];
             
-            [[NSColor blackColor] set];
+            [[NSColor textColor] set];
             [outline setLineWidth:1];
             [outline stroke];
         }
@@ -211,7 +211,7 @@ static void removeExpiredSamples(NSMutableArray *samples, NSTimeInterval cutoffT
             NSPoint lastPos = [degreesToPoints transformPoint:last_sample.position];
 			
             NSBezierPath *saccadePath = [NSBezierPath bezierPath];
-            [[NSColor blackColor] set];
+            [[NSColor textColor] set];
             
 			for(int i = 1; i < [eye_samples count]-1; ++i) {
 				MWEyeSamplePlotElement *current_sample = [eye_samples objectAtIndex:i];
@@ -231,7 +231,7 @@ static void removeExpiredSamples(NSMutableArray *samples, NSTimeInterval cutoffT
 			}
             
             if (![saccadePath isEmpty]) {
-                [[NSColor blueColor] set];
+                [[NSColor colorWithCalibratedRed:0.0 green:0.588 blue:1.0 alpha:1.0] set];
                 [saccadePath stroke];
             }
 		}
