@@ -43,7 +43,6 @@
 		E12D993116BC3494004FEF79 /* MWorksEyeWindow.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 686E22AF0AC84B19003EFDDA /* MWorksEyeWindow.bundle */; };
 		E15D0B3416C2C98F00F331B1 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E15D0B3316C2C98F00F331B1 /* AppKit.framework */; };
 		E15D0B3616C2C99400F331B1 /* MWorksCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E15D0B3516C2C99400F331B1 /* MWorksCore.framework */; };
-		E15D0B3A16C2C9A400F331B1 /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E15D0B3916C2C9A400F331B1 /* libboost_system.a */; };
 		E179DADC19783108001EE4CF /* MWTimePlotView.m in Sources */ = {isa = PBXBuildFile; fileRef = E179DADB19783108001EE4CF /* MWTimePlotView.m */; };
 /* End PBXBuildFile section */
 
@@ -95,7 +94,6 @@
 		B283771A0A8A951400358169 /* MWStimulusPlotElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWStimulusPlotElement.m; sourceTree = "<group>"; };
 		E15D0B3316C2C98F00F331B1 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		E15D0B3516C2C99400F331B1 /* MWorksCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MWorksCore.framework; path = /Library/Frameworks/MWorksCore.framework; sourceTree = "<absolute>"; };
-		E15D0B3916C2C9A400F331B1 /* libboost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_system.a; path = "/Library/Application Support/MWorks/Developer/lib/libboost_system.a"; sourceTree = "<absolute>"; };
 		E179DADA19783108001EE4CF /* MWTimePlotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWTimePlotView.h; sourceTree = "<group>"; };
 		E179DADB19783108001EE4CF /* MWTimePlotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWTimePlotView.m; sourceTree = "<group>"; };
 		E1895AC7116FD27F00D8CBE0 /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Development.xcconfig; path = "/Library/Application Support/MWorks/Developer/Xcode/Development.xcconfig"; sourceTree = "<absolute>"; };
@@ -109,7 +107,6 @@
 			files = (
 				E15D0B3616C2C99400F331B1 /* MWorksCore.framework in Frameworks */,
 				E15D0B3416C2C98F00F331B1 /* AppKit.framework in Frameworks */,
-				E15D0B3A16C2C9A400F331B1 /* libboost_system.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,7 +131,6 @@
 			children = (
 				E15D0B3516C2C99400F331B1 /* MWorksCore.framework */,
 				E15D0B3316C2C98F00F331B1 /* AppKit.framework */,
-				E15D0B3916C2C9A400F331B1 /* libboost_system.a */,
 			);
 			name = "Frameworks & Libraries";
 			sourceTree = "<group>";
@@ -221,6 +217,17 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0410;
+				TargetAttributes = {
+					8D5B49AC048680CD000E48DA = {
+						ProvisioningStyle = Automatic;
+					};
+					E12D992916BC3481004FEF79 = {
+						ProvisioningStyle = Automatic;
+					};
+					E17B9E91119CA62000EEBF5D = {
+						ProvisioningStyle = Automatic;
+					};
+				};
 			};
 			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "MWorksEyeWindow" */;
 			compatibilityVersion = "Xcode 3.2";

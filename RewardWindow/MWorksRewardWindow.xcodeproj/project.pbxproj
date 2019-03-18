@@ -38,7 +38,6 @@
 		8D5B49B0048680CD000E48DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		E12D994F16BC37F4004FEF79 /* MWorksRewardWindow.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 686E22920AC84A89003EFDDA /* MWorksRewardWindow.bundle */; };
 		E15D0B3C16C2CAA800F331B1 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E15D0B3B16C2CAA800F331B1 /* AppKit.framework */; };
-		E15D0B3E16C2CAAC00F331B1 /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E15D0B3D16C2CAAC00F331B1 /* libboost_system.a */; };
 		E186EFCE207D255C00B32CA3 /* MWorksCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E186EFCD207D255C00B32CA3 /* MWorksCore.framework */; };
 /* End PBXBuildFile section */
 
@@ -81,7 +80,6 @@
 		686E22920AC84A89003EFDDA /* MWorksRewardWindow.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MWorksRewardWindow.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E15D0B3B16C2CAA800F331B1 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		E15D0B3D16C2CAAC00F331B1 /* libboost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_system.a; path = "/Library/Application Support/MWorks/Developer/lib/libboost_system.a"; sourceTree = "<absolute>"; };
 		E186EFCD207D255C00B32CA3 /* MWorksCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MWorksCore.framework; path = /Library/Frameworks/MWorksCore.framework; sourceTree = "<absolute>"; };
 		E1895B47116FD7A500D8CBE0 /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Development.xcconfig; path = "/Library/Application Support/MWorks/Developer/Xcode/Development.xcconfig"; sourceTree = "<absolute>"; };
 		E1895B48116FD7A500D8CBE0 /* WARNING.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = WARNING.txt; path = "/Library/Application Support/MWorks/Developer/Xcode/WARNING.txt"; sourceTree = "<absolute>"; };
@@ -94,7 +92,6 @@
 			files = (
 				E186EFCE207D255C00B32CA3 /* MWorksCore.framework in Frameworks */,
 				E15D0B3C16C2CAA800F331B1 /* AppKit.framework in Frameworks */,
-				E15D0B3E16C2CAAC00F331B1 /* libboost_system.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,7 +116,6 @@
 			children = (
 				E186EFCD207D255C00B32CA3 /* MWorksCore.framework */,
 				E15D0B3B16C2CAA800F331B1 /* AppKit.framework */,
-				E15D0B3D16C2CAAC00F331B1 /* libboost_system.a */,
 			);
 			name = "Frameworks & Libraries";
 			sourceTree = "<group>";
