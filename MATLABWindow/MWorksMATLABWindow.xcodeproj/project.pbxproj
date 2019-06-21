@@ -119,8 +119,8 @@
 		E15D0B4116C2CCB900F331B1 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		E15D0B4516C2CCCE00F331B1 /* libscarab.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libscarab.a; path = "/Library/Application Support/MWorks/Developer/lib/libscarab.a"; sourceTree = "<absolute>"; };
 		E16D96131157E06B00B28A8F /* Main.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Main.xib; sourceTree = "<group>"; };
-		E1895B26116FD52500D8CBE0 /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Development.xcconfig; path = "/Library/Application Support/MWorks/Developer/Xcode/Development.xcconfig"; sourceTree = "<absolute>"; };
-		E1895B27116FD52500D8CBE0 /* WARNING.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = WARNING.txt; path = "/Library/Application Support/MWorks/Developer/Xcode/WARNING.txt"; sourceTree = "<absolute>"; };
+		E1C3651222BD6B8600D1DBF6 /* macOS_ClientPlugin.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = macOS_ClientPlugin.xcconfig; sourceTree = "<group>"; };
+		E1C3651322BD6B8600D1DBF6 /* macOS.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = macOS.xcconfig; sourceTree = "<group>"; };
 		E1F0E4E016B2D76C00C625C5 /* MWorksMATLABTools.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MWorksMATLABTools.cpp; sourceTree = "<group>"; };
 		E1F0E4E116B2D76C00C625C5 /* MWorksMATLABTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWorksMATLABTools.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -230,11 +230,12 @@
 		E1895B24116FD52500D8CBE0 /* External Configs */ = {
 			isa = PBXGroup;
 			children = (
-				E1895B26116FD52500D8CBE0 /* Development.xcconfig */,
-				E1895B27116FD52500D8CBE0 /* WARNING.txt */,
+				E1C3651322BD6B8600D1DBF6 /* macOS.xcconfig */,
+				E1C3651222BD6B8600D1DBF6 /* macOS_ClientPlugin.xcconfig */,
 			);
 			name = "External Configs";
-			sourceTree = "<group>";
+			path = "/Library/Application Support/MWorks/Developer/Xcode";
+			sourceTree = "<absolute>";
 		};
 		E1F0E4DF16B2D75500C625C5 /* Utilities */ = {
 			isa = PBXGroup;
@@ -360,6 +361,7 @@
 /* Begin XCBuildConfiguration section */
 		E12D993416BC355C004FEF79 /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E1C3651322BD6B8600D1DBF6 /* macOS.xcconfig */;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -367,6 +369,7 @@
 		};
 		E17B9EAC119CA6DD00EEBF5D /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E1C3651322BD6B8600D1DBF6 /* macOS.xcconfig */;
 			buildSettings = {
 				PRODUCT_NAME = Everything;
 			};
@@ -374,9 +377,15 @@
 		};
 		E1895B31116FD5B000D8CBE0 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E1895B26116FD52500D8CBE0 /* Development.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+			};
+			name = Development;
+		};
+		E1895B32116FD5B000D8CBE0 /* Development */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E1C3651222BD6B8600D1DBF6 /* macOS_ClientPlugin.xcconfig */;
+			buildSettings = {
+				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MWorksMATLABWindow_Prefix.pch;
 				HEADER_SEARCH_PATHS = (
@@ -389,7 +398,6 @@
 					"$(inherited)",
 					"$(MATLAB_DIR)/bin/$(MATLAB_ARCH_$(CURRENT_ARCH))",
 				);
-				MACH_O_TYPE = mh_bundle;
 				MATLAB_ARCH_i386 = maci;
 				MATLAB_ARCH_x86_64 = maci64;
 				MATLAB_DIR = /Applications/MATLAB;
@@ -399,15 +407,6 @@
 					"-leng",
 					"-lmx",
 				);
-			};
-			name = Development;
-		};
-		E1895B32116FD5B000D8CBE0 /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = YES;
-				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
-				INFOPLIST_FILE = Info.plist;
 				PRODUCT_NAME = MWorksMATLABWindow;
 			};
 			name = Development;

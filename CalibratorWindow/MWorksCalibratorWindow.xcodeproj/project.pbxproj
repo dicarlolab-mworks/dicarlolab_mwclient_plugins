@@ -87,8 +87,8 @@
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E15D0B2D16C2C8DC00F331B1 /* MWorksCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MWorksCore.framework; path = /Library/Frameworks/MWorksCore.framework; sourceTree = "<absolute>"; };
 		E15D0B2F16C2C8EF00F331B1 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		E1895A9C116FD00400D8CBE0 /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Development.xcconfig; path = "/Library/Application Support/MWorks/Developer/Xcode/Development.xcconfig"; sourceTree = "<absolute>"; };
-		E1895A9D116FD00400D8CBE0 /* WARNING.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = WARNING.txt; path = "/Library/Application Support/MWorks/Developer/Xcode/WARNING.txt"; sourceTree = "<absolute>"; };
+		E1C3650E22BD669700D1DBF6 /* macOS.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = macOS.xcconfig; sourceTree = "<group>"; };
+		E1C3650F22BD669700D1DBF6 /* macOS_ClientPlugin.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = macOS_ClientPlugin.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,11 +168,12 @@
 		E1895A9A116FD00400D8CBE0 /* External Configs */ = {
 			isa = PBXGroup;
 			children = (
-				E1895A9C116FD00400D8CBE0 /* Development.xcconfig */,
-				E1895A9D116FD00400D8CBE0 /* WARNING.txt */,
+				E1C3650E22BD669700D1DBF6 /* macOS.xcconfig */,
+				E1C3650F22BD669700D1DBF6 /* macOS_ClientPlugin.xcconfig */,
 			);
 			name = "External Configs";
-			sourceTree = "<group>";
+			path = "/Library/Application Support/MWorks/Developer/Xcode";
+			sourceTree = "<absolute>";
 		};
 /* End PBXGroup section */
 
@@ -287,6 +288,7 @@
 /* Begin XCBuildConfiguration section */
 		E12D992216BC3142004FEF79 /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E1C3650E22BD669700D1DBF6 /* macOS.xcconfig */;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -294,6 +296,7 @@
 		};
 		E17B9E6B119CA5B700EEBF5D /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E1C3650E22BD669700D1DBF6 /* macOS.xcconfig */;
 			buildSettings = {
 				PRODUCT_NAME = Everything;
 			};
@@ -301,23 +304,19 @@
 		};
 		E1895AA5116FD07500D8CBE0 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E1895A9C116FD00400D8CBE0 /* Development.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
-				MACH_O_TYPE = mh_bundle;
 			};
 			name = Development;
 		};
 		E1895AA6116FD07500D8CBE0 /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E1C3650F22BD669700D1DBF6 /* macOS_ClientPlugin.xcconfig */;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MWorksCalibratorWindow_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				PRODUCT_NAME = CalibratorWindow;
-				WRAPPER_EXTENSION = bundle;
 			};
 			name = Development;
 		};
