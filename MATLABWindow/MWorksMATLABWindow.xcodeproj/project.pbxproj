@@ -393,7 +393,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(MATLAB_DIR)/bin/$(MATLAB_ARCH_$(CURRENT_ARCH))";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(MATLAB_DIR)/bin/$(MATLAB_ARCH_$(CURRENT_ARCH))";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(MATLAB_DIR)/bin/$(MATLAB_ARCH_$(CURRENT_ARCH))",
