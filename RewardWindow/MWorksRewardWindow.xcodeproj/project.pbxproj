@@ -303,6 +303,7 @@
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
 				GCC_PREFIX_HEADER = MWorksRewardWindow_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.mit.dicarlolab.MWorksRewardWindow;
 				PRODUCT_NAME = MWorksRewardWindow;
 			};
 			name = Development;

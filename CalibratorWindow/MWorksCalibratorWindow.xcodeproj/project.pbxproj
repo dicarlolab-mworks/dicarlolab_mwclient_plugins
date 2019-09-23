@@ -316,6 +316,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MWorksCalibratorWindow_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.mit.dicarlolab.CalibratorWindow;
 				PRODUCT_NAME = CalibratorWindow;
 			};
 			name = Development;

@@ -406,6 +406,7 @@
 					"-leng",
 					"-lmx",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = edu.mit.dicarlolab.MWorksMATLABWindow;
 				PRODUCT_NAME = MWorksMATLABWindow;
 			};
 			name = Development;
