@@ -153,7 +153,7 @@
 	
 	int bp = [op runModal];
 	
-	if(bp == NSFileHandlingPanelOKButton) {
+	if(bp == NSModalResponseOK) {
 		
 		NSArray * fn = [op URLs];
 		NSEnumerator * fileEnum = [fn objectEnumerator];
