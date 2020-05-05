@@ -6,7 +6,7 @@
 #import "MWMATLABWindowController.h"
 #import "MWVarEntry.h"
 
-#include <Scarab/scarab.h>
+#include <MWorksCore/ScarabServices.h>
 
 
 @interface MWMATLABWindowController(Private)
@@ -99,7 +99,7 @@
 }
 
 - (void)awakeFromNib {
-    if (scarab_init(0) != 0) {
+    if (!initializeScarab()) {
         NSLog(@"Scarab initialization failed");
     }
     
