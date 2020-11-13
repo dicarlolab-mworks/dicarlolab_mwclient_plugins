@@ -3,5 +3,6 @@
 //
 
 #ifdef __OBJC__
+    #define GL_SILENCE_DEPRECATION
     #import <Cocoa/Cocoa.h>
 #endif

@@ -96,12 +96,12 @@
 		return [[current_vars objectAtIndex:rowIndex] name];
 	} else if(aTableColumn == selectedCol) {
 		if(rowIndex == syncEventIndex) {
-			return [NSNumber numberWithInt:NSOnState];
+			return [NSNumber numberWithInt:NSControlStateValueOn];
 		} else {
 			if([[[current_vars objectAtIndex:rowIndex] selected] boolValue]) {
-				return [NSNumber numberWithInt:NSOnState];
+				return [NSNumber numberWithInt:NSControlStateValueOn];
 			} else {
-				return [NSNumber numberWithInt:NSOffState];
+				return [NSNumber numberWithInt:NSControlStateValueOff];
 			}
 		}
 	}

@@ -131,9 +131,9 @@
 		scrollToBottom = TRUE;
 	}
 	if (scrollToBottom == TRUE) {
-		[scrollToBottomButton setState:NSOnState];
+		[scrollToBottomButton setState:NSControlStateValueOn];
 	} else {		
-		[scrollToBottomButton setState:NSOffState];
+		[scrollToBottomButton setState:NSControlStateValueOff];
 	}
 		
 }
@@ -224,7 +224,7 @@
  *******************************************************************/
 - (void)serviceEvent:(MWCocoaEvent *)event {
 	[matlabLock lock];
-	if(running == NSOnState) {
+	if(running == NSControlStateValueOn) {
 		if([event code] == [[delegate codeForTag:sync_event_name] intValue]) {
 			Datum *syncData = [event data];
 			if(syncData->getInteger() > 0 && !collectingEvents) {
@@ -250,7 +250,7 @@
 #define MATLAB_DEBUG_OUTPUT_MAX_LENGTH 10000
 
 - (IBAction)changeScrollToBottom:(id)sender {
-	if ([sender state] == NSOnState) {
+	if ([sender state] == NSControlStateValueOn) {
 		[self doScrollToBottom];
 		scrollToBottom = TRUE; 
 	} else {
@@ -258,7 +258,7 @@
 	}
 	[[NSUserDefaults standardUserDefaults] setBool:scrollToBottom forKey:MW_SCROLL_TO_BOTTOM];
 	
-	//if ([sender state] == NSOffState) {
+	//if ([sender state] == NSControlStateValueOff) {
 	// do nothing
 }
 
@@ -404,7 +404,7 @@
 				[matlabLock unlock];
 				
 				
-				if(processing == NSOnState) {
+				if(processing == NSControlStateValueOn) {
 					NSArray *eventsToExecute = nil;
 					[matlabLock lock];
 					Datum codec(*savedCodec);
@@ -496,7 +496,7 @@
 - (NSDictionary *)workspaceState {
     NSMutableDictionary *workspaceState = [NSMutableDictionary dictionary];
     
-    if (running == NSOnState) {
+    if (running == NSControlStateValueOn) {
         if (matlab_file_name) {
             [workspaceState setObject:matlab_file_name forKey:@"filePath"];
         }
